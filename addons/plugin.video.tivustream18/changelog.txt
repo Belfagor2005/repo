@@ -1,0 +1,12 @@
+#EXTM3U
+-------------------------------
+#EXTINF:-1, [COLOR yellow]Coming soon Version 1.1.7 (17-08-2020)[/COLOR]
+-------------------------------
+#EXTINF:0,Support: linuxsat-support.com - tivustream.com
+http://0.0.0.0
+#EXTINF:0,Thank's to @pcd @lululla @furlan @buio2005
+http://0.0.0.0
+#EXTINF:-1, [COLOR yellow]Version 1.1.5 (17-07-2020)[/COLOR]
+http://0.0.0.0
+#EXTINF:0,Support: Start New Project
+http://0.0.0.0

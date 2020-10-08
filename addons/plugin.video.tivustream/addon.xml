@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.tivustream" name="TiVuStream TV" version="1.1.7" provider-name="@pcd-@lululla @ilGattoRosso">
+    <requires>
+    </requires>
+    <extension point="xbmc.python.pluginsource"
+               library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary>Tivustream addon</summary>
+        <description>Unisciti a noi su Telegram su https://t.me/tivustream aggiungi, modifica, rendi questo elenco anche tuo. Vieni a trovarci su tivustream.com</description>
+		<disclaimer lang="it">Il nostro addon non trasmette, ritrasmette qualsiasi canale esposto, né ottiene alcun reddito dall'opera elaborata</disclaimer>
+
+	</extension>
+</addon>

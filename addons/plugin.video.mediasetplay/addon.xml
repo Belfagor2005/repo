@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.mediasetplay" name="Mediaset Play" version="1.2.3" provider-name="kodi-bino, cttynul">
+	<requires>
+		<import addon="xbmc.python" version="2.25.0"/>
+        <import addon="script.module.requests" version="2.9.1"/>
+        <import addon="script.module.beautifulsoup4" version="4.3.1" />
+        <import addon="inputstream.adaptive" version="2.0.19" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary lang="en">Mediaset Play</summary>
+		<description lang="en">This plugin allow to browse and watch videos from Mediaset Play website</description>
+        <summary lang="it">Mediaset Play</summary>
+		<description lang="it">Questo plugin permette di sfogliare e visualizzare i video presenti sul sito di Mediaset Play</description>
+		<license>GNU General Public License, v2</license>
+		<language>it</language>
+		<source>https://github.com/kodi-bino/plugin.video.mediasetplay</source>
+		<website>Kodi.tv</website>
+		<assets>
+			<icon>icon.png</icon>
+		</assets>
+		<news>1.2.1 - 02/01/2019
+- Fix riproduzione video su Android con versioni di Kodi superiori alla 17 (ora utilizza InputStreamAdactive sempre su Android)
+
+1.2.2 - 11/06/2019
+- Aggiunta compatibilita' Python 3 e retrocompatibilita' Python 2 (thanks to cttynul)
+
+1.2.3 - 26/11/2019
+- Fixato problema con mancanza di thumbnail in canali "Informazione"
+- Richiesta nuova versione di Python 2.25.0 per migliore compatibilità
+        </news>
+	</extension>
+</addon>

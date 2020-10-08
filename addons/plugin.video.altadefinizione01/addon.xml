@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.altadefinizione01"
+	   name="Altadefinizione01"
+	   version="1.0.2"
+	   provider-name="linuxsat-support">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0" />
+		<import addon="script.module.urlresolver" />
+	</requires>
+	   
+  <extension point="xbmc.python.pluginsource"
+			 library="default.py">
+    	<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Videos from altadefinizione01.photo</summary>
+    <description>Videos from altadefinizione01.photo</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+
+
+
+
+
+
+
+
+
+

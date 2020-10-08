@@ -1,0 +1,12 @@
+<settings>
+	<category label="[COLOR red][B]TIVUSTREAM.COM[/B][/COLOR]">
+        <setting label="CONFIG TIVUSTREAM ADDON 1.1.7" type="lsep"/>
+		<setting label="[B]Changelog[/B]" type="text" visible="false" id="log_m3u" default="http://bit.ly/tvstreamclxxx" />
+        <!--
+		<setting label="Select default view mode" id="auto-view" type="bool" default="true" />
+		<setting label="adult_request_password"  id="adult_request_password" type="bool"  enable="!eq(-1,0)+!eq(-2,)" default="true"/>
+		-->
+		<setting label="SET PASSWORD" type="lsep"/>
+		<setting label="Set Password: 'Request from www.tivustream.com" id="adult_password" type="text" option="hidden" default="0000"/>
+	</category>
+</settings>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.movietime"
+	   name="Movietime"
+	   version="1.0.2"
+	   provider-name="linuxsat-support">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0" />
+		<import addon="script.module.urlresolver" />
+		<import addon="script.module.exodus" />
+		<import addon="script.module.exoscrapers" />
+	</requires>
+	   
+  <extension point="xbmc.python.pluginsource"
+			 library="default.py">
+    	<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Lighter faster version of exodus</summary>
+    <description>Lighter faster version of exodus</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
