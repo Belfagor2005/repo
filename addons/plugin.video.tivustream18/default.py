@@ -214,22 +214,32 @@ def showContent():
         names = []
         urls = []
         modes = []
+        #http://bit.ly/tvstreamclxxx
         names.append("Version Support (changelog)")
-        thost = 'aHR0cDovL3BhdGJ1d2ViLmNvbQ=='
+        thost = 'aHR0cDovL2JpdC5seS8='
         SS0 = base64.b64decode(thost)
-        thost3 = 'L2lwdHYvZTJsaXN0ZS9jaGFuZ2Vsb2cudHh0'
+        thost3 = 'dHZzdHJlYW1jbHh4eA=='
         SS3 = base64.b64decode(thost3)
         Host1 = SS0 + SS3
         urls.append(Host1)
         modes.append("112")
+        
         names.append("Live Stream and Adult Movies")
-        thost1 = 'aHR0cDovL3BhdGJ1d2ViLmNvbQ=='
+        thost1 = 'aHR0cHM6Ly90aXZ1c3RyZWFtLmNvbS8='
         SS1 = base64.b64decode(thost1)
-        thost2 = 'L2lwdHYvZTJsaXN0ZS9zdWJib3VxdWV0LnRpdnVzdHJlYW1fYWR1bHR4eHgudHY='
+        thost2 = 'dHNsRW4ucGhwP3A9NQ=='
         SS2 = base64.b64decode(thost2)
         Host2 = SS1 + SS2
         urls.append(Host2)
         modes.append("11")
+        # names.append("Live Stream and Adult Movies")
+        # thost1 = 'aHR0cDovL3BhdGJ1d2ViLmNvbQ=='
+        # SS1 = base64.b64decode(thost1)
+        # thost2 = 'L2lwdHYvZTJsaXN0ZS9zdWJib3VxdWV0LnRpdnVzdHJlYW1fYWR1bHR4eHgudHY='
+        # SS2 = base64.b64decode(thost2)
+        # Host2 = SS1 + SS2
+        # urls.append(Host2)
+        # modes.append("11")        
         names.append("Adult Videos")
         urls.append("https://www.pornhd.com/category")
         modes.append("21")
@@ -1208,21 +1218,43 @@ def play(name, url):
 def showContent11(name, url):
                 content = getUrl(url)
                 print("showContent1 content A =", content)
-                n1 = content.find("#DESCRIPTION ---ADULTI LIVE XXX---", 0)
-                content2 = content[(n1):]
-                print("showContent1 content A 2=", content2)
-                regexcat = '#DESCRIPTION ---(.*?)---'
+                n1 = content.find("#DESCRIPTION  ---ADULT XXX LIVE CHANNELS---", 0)
+                n2 = content.find("#DESCRIPTION ---", (n1+20))
+                print("showContent2 n1 =", n1)
+                print("showContent2 n2 =", n2)
+                content2 = content[n1:n2]
+                print("showContent2 content A 2=", content2)
+                regexcat = '#SERVICE.*?http(.*?)\:.*?DESCRIPTION(.*?)\n'
                 match = re.compile(regexcat,re.DOTALL).findall(content2)
                 print("match A=", match)
-                thost = 'aHR0cDovL3BhdGJ1d2ViLmNvbQ=='
-                SS1 = base64.b64decode(thost)
-                Host = SS1 + "/iptv/e2liste/subbouquet.tivustream_adultxxx.tv"
-                for name in match:
+                for url, name in match:
                         print("name =", name)
+                        print("url =", url)
+                        url = "http" + url
+                        url = url.replace("%3a",":")
+                        print("url 2=", url)
                         pic = i_xxx
-                        addDirectoryItem(name, url,22, pic, fanart)
+                        # addDirectoryItem(name, url,23, pic, fanart)
+                        add_link(name, url,23, pic, fanart)                        
+                        # addDirectoryItem(name, {"name":name, "url":url, "mode":4}, pic)
                 # xbmcplugin.endOfDirectory(thisPlugin)
-
+# def showContent11(name, url):
+                # content = getUrl(url)
+                # print("showContent1 content A =", content)
+                # n1 = content.find("#DESCRIPTION  ---ADULT XXX LIVE CHANNELS---", 0)
+                # content2 = content[(n1):]
+                # print("showContent1 content A 2=", content2)
+                # regexcat = '#DESCRIPTION ---(.*?)---'
+                # match = re.compile(regexcat,re.DOTALL).findall(content2)
+                # print("match A=", match)
+                # # thost = 'aHR0cDovL3BhdGJ1d2ViLmNvbQ=='
+                # # SS1 = base64.b64decode(thost)
+                # # Host = SS1 + "/iptv/e2liste/subbouquet.tivustream_adultxxx.tv"
+                # for name in match:
+                        # print("name =", name)
+                        # pic = i_xxx
+                        # addDirectoryItem(name, url,22, pic, fanart)
+                # # xbmcplugin.endOfDirectory(thisPlugin)
 def showContent22(name, url):
                 pic = i_xxx
                 content = getUrl(url)
