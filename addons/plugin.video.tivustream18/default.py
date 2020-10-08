@@ -1231,7 +1231,7 @@ def showContent11(name, url):
                         print("name =", name)
                         print("url =", url)
                         url = "http" + url
-                        url = url.replace("%3a",":")
+                        url = url.replace("%2F","/").replace("%3A",":").replace("%3a",":").replace("%0D%0A","").strip('\r\n')
                         print("url 2=", url)
                         pic = i_xxx
                         # addDirectoryItem(name, url,23, pic, fanart)
