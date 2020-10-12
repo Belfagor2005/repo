@@ -1,37 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="repository.tivustream" name="TiVuStream Repository" version="1.0.1" provider-name="TiVuStream Team">
-	<extension point="xbmc.addon.repository" name="TiVuStream Repository">
-		<dir>
-		<info compressed="false">https://tivustream.website/repo/addons/addons.xml</info>
-		<checksum>https://tivustream.website/repo/addons/addons.xml.md5</checksum>
-		<datadir zip="true">https://tivustream.website/repo/addons/</datadir>
-		</dir>
-	</extension>
-
-	<extension point="xbmc.addon.metadata">
-		<summary>Free video mediaitems from popular websites</summary>
-		<description>Free video mediaitems from popular websites</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="plugin.video.tivustream" name="TiVuStream TV" version="1.1.7" provider-name="@pcd-@lululla @ilGattoRosso">
-    <requires>
-    </requires>
-    <extension point="xbmc.python.pluginsource"
-               library="default.py">
-        <provides>video</provides>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <platform>all</platform>
-        <summary>Tivustream addon</summary>
-        <description>Unisciti a noi su Telegram su https://t.me/tivustream aggiungi, modifica, rendi questo elenco anche tuo. Vieni a trovarci su tivustream.com</description>
-		<disclaimer lang="it">Il nostro addon non trasmette, ritrasmette qualsiasi canale esposto, né ottiene alcun reddito dall'opera elaborata</disclaimer>
-
-	</extension>
-</addon>
-
 <addon id="plugin.video.youtube" name="youtube" version="1.0.7" provider-name="linuxsat-team">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
@@ -61,21 +29,6 @@
   <extension point="xbmc.addon.metadata">
     <summary>Live cam from around the world</summary>
     <description>Live cam from around the world</description>
-    <platform>all</platform>
-  </extension>
-</addon>
-
-<addon id="plugin.video.tivustream18"
-	   name="TiVuStream 18"
-	   version="1.1.7"
-	   provider-name="linuxsat-support">
-  <extension point="xbmc.python.pluginsource"
-			 library="default.py">
-    	<provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary>Adult(18+) videos from internet</summary>
-    <description>Adult(18+) videos from internet</description>
     <platform>all</platform>
   </extension>
 </addon>
@@ -114,78 +67,6 @@
       - Added Landpage scraping on all on-demand programs
       - Separated on-demand programs episodes by Home-Settimana-Archivio
     </news>
-  </extension>
-</addon>
-
-<addon id="plugin.video.raitv"
-       name="Rai Play"
-       version="3.5.0.1"
-       provider-name="Nightflyer, cttynul, maxbambi, fabpolli">
-  <requires>
-        <import addon="xbmc.python" version="2.25.0"/>
-    <import addon="script.common.plugin.cache" version="2.6.0"/>
-    <import addon="script.module.inputstreamhelper"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource"
-            library="default.py">
-        <provides>video audio</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <language>it</language>
-    <platform>all</platform>
-    <summary lang="it_IT">I programmi delle reti Rai e i servizi interattivi</summary>
-    <description lang="it_IT">
-I canali radio e tv in diretta, gli ultimi 7 giorni di programmazione, le puntate integrali, i telegiornali.
-Source: https://github.com/maxbambi/plugin.video.raitv/
-      </description>
-    <summary lang="en_GB">The broadcasts of Rai channels and its interactive services</summary>
-    <description lang="en_GB">
-Live radio and TV channels, latest 7 days of programming, broadcast archive, news.
-Source: https://github.com/maxbambi/plugin.video.raitv/
-      </description>
-    <license>GPL-3.0-or-later</license>
-    <forum>https://forum.kodi.tv/showthread.php?tid=155922</forum>
-    <website>https://github.com/maxbambi/plugin.video.raitv/</website>
-    <email></email>
-    <news>
-[B]3.5.0[/B]
-- Plugin works with Widevine DRM
-[B]3.4.8[/B]
-- Updated User-Agent
-- Plugin can stream mpd
-[B]3.4.7[/B]
-- Translations
-- Added new items for viewing all elements of a category.
-- On air menu shows also current programs.
-- Added new section from home page of Raiplay.
-    </news>
-    <source>https://github.com/maxbambi/plugin.video.raitv/</source>
-    <assets>
-      <icon>resources/icon.png</icon>
-      <fanart>resources/fanart.jpg</fanart>
-    </assets>
-  </extension>
-</addon>
-
-<addon id="plugin.video.movietime"
-	   name="Movietime"
-	   version="1.0.2"
-	   provider-name="linuxsat-support">
-	<requires>
-		<import addon="xbmc.python" version="2.19.0" />
-		<import addon="script.module.urlresolver" />
-		<import addon="script.module.exodus" />
-		<import addon="script.module.exoscrapers" />
-	</requires>
-
-  <extension point="xbmc.python.pluginsource"
-			 library="default.py">
-    	<provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary>Lighter faster version of exodus</summary>
-    <description>Lighter faster version of exodus</description>
-    <platform>all</platform>
   </extension>
 </addon>
 
@@ -353,6 +234,125 @@ Added support for BBC Scotland.
   <extension point="xbmc.addon.metadata">
     <summary>Videos from altadefinizione01.photo</summary>
     <description>Videos from altadefinizione01.photo</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.video.tivustream" name="TiVuStream TV" version="1.1.7" provider-name="@pcd-@lululla @ilGattoRosso">
+    <requires>
+    </requires>
+    <extension point="xbmc.python.pluginsource"
+               library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary>Tivustream addon</summary>
+        <description>Unisciti a noi su Telegram su https://t.me/tivustream aggiungi, modifica, rendi questo elenco anche tuo. Vieni a trovarci su tivustream.com</description>
+		<disclaimer lang="it">Il nostro addon non trasmette, ritrasmette qualsiasi canale esposto, né ottiene alcun reddito dall'opera elaborata</disclaimer>
+
+	</extension>
+</addon>
+
+<addon id="repository.tivustream" name="TiVuStream Repository" version="1.0.1" provider-name="TiVuStream Team">
+	<extension point="xbmc.addon.repository" name="TiVuStream Repository">
+		<dir>
+		<info compressed="false">https://tivustream.website/repo/addons/addons.xml</info>
+		<checksum>https://tivustream.website/repo/addons/addons.xml.md5</checksum>
+		<datadir zip="true">https://tivustream.website/repo/addons/</datadir>
+		</dir>
+	</extension>
+
+	<extension point="xbmc.addon.metadata">
+		<summary>Free video mediaitems from popular websites</summary>
+		<description>Free video mediaitems from popular websites</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="plugin.video.raitv"
+       name="Rai Play"
+       version="3.5.0.1"
+       provider-name="Nightflyer, cttynul, maxbambi, fabpolli">
+  <requires>
+        <import addon="xbmc.python" version="2.25.0"/>
+    <import addon="script.common.plugin.cache" version="2.6.0"/>
+    <import addon="script.module.inputstreamhelper"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource"
+            library="default.py">
+        <provides>video audio</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <language>it</language>
+    <platform>all</platform>
+    <summary lang="it_IT">I programmi delle reti Rai e i servizi interattivi</summary>
+    <description lang="it_IT">
+I canali radio e tv in diretta, gli ultimi 7 giorni di programmazione, le puntate integrali, i telegiornali.
+Source: https://github.com/maxbambi/plugin.video.raitv/
+      </description>
+    <summary lang="en_GB">The broadcasts of Rai channels and its interactive services</summary>
+    <description lang="en_GB">
+Live radio and TV channels, latest 7 days of programming, broadcast archive, news.
+Source: https://github.com/maxbambi/plugin.video.raitv/
+      </description>
+    <license>GPL-3.0-or-later</license>
+    <forum>https://forum.kodi.tv/showthread.php?tid=155922</forum>
+    <website>https://github.com/maxbambi/plugin.video.raitv/</website>
+    <email></email>
+    <news>
+[B]3.5.0[/B]
+- Plugin works with Widevine DRM
+[B]3.4.8[/B]
+- Updated User-Agent
+- Plugin can stream mpd
+[B]3.4.7[/B]
+- Translations
+- Added new items for viewing all elements of a category.
+- On air menu shows also current programs.
+- Added new section from home page of Raiplay.
+    </news>
+    <source>https://github.com/maxbambi/plugin.video.raitv/</source>
+    <assets>
+      <icon>resources/icon.png</icon>
+      <fanart>resources/fanart.jpg</fanart>
+    </assets>
+  </extension>
+</addon>
+
+<addon id="plugin.video.movietime"
+	   name="Movietime"
+	   version="1.0.2"
+	   provider-name="linuxsat-support">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0" />
+		<import addon="script.module.urlresolver" />
+		<import addon="script.module.exodus" />
+		<import addon="script.module.exoscrapers" />
+	</requires>
+
+  <extension point="xbmc.python.pluginsource"
+			 library="default.py">
+    	<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Lighter faster version of exodus</summary>
+    <description>Lighter faster version of exodus</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.video.tivustream18"
+	   name="TiVuStream 18"
+	   version="1.1.8"
+	   provider-name="linuxsat-support">
+  <extension point="xbmc.python.pluginsource"
+			 library="default.py">
+    	<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Adult(18+) videos from internet</summary>
+    <description>Adult(18+) videos from internet</description>
     <platform>all</platform>
   </extension>
 </addon>

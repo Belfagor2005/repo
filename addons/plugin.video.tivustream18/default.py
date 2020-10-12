@@ -47,29 +47,44 @@ import time
 import re
 from os import path, system
 import socket
-
-
-##py 3
-# import urllib.request, urllib.parse, urllib.error, urllib.request, urllib.error, urllib.parse
-# from html.entities import name2codepoint as n2cp
-# import http.client
-# import urllib.parse
-# from urllib.request import Request, urlopen
-# from urllib.error import URLError
-# from urllib.parse import parse_qs
-# from urllib.parse import unquote_plus
-##py2
-import urllib, urllib2
-from htmlentitydefs import name2codepoint as n2cp
-import httplib
-import urlparse
-from urllib2 import Request, URLError, urlopen
-from urlparse import parse_qs
-from urllib import unquote_plus
 import base64
+
+PY3 = sys.version_info.major >= 3
+
+if PY3:
+    from urllib.request import urlopen, Request
+    from urllib.error import URLError, HTTPError
+    from urllib.parse import urlparse, unquote
+    from urllib.parse import urlencode, quote
+    import urllib.request, urllib.parse, urllib.error, urllib.request, urllib.error, urllib.parse
+    from html.entities import name2codepoint as n2cp
+    import http.client
+    from urllib.parse import parse_qs
+    from urllib.parse import unquote_plus
+
+else:
+    from urllib2 import urlopen, Request
+    from urllib2 import URLError, HTTPError
+    from urlparse import urlparse
+    from urllib import urlencode, quote
+    import urllib, urllib2
+    from htmlentitydefs import name2codepoint as n2cp
+    import httplib
+    from urlparse import parse_qs
+    from urllib import unquote_plus, unquote
+
+##py2
+# import urllib, urllib2
+# from htmlentitydefs import name2codepoint as n2cp
+# import httplib
+# import urlparse
+# from urllib2 import Request, URLError, urlopen
+# from urlparse import parse_qs
+# from urllib import unquote_plus
 # import resolver
 # sources = resolver.sources
 # from resolver import getVideo
+
 from resources.lib import resolver
 sources = resolver.sources
 from resources.lib.resolver import getVideo
@@ -165,44 +180,44 @@ def get_setting(name, default=None):
 
 def getUrl(url):
         print("Here in getUrl url =", url)
-        req = urllib2.Request(url)
+        req = Request(url)
         req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
         try:
-               response = urllib2.urlopen(req)
+               response = urlopen(req)
                link=response.read()
                response.close()
                return link
-        except urllib2.URLError as e:
+        except URLError as e:
                print(e.reason)
 
 def getUrl2(url, referer):
         print("Here in  getUrl2 url =", url)
         print("Here in  getUrl2 referer =", referer)
-        req = urllib2.Request(url)
+        req = Request(url)
         req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
         req.add_header('Referer', referer)
         try:
-              response = urllib2.urlopen(req)
+              response = urlopen(req)
               link=response.read()
               response.close()
               return link
         except:
                import ssl
                gcontext = ssl._create_unverified_context()
-               response = urllib2.urlopen(req, context=gcontext)
+               response = urlopen(req, context=gcontext)
                link=response.read()
                response.close()
                return link
 
 def make_request(url):
 	try:
-		req = urllib2.Request(url)
+		req = Request(url)
 		req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:19.0) Gecko/20100101 Firefox/19.0')
-		response = urllib2.urlopen(req)
+		response = urlopen(req)
 		link = response.read()
 		response.close()
 		return link
-	except urllib2.URLError as e:
+	except URLError as e:
 		print('We failed to open "%s".' % url)
 		if hasattr(e, 'code'):
 			print('We failed with error code - %s.' % e.code)
@@ -214,7 +229,6 @@ def showContent():
         names = []
         urls = []
         modes = []
-        #http://bit.ly/tvstreamclxxx
         names.append("Version Support (changelog)")
         thost = 'aHR0cDovL2JpdC5seS8='
         SS0 = base64.b64decode(thost)
@@ -224,7 +238,7 @@ def showContent():
         urls.append(Host1)
         modes.append("112")
         
-        names.append("Live Stream and Adult Movies")
+        names.append("Live Stream")
         thost1 = 'aHR0cHM6Ly90aXZ1c3RyZWFtLmNvbS8='
         SS1 = base64.b64decode(thost1)
         thost2 = 'dHNsRW4ucGhwP3A9NQ=='
@@ -232,14 +246,16 @@ def showContent():
         Host2 = SS1 + SS2
         urls.append(Host2)
         modes.append("11")
-        # names.append("Live Stream and Adult Movies")
-        # thost1 = 'aHR0cDovL3BhdGJ1d2ViLmNvbQ=='
-        # SS1 = base64.b64decode(thost1)
-        # thost2 = 'L2lwdHYvZTJsaXN0ZS9zdWJib3VxdWV0LnRpdnVzdHJlYW1fYWR1bHR4eHgudHY='
-        # SS2 = base64.b64decode(thost2)
-        # Host2 = SS1 + SS2
-        # urls.append(Host2)
-        # modes.append("11")        
+
+        names.append("Adult Movies")
+        thost13 = 'aHR0cHM6Ly90aXZ1c3RyZWFtLmNvbS8='
+        SS00 = base64.b64decode(thost13)
+        thost5 = 'dHNsRW4ucGhwP3A9NA=='
+        SS01 = base64.b64decode(thost5)
+        Host12 = SS00 + SS01
+        urls.append(Host12)
+        modes.append("10")
+
         names.append("Adult Videos")
         urls.append("https://www.pornhd.com/category")
         modes.append("21")
@@ -1218,7 +1234,7 @@ def play(name, url):
 def showContent11(name, url):
                 content = getUrl(url)
                 print("showContent1 content A =", content)
-                n1 = content.find("#DESCRIPTION  ---ADULT XXX LIVE CHANNELS---", 0)
+                n1 = content.find("#DESCRIPTION  ---ADULT", 0)
                 n2 = content.find("#DESCRIPTION ---", (n1+20))
                 print("showContent2 n1 =", n1)
                 print("showContent2 n2 =", n2)
@@ -1426,7 +1442,7 @@ def home():
     # return ok
 
 def addDirectoryItem(name, url, mode, iconimage, fanart):
-	u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) + "&name=" + urllib.quote_plus(name) + "&iconimage=" + urllib.quote_plus(iconimage)
+	u = sys.argv[0] + "?url=" + unquote_plus(url) + "&mode=" + str(mode) + "&name=" + unquote_plus(name) + "&iconimage=" + unquote_plus(iconimage)
 	ok = True
 	liz = xbmcgui.ListItem(name, iconImage = "DefaultFolder.png", thumbnailImage = iconimage)
 	liz.setInfo( type="Video", infoLabels={ "Title": name, "overlay":"12"})
@@ -1435,7 +1451,7 @@ def addDirectoryItem(name, url, mode, iconimage, fanart):
 	return ok
     
 def add_link(name, url, mode, iconimage, fanart):
-	u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) + "&name=" + urllib.quote_plus(name) + "&iconimage=" + urllib.quote_plus(iconimage)
+	u = sys.argv[0] + "?url=" + unquote_plus(url) + "&mode=" + str(mode) + "&name=" + unquote_plus(name) + "&iconimage=" + unquote_plus(iconimage)
 	ok = True
 	liz = xbmcgui.ListItem(name, iconImage = "DefaultVideo.png", thumbnailImage = iconimage)
 	liz.setProperty('fanart_image', fanart)
@@ -1462,7 +1478,7 @@ def parameters_string_to_dict(parameters):
 params = parameters_string_to_dict(sys.argv[2])
 name =  str(params.get("name", ""))
 url =  str(params.get("url", ""))
-url = urllib.unquote(url)
+url = unquote(url)
 mode =  str(params.get("mode", ""))
 
 
@@ -1485,6 +1501,9 @@ else:
             ok = getVideos(name, url)
         elif mode == str(4):
             ok = playVideo(name, url)
+            
+        elif mode == str(10):
+            ok = showContent11(name, url)
         elif mode == str(11):
             ok = showContent11(name, url)
         elif mode == str(21):
