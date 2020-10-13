@@ -149,7 +149,6 @@ def getVideos3(name1, urlmain):
             url1 = 'https://www.skylinewebcams.com' + url
             name = name.replace('<strong>', '')
             pic = pixx
-
             item = name + "###" + url1
             items.append(item)
         items.sort()
@@ -158,7 +157,6 @@ def getVideos3(name1, urlmain):
             url1 = item.split("###")[1]
             # addDirectoryItem(name, {"name":name, "url":url1, "mode":"6"}, pic)
             addDirectoryItem(name, url1,6, pic, fanart)
-
         xbmcplugin.endOfDirectory(thisPlugin)
 
 def getVideos4(name1, urlmain):
@@ -171,7 +169,6 @@ def getVideos4(name1, urlmain):
         pic = pixx
         for url, name in match:
             url1 = 'https://www.skylinewebcams.com' + url
-    
             f = file(playlistDir +'/Favorit.txt', 'a')
             f.write(name + '\n')
             f.write(url1 + '\n')
@@ -197,7 +194,6 @@ def getVideos5X(name, url):
                 os.remove(vid) #"/tmp/vid.txt")
             os.system(cmd)
             url = vid #"/tmp/vid.txt"
-
         if not os.path.exists(url):
               os.system("sleep 5")
               playVideo(name, url)
@@ -221,7 +217,6 @@ def getVideos5(name, url):
         player = xbmc.Player()
         player.play(url, li)
 
-
 def getVideos6(name1, urlmain):
         content = getUrl(urlmain)
         pass#print "content B =", content
@@ -233,7 +228,6 @@ def getVideos6(name1, urlmain):
             if not "https://www.earthcam.com" in url:
                    continue
             url1 = url
-    
             addDirectoryItem(name, url1,8, pic, fanart)
             # addDirectoryItem(name, {"name":name, "url":url1, "mode":"8"}, pic)
         xbmcplugin.endOfDirectory(thisPlugin)
@@ -245,7 +239,6 @@ def getVideos7(name, urlmain):
         regexvideo = 'html5_streamingdomain"\:"(.*?)".*?html5_streampath"\:"(.*?)m3u8'
         match = re.compile(regexvideo, re.DOTALL).findall(content)
         pass#print 'match =', match
-
         url = match[0][0] + match[0][1] + "m3u8"
         url = url.replace("\\", "")
         pass#print "In Webcam7 url =", url
@@ -260,12 +253,9 @@ def getVideos8(name, urlmain):
         pass#print 'Webcam8 match =', match#pass#
         for url, name in match:
             url1 = 'http:' + url
-    
             # addDirectoryItem(name, url1,5, pic, fanart)
-
             add_link(name, url1, 5, pic,fanart )
         xbmcplugin.endOfDirectory(thisPlugin)
-
 
 def playVideo(name, url):
            pass#print "Here in playVideo name =", name
@@ -282,7 +272,6 @@ std_headers = {
 	'Accept-Language': 'en-us,en;q=0.5',
 }
 def addDirectoryItem(name, url, mode, iconimage, fanart):
-
         u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) + "&name=" + urllib.quote_plus(name) + "&iconimage=" + urllib.quote_plus(iconimage)
         ok = True
         liz = xbmcgui.ListItem(name, iconImage = "DefaultFolder.png", thumbnailImage = iconimage)
@@ -313,7 +302,6 @@ def add_link(name, url, mode, iconimage, fanart):
 	liz.setProperty('IsPlayable', 'true')
 	ok = xbmcplugin.addDirectoryItem(handle = int(sys.argv[1]), url = u, listitem = liz)
 	return ok
-
 
 def parameters_string_to_dict(parameters):
     ''' Convert parameters encoded in a URL to a dict. '''
@@ -376,4 +364,3 @@ else:
    elif mode == str(9):
       ok = getVideos8(name, url)
 xbmcplugin.endOfDirectory(thisPlugin)
-

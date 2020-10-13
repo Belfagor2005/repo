@@ -39,15 +39,12 @@ from urllib2 import Request, URLError, urlopen
 from urlparse import parse_qs
 from urllib import unquote_plus
 
-
-
 thisPlugin = int(sys.argv[1])
 addonId = "plugin.video.filmon"
 dataPath = xbmc.translatePath('special://profile/addon_data/%s' % (addonId))
 if not path.exists(dataPath):
        cmd = "mkdir -p " + dataPath
        system(cmd)
-       
 
 def getUrl(url):
    pass#print "Here in getUrl url =", url
@@ -67,10 +64,9 @@ def getUrl2(url, referer):
    link=response.read()
    response.close()
    return link 
-   
 
 Host = "http://www.filmon.com/group" 
-	
+
 def showContent():
         content = getUrl(Host)
         pass#print "content A =", content
@@ -183,12 +179,10 @@ if not sys.argv[2]:
 	ok = showContent()
 else:
    if mode == str(1):
-      ok = getVideos(name, url)  
+      ok = getVideos(name, url)
    elif mode == str(2):
-      ok = getVideos2(name, url) 
+      ok = getVideos2(name, url)
    elif mode == str(3):
-      ok = getVideos3(name, url) 
+      ok = getVideos3(name, url)
    elif mode == str(4):
-      ok = playVideo(name, url)  
-
-
+      ok = playVideo(name, url)

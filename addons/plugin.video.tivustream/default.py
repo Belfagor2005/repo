@@ -59,8 +59,6 @@ ua = base64.b64decode("JnVhPVRpVnVTdHJlYW0=")
 
 mysettings = xbmcaddon.Addon(id="plugin.video." + PLUGIN_NAME)
 # __language__ = mysettings.get_string
-
-
 profile = mysettings.getAddonInfo('profile')
 home = mysettings.getAddonInfo('path')
 artfolder = (home + '/resources/img/')
@@ -360,7 +358,6 @@ def search():
                                 if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
                                         m3u_playlist(name, url, thumb)
 
-
                 if len(music_m3u) > 0:
                         content = make_request(music_m3u)
                         match = re.compile(m3u_regex).findall(content)
@@ -368,14 +365,12 @@ def search():
                                 if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
                                         m3u_playlist(name, url, thumb)
 
-
                 if len(news_m3u) > 0:
                         content = make_request(news_m3u)
                         match = re.compile(m3u_regex).findall(content)
                         for thumb, name, url in match:
                                 if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
                                         m3u_playlist(name, url, thumb)
-
 
                 if len(int_m3u) > 0:
                         content = make_request(int_m3u)
@@ -392,7 +387,6 @@ def search():
                                 if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
                                         m3u_playlist(name, url, thumb)
 
-
                 if len(radioint_m3u) > 0:
                         content = make_request(radioint_m3u)
                         match = re.compile(m3u_regex).findall(content)
@@ -406,10 +400,8 @@ def search():
                         for thumb, name, url in match:
                                 if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
                                         m3u_playlist(name, url, thumb)
-
         except:
             pass
-
 
 def open_list(cheLista):
         content = make_request(free_it_m3u)
@@ -455,13 +447,12 @@ def open_list(cheLista):
         elif cheLista == 35:
             # content = make_request(m3uest)   
             m3u_online3()
-            
         elif cheLista == 31:
             # content = make_request(int_m3u)
             m3u_online()
-############ pcd 1 ############################            
+############ pcd 1 ############################
             countries(content)
-###############################################            
+###############################################
         elif cheLista == 40:
             content = make_request(music_m3u)
         elif cheLista == 41:
@@ -474,10 +465,8 @@ def open_list(cheLista):
             m3u_online()
         elif cheLista == 60:
             content = make_request(relax_m3u)
-            
         elif cheLista == 52:
             content = make_request(series_fk_m3u)
-            
         elif cheLista == 111:
             content = make_request(log_m3u)
             showInfo(content)     ############### pcd #################
@@ -532,8 +521,6 @@ def links(name, url):
                         url = url.replace('\\r','')
                         name = name.replace('\\r','')
                         name = name.replace('\\n','')
-#                        print "In showContent2 name =", name
-#                        print "In showContent2 url =", url
                         pic = " "
                         add_dir(name, url, 1, pic, pic)
                         # add_link(name, url, 1, pic, pic)
@@ -560,7 +547,6 @@ def m3u_online3():
 
 def m3u_online2(name, url, thumb):
                 content = make_request(url)
-                ##EXTINF:-1 tvg-id="Abu Dhabi Drama ARB" tvg-name="Abu Dhabi Drama ARB" tvg-language="Arabic" tvg-logo="https://i.imgur.com/7Bx66K7.jpg" group-title="",Abu Dhabi Drama
                 regexcat = 'EXTINF.*?,(.*?)\\n(.*?)\\n'
                 match = re.compile(regexcat,re.DOTALL).findall(content)
                 for name, url in match:
@@ -620,13 +606,11 @@ def m3u_playlist(name, url, thumb):
 			url = 'plugin://plugin.video.dailymotion_com/?mode=playVideo&url=%s' % url
 		else:
 			url = url
-
 		if 'tvg-logo' in thumb:
 			thumb = re.compile(thumb_regex).findall(str(thumb))[0].replace(' ', '%20')
 			add_link(name, url, 1, thumb, thumb)
 		else:
 			add_link(name, url, 1, icon, fanart)
-
 
 def xml_playlist(name, url, thumb):
 	name = re.sub('\s+', ' ', name).strip()
@@ -673,7 +657,6 @@ def get_params():
 	return param
 
 def add_dir(name, url, mode, iconimage, fanart):
-
         u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) + "&name=" + urllib.quote_plus(name) + "&iconimage=" + urllib.quote_plus(iconimage)
         ok = True
         liz = xbmcgui.ListItem(name, iconImage = "DefaultFolder.png", thumbnailImage = iconimage)
@@ -752,12 +735,3 @@ else:
 	open_list(mode)
 
 xbmcplugin.endOfDirectory(plugin_handle)
-
-
-
-
-
-
-
-
-
