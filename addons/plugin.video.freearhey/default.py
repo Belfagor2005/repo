@@ -82,7 +82,7 @@ def getUrl(url):
 def showContent():
         names = []
         urls = []
-        names.append("freearhey")
+        names.append("freearhey (old)")
         urls.append("http://bit.ly/2ZRG8Fd")
         names.append("Free Cowntry")
         urls.append(m3uest)
@@ -104,7 +104,7 @@ def showContent2(name, url):
                 regexcat = 'EXTINF.*?,(.*?)\\n(.*?)\\n'
                 match = re.compile(regexcat,re.DOTALL).findall(content)
                 for name, url in match:
-                        url = url.replace(" ", "")
+                        url = url.replace(" ", "%20")
                         url = url.replace("\\n", "")
                         url = url.replace('\r','')
                         name = name.replace('\r','')
@@ -126,7 +126,7 @@ def showContent3(name, url):
                 regexcat = 'EXTINF.*?,(.*?)\\n(.*?)\\n'
                 match = re.compile(regexcat,re.DOTALL).findall(content)
                 for name, url in match:
-                        url = url.replace(" ", "")
+                        url = url.replace(" ", "%20")
                         url = url.replace("\\n", "")
                         url = url.replace('\r','')
                         url = url.replace('https','http')
