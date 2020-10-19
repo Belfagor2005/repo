@@ -1,0 +1,35 @@
+[B]Version 1.0.8.3[/B]
+- Fixed problem with changed APIs.
+- Updated Logos
+- Add PLUS label for paid videos.
+
+[B]Version 1.0.7[/B]
+- Python 3 and Python 2 compatibility.
+
+[B]Version 1.0.6[/B]
+- Improved episode list.
+
+[B]Version 1.0.5[/B]
+- Merged pull requests of Roberto Paleari, Mark Lenders and dadeaka.
+- Switch urls from http to https.
+- Updated README.md.
+
+[B]Version 1.0.4[/B]
+- Fixed bug on playing show.
+- Minor improvements.
+
+[B]Version 1.0.3[/B]
+- Re-implemented much of the addon due to API change.
+- Added the ability to download videos through ffmpeg.
+
+[B]Version 1.0.2[/B]
+- Added a setting for hiding shows that haven't episodes.
+- Added a setting to show the shows by channels.
+- Added a setting to use pagination.
+- Replaced dialog boxes with notifications.
+
+[B]Version 1.0.1[/B]
+- Fixed "Internet connection error" (gex77).
+
+[B]Version 1.0.0[/B]
+- Initial version.

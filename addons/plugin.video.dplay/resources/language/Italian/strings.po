@@ -1,0 +1,81 @@
+# Kodi Media Center language file
+# Addon Name: Dplay
+# Addon id: plugin.video.dplay
+# Addon Provider: NeverWise
+msgid ""
+msgstr ""
+"Project-Id-Version: Kodi Addons\n"
+"Report-Msgid-Bugs-To: <email>\n"
+"POT-Creation-Date: 2016-01-24\n"
+"PO-Revision-Date: 2016-11-12\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: Italian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "Video content streaming quality"
+msgstr "Qualità dei contenuti video"
+
+msgctxt "#30001"
+msgid "180p"
+msgstr "180p"
+
+msgctxt "#30002"
+msgid "270p"
+msgstr "270p"
+
+msgctxt "#30003"
+msgid "360p"
+msgstr "360p"
+
+msgctxt "#30004"
+msgid "432p"
+msgstr "432p"
+
+msgctxt "#30005"
+msgid "576p"
+msgstr "576p"
+
+msgctxt "#30006"
+msgid "720p"
+msgstr "720p"
+
+msgctxt "#30007"
+msgid "1080p"
+msgstr "1080p"
+
+msgctxt "#30008"
+msgid "Download menu"
+msgstr "Download menu"
+
+msgctxt "#30009"
+msgid "FFmpeg path"
+msgstr "Percorso FFmpeg"
+
+msgctxt "#30010"
+msgid "Download path"
+msgstr "Cartella di download"
+
+msgctxt "#30011"
+msgid "Season"
+msgstr "Stagione"
+
+msgctxt "#30012"
+msgid "Episode"
+msgstr "Episodio"
+
+msgctxt "#30013"
+msgid "Available up to"
+msgstr "Disponibile fino"
+
+msgctxt "#30014"
+msgid "No videos available for this show"
+msgstr "Nessun video disponibile per questo spettacolo"
+
+msgctxt "#30015"
+msgid "Packages"
+msgstr "Pacchetti"

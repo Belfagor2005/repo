@@ -1,0 +1,53 @@
+[B]Version 1.1.1[/B]
+- Fixed bug on timezone.
+- Modified dependency.
+
+[B]Version 1.1.0[/B]
+- Updated BeautifulSoup to version 4.
+- Added management of: cookies, datetime format, timezone and context menu.
+- Added getDownloadContextMenu function.
+- Updated user agent.
+- Improved the getResponse functions.
+
+[B]Version 1.0.9[/B]
+- Added htmlDecode function.
+
+[B]Version 1.0.8[/B]
+- Improved the getResponse functions.
+- Added showNotification function to replace dialog boxes with notifications.
+- Removed timeout.
+- Updated user agent.
+- Added stripTags function (new version of old trimTags function).
+
+[B]Version 1.0.7[/B]
+- Setted 60 seconds of timeout.
+- Updated user agent.
+
+[B]Version 1.0.6[/B]
+- Removed functions normalizeText and trimTags.
+- createItemPage now is createNextPageItem.
+- Added function createAudioVideoItems.
+- getHtml function has been divided in getResponseJson, getResponseBS, getResponseForRegEx and getResponse.
+
+[B]Version 1.0.5[/B]
+- Updated formatUrl function.
+- Added encodeDict function.
+- Updated user agent.
+
+[B]Version 1.0.4[/B]
+- Small bugfix/improvements.
+
+[B]Version 1.0.3[/B]
+- Improved some functions.
+- Adapted to the xbmc repository guidelines.
+
+[B]Version 1.0.2[/B]
+- Changed structure with the Util class.
+
+[B]Version 1.0.1[/B]
+- Added the BeautifulSoup library.
+- Added error message on the Internet connection.
+- Improved some functions.
+
+[B]Version 1.0.0[/B]
+- Initial version.
