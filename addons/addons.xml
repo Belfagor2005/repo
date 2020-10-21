@@ -9,6 +9,13 @@
 		</dir>
 	</extension>
 
+	<extension point="xbmc.addon.metadata">
+		<summary>Free video mediaitems from popular websites</summary>
+		<description>Free video mediaitems from popular websites</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="plugin.video.tivustream" name="TiVuStream TV" version="1.1.7" provider-name="@pcd-@lululla @ilGattoRosso">
     <requires>
     </requires>
@@ -22,13 +29,6 @@
         <description>Unisciti a noi su Telegram su https://t.me/tivustream aggiungi, modifica, rendi questo elenco anche tuo. Vieni a trovarci su tivustream.com</description>
 		<disclaimer lang="it">Il nostro addon non trasmette, ritrasmette qualsiasi canale esposto, né ottiene alcun reddito dall'opera elaborata</disclaimer>
 
-	</extension>
-</addon>
-
-	<extension point="xbmc.addon.metadata">
-		<summary>Free video mediaitems from popular websites</summary>
-		<description>Free video mediaitems from popular websites</description>
-		<platform>all</platform>
 	</extension>
 </addon>
 
