@@ -5,7 +5,7 @@ if os.path.exists("/usr/lib/enigma2/python/Plugins/Extensions/KodiLite"): # enig
     libs = sys.argv[0].replace("default.py", "resources/lib")
     if os.path.exists(libs):
        sys.path.append(libs)
-    print("Here in default-py sys.argv =", sys.argv)
+    print "Here in default-py sys.argv =", sys.argv
     if ("?plugin%3A%2F%2F" in sys.argv[2]) or ("?plugin://" in sys.argv[2]):
         argtwo = sys.argv[2]
         n2 = argtwo.find("?", 0)
@@ -21,7 +21,7 @@ if os.path.exists("/usr/lib/enigma2/python/Plugins/Extensions/KodiLite"): # enig
     else:
         sys.argv[0] = sys.argv[0].replace('/usr/lib/enigma2/python/Plugins/Extensions/KodiLite/plugins/', 'plugin://')
         sys.argv[0] = sys.argv[0].replace('default.py', '')
-    print("Here in default-py sys.argv B=", sys.argv)
+    print "Here in default-py sys.argv B=", sys.argv
 import os
 import sys
 import xbmc
@@ -47,7 +47,7 @@ else:
     
 import datetime
 
-# import StorageServer
+
 try:
   import StorageServer
 except:
@@ -59,11 +59,6 @@ from resources.lib.raiplay import RaiPlay
 from resources.lib.raiplayradio import RaiPlayRadio
 from resources.lib.relinker import Relinker
 import resources.lib.utils as utils
-
-import resources.lib.StorageServer
-import resources.lib.storageserverdummy as StorageServer
-
-
 import re
 
 # plugin constants
