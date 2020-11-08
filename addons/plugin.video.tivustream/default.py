@@ -184,8 +184,10 @@ def showInfo(content):
         ##############################################################
         msg = content
         if os.path.exists("/usr/lib/enigma2/python/Plugins/Extensions/KodiLite"):  #KodiLite
-            f1 = open(show, "w")
+            f1 = open('/tmp/show.txt', "w")
             f1.write(msg)
+            f2 = open(show, "w")
+            f2.write(msg)
             pic = " "
             name = "Version Support"
             url = "showtext"
