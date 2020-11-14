@@ -55,7 +55,7 @@ if not path.exists(dataPath):
 
 fanart = xbmc.translatePath(os.path.join(home, 'fanart.jpg'))
 i_free = xbmc.translatePath(os.path.join(home, 'icon.png'))
-Host = "https://www.altadefinizione01.photo/"
+Host = "https://www.altadefinizione01.taxi/"
 
 def getUrl(url):
     pass#print "Here in getUrl url =", url
@@ -80,18 +80,18 @@ def showContent():
                 urls = []
                 modes = []
                 names.append("Cinema")
-                urls.append('https://www.altadefinizione01.photo/cinema/')
+                urls.append('https://www.altadefinizione01.taxi/cinema/')
                 modes.append("11")
                 # name = "Cinema"
-                # url = "https://www.altadefinizione01.photo/cinema/"
+                # url = "https://www.altadefinizione01.taxi/cinema/"
                 # pic = " "
                 # addDirectoryItem(name, {"name":name, "url":url, "mode":11}, pic)
                 # xbmcplugin.endOfDirectory(thisPlugin)
                 names.append("Last Movie")
-                urls.append('https://www.altadefinizione01.photo/find/2020/')
+                urls.append('https://www.altadefinizione01.taxi/find/2020/')
                 modes.append("6")                
                 # name = "Last Movie"
-                # url = "https://www.altadefinizione01.photo/find/2020/"
+                # url = "https://www.altadefinizione01.taxi/find/2020/"
                 # pic = " "
                 # addDirectoryItem(name, {"name":name, "url":url, "mode":5}, pic)
                 # xbmcplugin.endOfDirectory(thisPlugin)
@@ -108,9 +108,9 @@ def showContent():
                 xbmcplugin.endOfDirectory(thisPlugin)
                 
 def getPage(name, url):
-                #https://www.altadefinizione01.photo/cinema/page/2/
+                #https://www.altadefinizione01.taxi/cinema/page/2/
                 pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                url = 'https://www.altadefinizione01.photo/page/'
+                url = 'https://www.altadefinizione01.taxi/page/'
                 for page in pages:
 #                    if str(page) == "1":
 #                        url1 = url
@@ -221,14 +221,14 @@ def showContent2(name, url):
                         # i1 = i1+1
                         # continue
               # pic = " "
-              # url1 = 'https://www.altadefinizione01.photo/find/2020/' + url
+              # url1 = 'https://www.altadefinizione01.taxi/find/2020/' + url
               # i1 = i1+1
               # addDirectoryItem(name, {"name":name, "url":url1, "mode":6}, pic)
         # xbmcplugin.endOfDirectory(thisPlugin)
 # #http://www.italia-film.online/category/film-avventura/page/3/
         for url, pic, name,  year in match:
              #https://www.altadefinizione01.tel/uploads/thumb/203x293-0-70/2017-11/1511644542_gli-eroi-del-natale.jpg
-             pic = "https://www.altadefinizione01.photo" + pic
+             pic = "https://www.altadefinizione01.taxi/" + pic
              name = name + "(" + year + ")"
              addDirectoryItem(name, {"name":name, "url":url, "mode":2}, pic)
         xbmcplugin.endOfDirectory(thisPlugin)

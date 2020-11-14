@@ -321,7 +321,7 @@ Added support for BBC Scotland.
 
 <addon id="plugin.video.altadefinizione01"
 	   name="Altadefinizione01"
-	   version="1.0.2"
+	   version="1.0.3"
 	   provider-name="linuxsat-support">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
