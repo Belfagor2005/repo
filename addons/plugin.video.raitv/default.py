@@ -47,12 +47,13 @@ else:
     
 import datetime
 
+# import StorageServer
+
 
 try:
   import StorageServer
 except:
-  import storageserverdummy as StorageServer
-   
+  import storageserverdummy as StorageServer                                      
 from resources.lib.tgr import TGR
 from resources.lib.search import Search
 from resources.lib.raiplay import RaiPlay
@@ -193,10 +194,8 @@ def play(url, pathId="", srt=[]):
             xbmc.log("SRT URL: " + srtUrl)
             srt.append(srtUrl)
 
-    # Handle RAI relinker
-    if url[:53] == "http://mediapolis.rai.it/relinker/relinkerServlet.htm" or \
-        url[:56] == "http://mediapolisvod.rai.it/relinker/relinkerServlet.htm" or \
-        url[:58] == "http://mediapolisevent.rai.it/relinker/relinkerServlet.htm":
+    if "relinkerServlet" in url:
+        url = url.replace ("https:", "http:")
         xbmc.log("Relinker URL: " + url)
         relinker = Relinker()
         params = relinker.getURL(url)
