@@ -1,7 +1,7 @@
 <settings>
 	<category label="[COLOR red][B]TIVUSTREAM.COM[/B][/COLOR]">
-        <setting label="CONFIG TIVUSTREAM ADDON 1.1.7" type="lsep"/>
-		<setting label="[B]Changelog[/B]" type="text" visible="false" id="log_m3u" default="http://bit.ly/tvstreamclxxx" />
+        <setting label="CONFIG TIVUSTREAM ADDON 1.1.9" type="lsep"/>
+		<setting label="[B]Changelog[/B]" type="text" visible="false" id="log_m3u" default="https://bit.ly/3lMtzDd" />
         <!--
 		<setting label="Select default view mode" id="auto-view" type="bool" default="true" />
 		<setting label="adult_request_password"  id="adult_request_password" type="bool"  enable="!eq(-1,0)+!eq(-2,)" default="true"/>

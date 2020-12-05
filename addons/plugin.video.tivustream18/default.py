@@ -230,29 +230,25 @@ def showContent():
         urls = []
         modes = []
         names.append("Version Support (changelog)")
-        thost = 'aHR0cDovL2JpdC5seS8='
+        thost = 'aHR0cHM6Ly9iaXQubHkv'
         SS0 = base64.b64decode(thost)
-        thost3 = 'dHZzdHJlYW1jbHh4eA=='
+        thost3 = 'M2xNdHpEZA=='
         SS3 = base64.b64decode(thost3)
         Host1 = SS0 + SS3
         urls.append(Host1)
         modes.append("112")
         
         names.append("Live Stream")
-        thost1 = 'aHR0cHM6Ly90aXZ1c3RyZWFtLmNvbS8='
+        thost1 = 'aHR0cDovL3BhdGJ1d2ViLmNvbS9waHBfZmlsdGVyL3RzbEVuLnBocD9wPTU='
         SS1 = base64.b64decode(thost1)
-        thost2 = 'dHNsRW4ucGhwP3A9NQ=='
-        SS2 = base64.b64decode(thost2)
-        Host2 = SS1 + SS2
+        Host2 = SS1
         urls.append(Host2)
         modes.append("11")
 
         names.append("Adult Movies")
-        thost13 = 'aHR0cHM6Ly90aXZ1c3RyZWFtLmNvbS8='
+        thost13 = 'aHR0cDovL3BhdGJ1d2ViLmNvbS9waHBfZmlsdGVyL3RzbEVuLnBocD9wPTQ='
         SS00 = base64.b64decode(thost13)
-        thost5 = 'dHNsRW4ucGhwP3A9NA=='
-        SS01 = base64.b64decode(thost5)
-        Host12 = SS00 + SS01
+        Host12 = SS00
         urls.append(Host12)
         modes.append("10")
 
