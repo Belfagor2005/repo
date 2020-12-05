@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.tivustream" name="TiVuStream Repository" version="1.0.1" provider-name="TiVuStream Team">
+<addon	id="repository.tivustream"
+		name="TiVuStream Repository"
+		version="1.0.1"
+		provider-name="@pcd-@lululla @ilGattoRosso">
 	<extension point="xbmc.addon.repository" name="TiVuStream Repository">
 		<dir>
-		<info compressed="false">https://tivustream.website/repo/addons/addons.xml</info>
-		<checksum>https://tivustream.website/repo/addons/addons.xml.md5</checksum>
-		<datadir zip="true">https://tivustream.website/repo/addons/</datadir>
+			<info compressed="false">https://tivustream.website/repo/addons/addons.xml</info>
+			<checksum>https://tivustream.website/repo/addons/addons.xml.md5</checksum>
+			<datadir zip="true">https://tivustream.website/repo/addons/</datadir>
 		</dir>
 	</extension>
-
 	<extension point="xbmc.addon.metadata">
-		<summary>Free video mediaitems from popular websites</summary>
-		<description>Free video mediaitems from popular websites</description>
 		<platform>all</platform>
+		<summary>Tivustream Free</summary>
+		<description>Unisciti a noi su Telegram su https://t.me/tivustream aggiungi, modifica, rendi questo elenco anche tuo. Vieni a trovarci su tivustream.com</description>
+		<disclaimer> lang="it">Il nostro addon non trasmette, ritrasmette qualsiasi canale esposto, né ottiene alcun reddito dall'opera elaborata</disclaimer>
 	</extension>
 </addon>
-
-
 
