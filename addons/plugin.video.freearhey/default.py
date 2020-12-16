@@ -57,11 +57,17 @@ fanart = xbmc.translatePath(os.path.join(home, 'fanart.jpg'))
 icon = xbmc.translatePath(os.path.join(home, 'icon.png'))
 addonDir = Addon.getAddonInfo('path').decode("utf-8")
 print "Here in playlistloader addonDir =", addonDir
-m3u = 'aHR0cDovL2x1bHVsbGEuYWx0ZXJ2aXN0YS5vcmcvaXB0di1tYXN0ZXIv'
+# m3u = 'aHR0cDovL2x1bHVsbGEuYWx0ZXJ2aXN0YS5vcmcvaXB0di1tYXN0ZXIv'
+
+m3u = 'aHR0cHM6Ly9naXRodWIuY29tL2lwdHYtb3JnL2lwdHYv'
 server = base64.b64decode(m3u)
-estm3u = 'aHR0cDovL3RpdnVzdHJlYW0uY29tL2ZoLnBocA=='
+estm3u = 'aHR0cHM6Ly90aXZ1c3RyZWFtLndlYnNpdGUvcGhwX2ZpbHRlci9maC5waHA='
 m3uest = base64.b64decode(estm3u)
-host = 'https://bit.ly/2ZRG8Fd'
+
+m31 = 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2ZyZWVhcmhleS9pcHR2L21hc3Rlci9pbmRleC5tM3U='
+host1= base64.b64decode(m31)
+m3 = 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2ZyZWVhcmhleS9pcHR2L21hc3Rlci8='
+host= base64.b64decode(m3)
 
 def getUrl(url):
 	try:
@@ -82,8 +88,8 @@ def getUrl(url):
 def showContent():
         names = []
         urls = []
-        names.append("freearhey (old)")
-        urls.append("http://bit.ly/2ZRG8Fd")
+        names.append("freearhey (git)")
+        urls.append(host1)
         names.append("Free Cowntry")
         urls.append(m3uest)
         i = 0
@@ -119,7 +125,9 @@ def showContent3(name, url):
                 if 'fh.php' in url:
                     url = url
                 else:
-                    url = server + url
+                    url = host + url
+                    # url = 'http://bit.ly/2RpPCCg' + url                    
+                    # url = server + 'blob/master/' + url                    
                 content = getUrl(url)
                 print "content 3 =", content
                 pass

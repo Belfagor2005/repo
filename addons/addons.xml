@@ -238,7 +238,7 @@ Added support for BBC Scotland.
   </extension>
 </addon>
 
-<addon id="plugin.video.freearhey" name="freearhey" version="1.4" provider-name="@pcd @lululla">
+<addon id="plugin.video.freearhey" name="freearhey" version="1.5" provider-name="@pcd @lululla">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <!--
