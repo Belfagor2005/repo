@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.worldcam"
 	   name="worldcam"
-	   version="1.0.7"
+	   version="1.0.8"
 	   provider-name="linuxsat-support">
 
   <extension point="xbmc.python.pluginsource"
