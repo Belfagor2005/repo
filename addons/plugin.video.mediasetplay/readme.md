@@ -13,15 +13,9 @@ Se necessario abilitate il plugin Inputstream Adactive prime di eseguire l'insta
 Per installare l'addon [scaricate il file ZIP](https://github.com/kodi-bino/plugin.video.mediasetplay/archive/1.2.3.zip) e installatelo normalmente, gli altri requisiti dovrebbero essere soddisfatti automaticamente.
 
 Testato su Kodi 17.6 (Windows 10), Kodi 18.2, Kodi 18.5 (Windows 10), LibreElec 9.2.0 (Raspberry PI 3), Kodi 17.6 (Android), Kodi 18 RC3 (Android).
+Funzionante anche su Kodilite 6.x
 
 # Known Issues
 I canali live non funzionano dall'estero, Mediaset ha attivato una georestrizione che non è possibile bypassare con il nuovo sistema.
 Alcuni programmi on demand non sono riproducibili a causa della presenza di un DRM.
-
-# Donazioni
-Se volete offrirmi una birra o darmi una mano con lo sviluppo potete donare Bitcoin all'indirizzo: 
-
-1EPvpSztxmU71DXy4LVoxFbK7FisfPpTzV
-
-Ogni aiuto è molto gradito! Grazie mille!
 
