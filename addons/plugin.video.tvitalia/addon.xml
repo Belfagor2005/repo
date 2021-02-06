@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.tvitalia"
-	   name="TvItalia"
-	   version="1.0.1"
-	   provider-name="Linuxsat-support Team">
-  <extension point="xbmc.python.pluginsource"
-			 library="default.py">
-    	<provides>video</provides>
+<addon id="plugin.video.tvitalia" name="TvItalia" version="1.0.2" provider-name="Linuxsat-support Team">
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
     <summary>Italian tv</summary>
@@ -13,15 +9,3 @@
     <platform>all</platform>
   </extension>
 </addon>
-
-
-
-
-
-
-
-
-
-
-
-

@@ -53,8 +53,7 @@ if not path.exists(dataPath):
        system(cmd)
 
 
-vidpc = xbmc.translatePath(os.path.join(home, 'vid.txt'))
-vide2 = "/tmp/vid.txt"
+vid = xbmc.translatePath(os.path.join(home, 'vid.txt'))
 
 # thisPlugin = int(sys.argv[1])
 # addonId = "plugin.video.tvitalia"
@@ -62,6 +61,7 @@ vide2 = "/tmp/vid.txt"
 # if not path.exists(dataPath):
        # cmd = "mkdir -p " + dataPath
        # system(cmd)
+
 
 def getUrl(url):
    print(" Here in getUrl url =", url)
@@ -418,10 +418,11 @@ def showContent33(name, url):
 #        n2 = content.find("card-list__title", n1)
         n2 = content.find("card-list__title", n1)
         if n2 == -1:
-            n2 = len(content)
+                n2 = len(content)
         print("showContent3 n1, n2 =", n1, n2)
         content2 = content[n1:n2]
         print("showContent3 content2 =", content2)
+
         pic = " "
         regexcat = '<a aria-label=.*?href="(.*?)"'
         match = re.compile(regexcat,re.DOTALL).findall(content2)
@@ -443,23 +444,22 @@ def showContent33(name, url):
         xbmcplugin.endOfDirectory(thisPlugin)
 
 def playVideo34(name, url):
-        print("In playVideo2 url =", url)
-        vidurl  = vidpc 
-        if os.path.exists('/usr/lib/enigma2/python/Plugins/Extensions/KodiLite'):
-            vidurl = vide2
-        cmd = "python '/usr/lib/enigma2/python/Plugins/Extensions/KodiLite/__main__.py' --no-check-certificate --skip-download -f best --get-url '" + url + "' > " + vidurl # /tmp/vid.txt"
-        print("In playVideo2 cmd =", cmd)            
-        if os.path.exists(vidurl):
-            os.remove(vidurl)
-        os.system(cmd)
-
-        if not os.path.exists(vidurl):
-            os.system("sleep 5")
-            play(name, vidurl)
-        else:
-            play(name, vidurl)
-
-
+           print("In playVideo2 url =", url)
+           cmd = "python '/usr/lib/enigma2/python/Plugins/Extensions/KodiLite/__main__.py' --no-check-certificate --skip-download -f best --get-url '" + url + "' > " + vid # /tmp/vid.txt"
+           print("In playVideo2 cmd =", cmd)
+           if os.path.exists(vid):
+               os.remove(vid)
+           os.system(cmd)
+           vidurl = vid
+           # if os.path.exists("/tmp/vid.txt"):
+               # os.remove("/tmp/vid.txt")
+           # os.system(cmd)
+           # vidurl = "/tmp/vid.txt"
+           if not os.path.exists(vidurl):
+              os.system("sleep 5")
+              play(name, vidurl)
+           else:
+              play(name, vidurl)
 #######################
 def showContent321(name, url):
         names = []
@@ -467,173 +467,37 @@ def showContent321(name, url):
         modes = []
         names.append("Programmitv")
         urls.append("https://www.mediasetplay.mediaset.it/programmitv")
-        modes.append("45")
-        names.append("Film")
-        urls.append("https://www.mediasetplay.mediaset.it/film")
-        modes.append("45")
-        names.append("Family")
-        urls.append("https://www.mediasetplay.mediaset.it/family")
-        modes.append("45")
-        names.append("Fiction")
-        urls.append("https://www.mediasetplay.mediaset.it/fiction")
-        modes.append("45")
-        names.append("Kids")
-        urls.append("https://www.mediasetplay.mediaset.it/kids")
-        modes.append("45")
-        names.append("Documentari")
-        urls.append("https://www.mediasetplay.mediaset.it/documentari")
-        modes.append("45")        
-        pic = " "
-        i = 0
-        for name in names:
-                url = urls[i]
-                mode = modes[i]
-                i = i+1
-                addDirectoryItem(name, {"name":name, "url":url, "mode":mode}, pic)
-        xbmcplugin.endOfDirectory(thisPlugin)
-
-def showContent45(name, url):
+        modes.append("3211")
+        # names.append("Film")
+        # urls.append("https://www.mediasetplay.mediaset.it/film")
+        # modes.append("")
+        # names.append("Family")
+        # urls.append("https://www.mediasetplay.mediaset.it/family")
+        # modes.append("")
+        # names.append("Fiction")
+        # urls.append("https://www.mediasetplay.mediaset.it/fiction")
+        # modes.append("")
+        # names.append("Kids")
+        # urls.append("https://www.mediasetplay.mediaset.it/kids")
+        # modes.append("")
+        # names.append("Documentari")
+        # urls.append("https://www.mediasetplay.mediaset.it/documentari")
+        # modes.append("")        
         content = getUrl(url)
-        print("showContent2 content =", content)
-        if "fiction" in url:
-            regexcat = 'a href="/fiction/(.*?)".*?class="_2_UgV">(.*?)</p'
-            match = re.compile(regexcat, re.DOTALL).findall(content)
-            print ("_gotPageLoad match =", match)
-            for url , name in match:
+        print("showContent321 content =", content)
+        #card-item cell"
+        regexcat = '"><a href="/video(.*?)"'
+        match = re.compile(regexcat,re.DOTALL).findall(content)
+        print("showContent2 match =", match)
+        for url in match:
                 pic = " "
-                name = name.replace("&#x27;","'").replace("&amp;","&") #url
-                url = "https://www.mediasetplay.mediaset.it/fiction/" + url
-                print('name : ', name)
-                print('url:  ', url)
-
-                pic = " "
-                addDirectoryItem(name, {"name":name, "url":url, "mode":46}, pic)
-            # xbmcplugin.endOfDirectory(thisPlugin)
-
-        if "family" in url:
-            regexcat = 'class="_3G-Rv undefined "><a href="(.*?)".*?class="_1ovAG">(.*?)<'
-            match = re.compile(regexcat, re.DOTALL).findall(content)
-            print ("_gotPageLoad match =", match)
-            for url, name in match:
-                pic = " "
-                name = name.replace("&#x27;","'").replace("&amp;","&")# url
-                url = "https://www.mediasetplay.mediaset.it" + url
-                print('name : ', name)
-                print('url:  ', url)
-                pic = " "
-                addDirectoryItem(name, {"name":name, "url":url, "mode":46}, pic)
-            # xbmcplugin.endOfDirectory(thisPlugin)
-                
-        if "film" in url:
-            regexcat = 'a href="/movie/(.*?)".*?class="_2_UgV">(.*?)</p'
-            match = re.compile(regexcat, re.DOTALL).findall(content)
-            print ("_gotPageLoad match =", match)
-            for url, name in match:
-                pic = " "
-                name = name.replace("&#x27;","'").replace("&amp;","&") #url
-                url = "https://www.mediasetplay.mediaset.it/movie/" + url
-                print('name : ', name)
-                print('url:  ', url)
-                pic = " "
-                addDirectoryItem(name, {"name":name, "url":url, "mode":46}, pic)
-                
-        if "programmi" in url:
-            regexcat = 'a href="/programmi-tv/(.*?)".*?class="_2_UgV">(.*?)</p'
-            match = re.compile(regexcat, re.DOTALL).findall(content)
-            print ("_gotPageLoad match =", match)
-            for url , name in match:
-                pic = " "
-                name = name.replace("&#x27;","'").replace("&amp;","&")# url
-                url = "https://www.mediasetplay.mediaset.it/programmi-tv/" + url
-                print('name : ', name)
-                print('url:  ', url)
-                pic = " "
-                addDirectoryItem(name, {"name":name, "url":url, "mode":46}, pic)
-        if "kids" in url:
-            regexcat = 'a href="/video/(.*?)".*?class="_2_UgV">(.*?)</p'
-            match = re.compile(regexcat, re.DOTALL).findall(content)
-            print ("kids _gotPageLoad match =", match)
-            for url, name in match:
-                pic = " "
-                name = name.replace("&#x27;","'").replace("&amp;","&") # url
-                url = "https://www.mediasetplay.mediaset.it/video/" + url
-                print('name : ', name)
-                print('url:  ', url)            
-                pic = " "
-                addDirectoryItem(name, {"name":name, "url":url, "mode":46}, pic)
-        if "documentari" in url:
-            regexcat = 'a href="/playlist/(.*?)".*?class="_2_UgV">(.*?)</p'
-            match = re.compile(regexcat, re.DOTALL).findall(content)
-            print ("_gotPageLoad match =", match)
-            for url, name in match:
-                pic = " "
-                name = name.replace("&#x27;","'").replace("&amp;","&") #url
-                url = "https://www.mediasetplay.mediaset.it/playlist/" + url
-                print('name : ', name)
-                print('url:  ', url)
-                pic = " "
-                addDirectoryItem(name, {"name":name, "url":url, "mode":46}, pic)
-        xbmcplugin.endOfDirectory(thisPlugin)  
-            
-        # else:
-             # pass
-
-def showContent46(name, url):
-        content = getUrl(url)
-        print("showContent2 content =", content)
-        if ("movie" in url) or ("video" in url):
-            # try:
-                print("In playVideo2 url =", url)
-                from youtube_dl import YoutubeDL
-                '''
-                ydl_opts = {'format': 'best'}
-                ydl_opts = {'format': 'bestaudio/best'}
-                '''
-                ydl_opts = {'format': 'best'}
-                ydl = YoutubeDL(ydl_opts)
-                ydl.add_default_info_extractors()
-                result = ydl.extract_info(url, download=False)
-                print ("mediaset result =", result)
-                url = result["url"]
-                print ("mediaset final url =", url)
-                pic = " "
-                name = name.replace("&#x27;","'").replace("&amp;","&")
-                url1 = url
+                name = url
+                url1 = "https://www.mediasetplay.mediaset.it/video" + url
                 addDirectoryItem(name, {"name":name, "url":url1, "mode":34}, pic)
-
-        else:
-            regexcat = '/video/(.*?)".*?"_1ovAG">(.*?)</'
-            match = re.compile(regexcat, re.DOTALL).findall(content)
-            print ("_gotPageLoad match =", match)
-            for url, name  in match:
-                pic = " "
-                name = name.replace("&#x27;","'").replace("&amp;","&") 
-                url1 = "https://www.mediasetplay.mediaset.it/video/" + url
-                print('name : ', name)
-                print('url1:  ', url1)        
-                addDirectoryItem(name, {"name":name, "url":url1, "mode":47}, pic)
         xbmcplugin.endOfDirectory(thisPlugin)
 
 
-def showContent47(name, url):
-        print("In playVideo2434 url =", url)
-        from youtube_dl import YoutubeDL
-        ydl_opts = {'format': 'best'}
-        '''
-        ydl_opts = {'format': 'bestaudio/best'}
-        '''
-        ydl = YoutubeDL(ydl_opts)
-        ydl.add_default_info_extractors()
-        result = ydl.extract_info(url, download=False)
-        print ("mediaset result =", result)
-        url = result["url"]
-        print ("mediaset final url =", url)
-        pic = " "
-        name = name
-        url1 = url 
-        play(name, url1)
 
-           
 std_headers = {
 	'User-Agent': 'Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.2.6) Gecko/20100627 Firefox/3.6.6',
 	'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7',
@@ -667,6 +531,8 @@ mode =  str(params.get("mode", ""))
 if not sys.argv[2]:
    ok = showContent()
 else:
+
+
     if mode == str(11):
             ok = showContent11(name, url)
 
@@ -707,4 +573,3 @@ else:
             ok = showContent47(name, url)                
     elif mode == str(34):
             ok = playVideo34(name, url)
-
