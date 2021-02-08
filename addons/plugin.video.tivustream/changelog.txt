@@ -1,8 +1,8 @@
 #EXTM3U
-#EXTINF:-1, [COLOR yellow]Versione 1.2.0 (06-12-2020)[/COLOR]
+#EXTINF:-1, [COLOR yellow]Versione 1.2.1 (06-02-2021)[/COLOR]
 #EXTINF:0,Inizialization addon tivustream.com
 http://0.0.0.0
-#EXTINF:0,Support: linuxsat-support.com - tivustream.com
+#EXTINF:0,Support: tivustream.com - linuxsat-support.com 
 http://0.0.0.0
 #EXTINF:0,Thank's to @pcd @lululla @ilGattoRosso
 http://0.0.0.0

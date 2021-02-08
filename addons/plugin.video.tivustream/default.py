@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 #!/usr/bin/python
-# -*- coding: latin-1 -*-
+# -*- coding: utf-8 -*-
 
 import sys, xpath, xbmc, os
 
@@ -48,7 +47,8 @@ Thank's @MasterG & @pcd for all (Linuxsat support)
 import urllib, urllib2, sys, re, os, unicodedata, json
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 import xbmcvfs,socket,urlparse,time,threading,HTMLParser
-import os, re
+import os
+import re
 import base64
 import logging
 
@@ -138,7 +138,7 @@ thumb_regex = 'tvg-logo=[\'"](.*?)[\'"]'
 m3u_regex   = '#(.+?),(.+)\s*(.+)\s*'
 m3u_regex2  = 'EXTINF.*?,(.*?)\\n(.*?)\\n' #'#(.+?),(.+)\s*(.+)\s*'
 u_tube      = 'http://www.youtube.com'
-estm3u = 'aHR0cDovL3RpdnVzdHJlYW0uY29tL2ZoLnBocA=='
+estm3u = 'aHR0cDovL3BhdGJ1d2ViLmNvbS9waHBfZmlsdGVyL2ZoLnBocA=='
 m3uest = base64.b64decode(estm3u)
 
 def removeAccents(s):
@@ -172,28 +172,28 @@ def make_request(url):
 
 ##########pcd###############
 def showInfo(content):
-        ############# not needed if server text changed #############
-        content = content.replace("#EXTM3U", "")
-        content = content.replace("#EXTINF:-1,", "")
-        content = content.replace("#EXTINF:0,", "")
-        content = content.replace("http://0.0.0.0", "")
-        content = content.replace("[/COLOR]", "")
-        content = content.replace("[COLOR yellow]", "")
-        content = content.replace("Support:", "Support:\n")
-        content = content.replace("Thank's to", "Thanks to:\n")
-        ##############################################################
-        msg = content
-        if os.path.exists("/usr/lib/enigma2/python/Plugins/Extensions/KodiLite"):  #KodiLite
-            f1 = open(show, "w")
-            f1.write(msg)
-            pic = " "
-            name = "Version Support"
-            url = "showtext"
-            addDirectoryItem(name, {"name":name, "url":url, "mode":6}, pic)
-        else:      #kodi
-            dialog = xbmcgui.Dialog()
-            dialog.textviewer("Version Support", msg)
-            Main()
+    ############# not needed if server text changed #############
+    content = content.replace("#EXTM3U", "")
+    content = content.replace("#EXTINF:-1,", "")
+    content = content.replace("#EXTINF:0,", "")
+    content = content.replace("http://0.0.0.0", "")
+    content = content.replace("[/COLOR]", "")
+    content = content.replace("[COLOR yellow]", "")
+    content = content.replace("Support:", "Support:\n")
+    content = content.replace("Thank's to", "Thanks to:\n")
+    ##############################################################
+    msg = content
+    if os.path.exists("/usr/lib/enigma2/python/Plugins/Extensions/KodiLite"):  #KodiLite
+        f1 = open(show, "w")
+        f1.write(msg)
+        pic = " "
+        name = "Version Support"
+        url = "showtext"
+        addDirectoryItem(name, {"name":name, "url":url, "mode":6}, pic)
+    else:      #kodi
+        dialog = xbmcgui.Dialog()
+        dialog.textviewer("Version Support", msg)
+        Main()
 ################################
 def main():
     add_dir('[COLOR gray][B] Version Support (changelog) [/B][/COLOR]', u_tube, 111, icon, fanart2)
@@ -209,290 +209,289 @@ def main():
     add_dir('[COLOR cyan][B]Film G-L[/B][/COLOR]', u_tube, 13, i_media, f_media)
     add_dir('[COLOR cyan][B]Film M-R[/B][/COLOR]', u_tube, 14, i_media, f_media)
     add_dir('[COLOR cyan][B]Film S-Z[/B][/COLOR]', u_tube, 15, i_media, f_media)
-    add_dir('[COLOR cyan][B]International Movies[/B][/COLOR]', u_tube, 16, i_mediaint, f_mediaint)
     add_dir('[COLOR fuchsia][B]Serie TV 0-9[/B][/COLOR]', u_tube, 20, i_fiction, f_fiction)
     add_dir('[COLOR fuchsia][B]Serie TV A-E[/B][/COLOR]', u_tube, 21, i_fiction, f_fiction)
     add_dir('[COLOR fuchsia][B]Serie TV F-K[/B][/COLOR]', u_tube, 52, i_fiction, f_fiction)
     add_dir('[COLOR fuchsia][B]Serie TV L-R[/B][/COLOR]', u_tube, 23, i_fiction, f_fiction)
     add_dir('[COLOR fuchsia][B]Serie TV S-Z[/B][/COLOR]', u_tube, 24, i_fiction, f_fiction)
-    add_dir('[COLOR fuchsia][B]International Tv Series[/B][/COLOR]', u_tube, 25, i_seriesint, f_seriesint)
-    add_dir('[COLOR red][B]All News[/B][/COLOR]', u_tube, 30, i_news, f_news)
-    add_dir('[COLOR red][B]International Channels[/B][/COLOR]', u_tube, 31, i_int, f_int)
-    add_dir('[COLOR red][B]International Channels II[/B][/COLOR]', u_tube, 35, i_int, f_int)
     
     add_dir('[COLOR orange][B]Canali Musica ( Radio Tv )[/B][/COLOR]', u_tube, 40, i_music, f_music)
     add_dir('[COLOR orange][B]Radio Italiane[/B][/COLOR]', u_tube, 41, i_radio, f_radio)
     add_dir('[COLOR orange][B]International Radio[/B][/COLOR]', u_tube, 42, i_radioint, f_radioint)
     add_dir('[COLOR orange][B]Dash Radio[/B][/COLOR]', u_tube, 43, i_radio, f_radio)
     add_dir('[COLOR pink][B]Look And Relax[/B][/COLOR]', u_tube, 60, icon, fanart)
-    add_dir('[COLOR yellow][B] +++ OTHER +++ [/B][/COLOR]', u_tube, 50, icon, fanart)
+    add_dir('[COLOR red][B]All News[/B][/COLOR]', u_tube, 30, i_news, f_news)  
+    
+    add_dir('[COLOR yellow][B] +++ OTHER +++ [/B][/COLOR]', u_tube, 50, icon, fanart)  
+    add_dir('[COLOR red][B]International Channels[/B][/COLOR]', u_tube, 31, i_int, f_int)
+    add_dir('[COLOR red][B]International Channels II[/B][/COLOR]', u_tube, 35, i_int, f_int)    
+    add_dir('[COLOR cyan][B]International Movies[/B][/COLOR]', u_tube, 16, i_mediaint, f_mediaint)    
+    add_dir('[COLOR fuchsia][B]International Tv Series[/B][/COLOR]', u_tube, 25, i_seriesint, f_seriesint)
 
 
+    
     if (  len(events_m3u) < 1 and len(free_it_m3u) < 1 and len(free_reg_m3u) < 1 and len(sport_it_m3u) < 1 and len(sport_int_m3u) < 1 and len(media_m3u) < 1 and len(media_09_m3u) < 1 and len(media_af_m3u) < 1 and len(media_gl_m3u) < 1 and  len(media_mr_m3u) < 1 and len(media_sz_m3u) < 1 and len(mediaint_m3u) < 1 and len(series_09_m3u) < 1 and len (series_ae_m3u) < 1 and len(series_fk_m3u) < 1 and len(series_lr_m3u) < 1 and len(series_sz_m3u) < 1 and len(seriesint_m3u) < 1 and len(music_m3u) < 1 and len(news_m3u) < 1 and len(int_m3u) < 1 and len(radio_m3u) < 1 and len(radioint_m3u ) < 1 and len(radiodash_m3u) < 1 and len(log_m3u) < 1 ):
         mysettings.openSettings()
         xbmc.executebuiltin("Container.Refresh")
 
 def search():
-        try:
-                keyb = xbmc.Keyboard('', 'Search :')
-                keyb.doModal()
-                if (keyb.isConfirmed()):
-                        searchText = urllib.quote_plus(keyb.getText()).replace('+', ' ')
-                if len(events_m3u) > 0:
-                        content = make_request(events_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
-
-                if len(free_it_m3u) > 0:
-                        content = make_request(free_it_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
-
-                if len(free_reg_m3u) > 0:
-                        content = make_request(free_reg_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
-
-                if len(sport_it_m3u) > 0:
-                        content = make_request(sport_it_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
-
-                if len(sport_int_m3u) > 0:
-                        content = make_request(sport_int_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
-
-                if len(media_09_m3u) > 0:
-                        content = make_request(media_09_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
-
-                if len(media_af_m3u) > 0:
-                        content = make_request(media_af_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
-
-                if len(media_gl_m3u) > 0:
-                        content = make_request(media_gl_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
-
-                if len(media_mr_m3u) > 0:
-                        content = make_request(media_mr_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
-
-                if len(media_sz_m3u) > 0:
-                        content = make_request(media_sz_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
-
-                if len(mediaint_m3u) > 0:
-                        content = make_request(mediaint_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
-
-                if len(series_09_m3u) > 0:
-                        content = make_request(series_09_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
-
-                if len(series_ae_m3u) > 0:
-                        content = make_request(series_ae_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
-
-                if len(series_fk_m3u) > 0:
-                     content = make_request(series_fk_m3u)
-                     match = re.compile(m3u_regex).findall(content)
-                     for thumb, name, url in match:
+    try:
+        keyb = xbmc.Keyboard('', 'Search :')
+        keyb.doModal()
+        if (keyb.isConfirmed()):
+                searchText = urllib.quote_plus(keyb.getText()).replace('+', ' ')
+        if len(events_m3u) > 0:
+                content = make_request(events_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
                         if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                           m3u_playlist(name, url, thumb)
+                                m3u_playlist(name, url, thumb)
 
-                if len(series_lr_m3u) > 0:
-                     content = make_request(series_lr_m3u)
-                     match = re.compile(m3u_regex).findall(content)
-                     for thumb, name, url in match:
+        if len(free_it_m3u) > 0:
+                content = make_request(free_it_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
                         if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                           m3u_playlist(name, url, thumb)
+                                m3u_playlist(name, url, thumb)
 
-
-                if len(series_sz_m3u) > 0:
-                     content = make_request(series_sz_m3u)
-                     match = re.compile(m3u_regex).findall(content)
-                     for thumb, name, url in match:
+        if len(free_reg_m3u) > 0:
+                content = make_request(free_reg_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
                         if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                           m3u_playlist(name, url, thumb)
+                                m3u_playlist(name, url, thumb)
 
-                if len(seriesint_m3u) > 0:
-                        content = make_request(seriesint_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
+        if len(sport_it_m3u) > 0:
+                content = make_request(sport_it_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
+                        if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                                m3u_playlist(name, url, thumb)
 
-                if len(music_m3u) > 0:
-                        content = make_request(music_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
+        if len(sport_int_m3u) > 0:
+                content = make_request(sport_int_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
+                        if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                                m3u_playlist(name, url, thumb)
 
-                if len(news_m3u) > 0:
-                        content = make_request(news_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
+        if len(media_09_m3u) > 0:
+                content = make_request(media_09_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
+                        if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                                m3u_playlist(name, url, thumb)
 
-                if len(int_m3u) > 0:
-                        content = make_request(int_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
+        if len(media_af_m3u) > 0:
+                content = make_request(media_af_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
+                        if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                                m3u_playlist(name, url, thumb)
+
+        if len(media_gl_m3u) > 0:
+                content = make_request(media_gl_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
+                        if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                                m3u_playlist(name, url, thumb)
+
+        if len(media_mr_m3u) > 0:
+                content = make_request(media_mr_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
+                        if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                                m3u_playlist(name, url, thumb)
+
+        if len(media_sz_m3u) > 0:
+                content = make_request(media_sz_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
+                        if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                                m3u_playlist(name, url, thumb)
+
+        if len(mediaint_m3u) > 0:
+                content = make_request(mediaint_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
+                        if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                                m3u_playlist(name, url, thumb)
+
+        if len(series_09_m3u) > 0:
+                content = make_request(series_09_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
+                        if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                                m3u_playlist(name, url, thumb)
+
+        if len(series_ae_m3u) > 0:
+                content = make_request(series_ae_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
+                        if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                                m3u_playlist(name, url, thumb)
+
+        if len(series_fk_m3u) > 0:
+             content = make_request(series_fk_m3u)
+             match = re.compile(m3u_regex).findall(content)
+             for thumb, name, url in match:
+                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                   m3u_playlist(name, url, thumb)
+
+        if len(series_lr_m3u) > 0:
+             content = make_request(series_lr_m3u)
+             match = re.compile(m3u_regex).findall(content)
+             for thumb, name, url in match:
+                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                   m3u_playlist(name, url, thumb)
 
 
-                if len(radio_m3u) > 0:
-                        content = make_request(radio_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
+        if len(series_sz_m3u) > 0:
+             content = make_request(series_sz_m3u)
+             match = re.compile(m3u_regex).findall(content)
+             for thumb, name, url in match:
+                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                   m3u_playlist(name, url, thumb)
 
-                if len(radioint_m3u) > 0:
-                        content = make_request(radioint_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
+        if len(seriesint_m3u) > 0:
+                content = make_request(seriesint_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
+                        if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                                m3u_playlist(name, url, thumb)
 
-                if len(radiodash_m3u) > 0:
-                        content = make_request(radiodash_m3u)
-                        match = re.compile(m3u_regex).findall(content)
-                        for thumb, name, url in match:
-                                if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
-                                        m3u_playlist(name, url, thumb)
-        except:
-            pass
+        if len(music_m3u) > 0:
+                content = make_request(music_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
+                        if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                                m3u_playlist(name, url, thumb)
+
+        if len(news_m3u) > 0:
+                content = make_request(news_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
+                        if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                                m3u_playlist(name, url, thumb)
+
+        if len(int_m3u) > 0:
+                content = make_request(int_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
+                        if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                                m3u_playlist(name, url, thumb)
+
+
+        if len(radio_m3u) > 0:
+                content = make_request(radio_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
+                        if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                                m3u_playlist(name, url, thumb)
+
+        if len(radioint_m3u) > 0:
+                content = make_request(radioint_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
+                        if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                                m3u_playlist(name, url, thumb)
+
+        if len(radiodash_m3u) > 0:
+                content = make_request(radiodash_m3u)
+                match = re.compile(m3u_regex).findall(content)
+                for thumb, name, url in match:
+                        if re.search(searchText, removeAccents(name.replace('Đ', 'D')), re.IGNORECASE):
+                                m3u_playlist(name, url, thumb)
+    except:
+        pass
 
 def open_list(cheLista):
+    content = make_request(free_it_m3u)
+    if cheLista == 2:
+        content = make_request(events_m3u)
+    elif cheLista == 3:
         content = make_request(free_it_m3u)
-        if cheLista == 2:
-            content = make_request(events_m3u)
-        elif cheLista == 3:
-            content = make_request(free_it_m3u)
-        elif cheLista == 4:
-            content = make_request(free_reg_m3u)
-        elif cheLista == 5:
-            content = make_request(sport_it_m3u)
-        elif cheLista == 6:
-            content = make_request(sport_int_m3u)
-        elif cheLista == 10:
-            content = make_request(media_m3u)
-        elif cheLista == 11:
-            content = make_request(media_09_m3u)
-        elif cheLista == 12:
-            content = make_request(media_af_m3u)
-        elif cheLista == 13:
-            content = make_request(media_gl_m3u)
-        elif cheLista == 14:
-            content = make_request(media_mr_m3u)
-        elif cheLista == 15:
-            content = make_request(media_sz_m3u)
-        elif cheLista == 16:
-            content = make_request(mediaint_m3u)
-        elif cheLista == 20:
-            content = make_request(series_09_m3u)
-        elif cheLista == 21:
-            content = make_request(series_ae_m3u)
-        # elif cheLista == 22:
-            # content = make_request(series_fk_m3u)
-        elif cheLista == 23:
-            content = make_request(series_lr_m3u)
-        elif cheLista == 24:
-            content = make_request(series_sz_m3u)
-        elif cheLista == 25:
-            content = make_request(seriesint_m3u)
-        elif cheLista == 30:
-            content = make_request(news_m3u)
-        #INTERNATIONAL II
-        elif cheLista == 35:
-            # content = make_request(m3uest)   
-            m3u_online3()
-        elif cheLista == 31:
-            # content = make_request(int_m3u)
-            m3u_online()
+    elif cheLista == 4:
+        content = make_request(free_reg_m3u)
+    elif cheLista == 5:
+        content = make_request(sport_it_m3u)
+    elif cheLista == 6:
+        content = make_request(sport_int_m3u)
+    elif cheLista == 10:
+        content = make_request(media_m3u)
+    elif cheLista == 11:
+        content = make_request(media_09_m3u)
+    elif cheLista == 12:
+        content = make_request(media_af_m3u)
+    elif cheLista == 13:
+        content = make_request(media_gl_m3u)
+    elif cheLista == 14:
+        content = make_request(media_mr_m3u)
+    elif cheLista == 15:
+        content = make_request(media_sz_m3u)
+    elif cheLista == 16:
+        content = make_request(mediaint_m3u)
+    elif cheLista == 20:
+        content = make_request(series_09_m3u)
+    elif cheLista == 21:
+        content = make_request(series_ae_m3u)
+    elif cheLista == 52:
+        content = make_request(series_fk_m3u)
+    elif cheLista == 23:
+        content = make_request(series_lr_m3u)
+    elif cheLista == 24:
+        content = make_request(series_sz_m3u)
+    elif cheLista == 25:
+        content = make_request(seriesint_m3u)
+    elif cheLista == 30:
+        content = make_request(news_m3u)
+    #INTERNATIONAL II
+    elif cheLista == 35:
+        # content = make_request(m3uest)   
+        m3u_online3()
+    elif cheLista == 31:
+        # content = make_request(int_m3u)
+        m3u_online()
 ############ pcd 1 ############################
-            countries(content)
+        countries(content)
 ###############################################
-        elif cheLista == 40:
-            content = make_request(music_m3u)
-        elif cheLista == 41:
-            content = make_request(radio_m3u)
-        elif cheLista == 42:
-            content = make_request(radioint_m3u)
-        elif cheLista == 43:
-            content = make_request(radiodash_m3u)
-        elif cheLista == 50:
-            m3u_online()
-        elif cheLista == 60:
-            content = make_request(relax_m3u)
-        elif cheLista == 52:
-            content = make_request(series_fk_m3u)
-        elif cheLista == 111:
-            content = make_request(log_m3u)
-            showInfo(content)     ############### pcd #################
-        match = re.compile(m3u_regex).findall(content)
-        for thumb, name, url in match:
-            try:
-                m3u_playlist(name, url, thumb)
-            except:
-                pass
+    elif cheLista == 40:
+        content = make_request(music_m3u)
+    elif cheLista == 41:
+        content = make_request(radio_m3u)
+    elif cheLista == 42:
+        content = make_request(radioint_m3u)
+    elif cheLista == 43:
+        content = make_request(radiodash_m3u)
+    elif cheLista == 50:
+        m3u_online()
+    elif cheLista == 60:
+        content = make_request(relax_m3u)
+    elif cheLista == 111:
+        content = make_request(log_m3u)
+        showInfo(content)     ############### pcd #################
+    match = re.compile(m3u_regex).findall(content)
+    for thumb, name, url in match:
+        try:
+            m3u_playlist(name, url, thumb)
+        except:
+            pass
 ################# pcd 2 ############################
 def countries(content):
-        print("content =", content)
-        f = open(contentx, 'w')
-        fpage = f.write(content)
-        f.close()
-
-        regexvideo = ',---(.*?)---'
-        match = re.compile(regexvideo,re.DOTALL).findall(content)
-        print("countries match =", match)
-        for name in match:
-                 if "INTENAZIONALI" in name: continue
-                 url = " "
-                 pic = " "
-                 addDirectoryItem(name, {"name":name, "url":url, "mode":112}, pic)
-                 # add_dir(name, url, 112, pic, pic)
-        xbmcplugin.endOfDirectory(plugin_handle)
+    print("content =", content)
+    f = open(contentx, 'w')
+    fpage = f.write(content)
+    f.close()
+    regexvideo = ',---(.*?)---'
+    match = re.compile(regexvideo,re.DOTALL).findall(content)
+    print("countries match =", match)
+    for name in match:
+         if "INTENAZIONALI" in name: continue
+         url = " "
+         pic = " "
+         addDirectoryItem(name, {"name":name, "url":url, "mode":112}, pic)
+         # add_dir(name, url, 112, pic, pic)
+    xbmcplugin.endOfDirectory(plugin_handle)
 
 def links(name, url):
         f = open(contentx, 'r')
@@ -515,52 +514,52 @@ def links(name, url):
         match = re.compile(regexcat,re.DOTALL).findall(fpage2)
         print("In links match =", match)
         for name, url in match:
-                        url = url.replace(" ", "")
-                        url = url.replace("?", "")
-                        url = url.replace("\\n", "")
-                        url = url.replace('\\r','')
-                        name = name.replace('\\r','')
-                        name = name.replace('\\n','')
-                        pic = " "
-                        add_dir(name, url, 1, pic, pic)
-                        # add_link(name, url, 1, pic, pic)
+            url = url.replace(" ", "")
+            url = url.replace("?", "")
+            url = url.replace("\\n", "")
+            url = url.replace('\\r','')
+            name = name.replace('\\r','')
+            name = name.replace('\\n','')
+            pic = " "
+            add_dir(name, url, 1, pic, pic)
+            # add_link(name, url, 1, pic, pic)
         xbmcplugin.endOfDirectory(plugin_handle)
 #######################  pcd end #############################################
 def m3u_online():
-        content = make_request(online_m3u)
-        match = re.compile(m3u_regex2).findall(content)
-        for name, url in match:
-                    # url = url
-                    url = h + url                    
-                    thumb= ''
-                    add_dir(name, url, 22, thumb, thumb)
-        xbmcplugin.endOfDirectory(plugin_handle)
+    content = make_request(online_m3u)
+    match = re.compile(m3u_regex2).findall(content)
+    for name, url in match:
+                # url = url
+                url = h + url                    
+                thumb= ''
+                add_dir(name, url, 22, thumb, thumb)
+    xbmcplugin.endOfDirectory(plugin_handle)
         
 def m3u_online3():
-        content = make_request(m3uest)
-        match = re.compile(m3u_regex2).findall(content)
-        for name, url in match:
-                    url = url
-                    thumb= ''
-                    add_dir(name, url, 27, thumb, thumb)
-        xbmcplugin.endOfDirectory(plugin_handle)        
+    content = make_request(m3uest)
+    match = re.compile(m3u_regex2).findall(content)
+    for name, url in match:
+                url = url
+                thumb= ''
+                add_dir(name, url, 27, thumb, thumb)
+    xbmcplugin.endOfDirectory(plugin_handle)        
 
 def m3u_online2(name, url, thumb):
-                content = make_request(url)
-                regexcat = 'EXTINF.*?,(.*?)\\n(.*?)\\n'
-                match = re.compile(regexcat,re.DOTALL).findall(content)
-                for name, url in match:
-                        url = url.replace(" ", "")
-                        url = url.replace("\\n", "")
-                        url = url.replace('\r','')
-                        if 'tvg-logo' in thumb:
-                            thumb = re.compile(thumb_regex).findall(str(thumb))[0].replace(' ', '%20')
-                            # add_link(name, url, 1, thumb, thumb)
-                        name = name.replace('\r','')
-                        try:
-                            m3u_playlist(name, url, thumb)
-                        except:
-                            pass
+    content = make_request(url)
+    regexcat = 'EXTINF.*?,(.*?)\\n(.*?)\\n'
+    match = re.compile(regexcat,re.DOTALL).findall(content)
+    for name, url in match:
+            url = url.replace(" ", "")
+            url = url.replace("\\n", "")
+            url = url.replace('\r','')
+            if 'tvg-logo' in thumb:
+                thumb = re.compile(thumb_regex).findall(str(thumb))[0].replace(' ', '%20')
+                # add_link(name, url, 1, thumb, thumb)
+            name = name.replace('\r','')
+            try:
+                m3u_playlist(name, url, thumb)
+            except:
+                pass
 
 def m3u_local():
 	content = read_file(local_m3u)
@@ -713,24 +712,18 @@ print("iconimage: " + str(iconimage))
 
 if mode == None or url == None or len(url) < 1:
 	main()
-
 elif mode == 1:
 	play_video(url)
-
 elif mode == 99:
 	search()
-    
 elif mode == 27:
     thumb = icon
     ok = m3u_online2(name, url,thumb)
-    
 elif mode == 22:
     thumb = icon
     ok = m3u_online2(name, url,thumb)
-
 elif mode == 112:
     links(name, url)
-
 else:
 	open_list(mode)
 

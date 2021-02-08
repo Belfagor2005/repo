@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: latin-1 -*-
+# -*- coding: utf-8 -*-
 """
 Copyright (C) 2018-2020
 This program is free software: you can redistribute it and/or modify
@@ -72,18 +72,6 @@ else:
     import httplib
     from urlparse import parse_qs
     from urllib import unquote_plus, unquote
-
-##py2
-# import urllib, urllib2
-# from htmlentitydefs import name2codepoint as n2cp
-# import httplib
-# import urlparse
-# from urllib2 import Request, URLError, urlopen
-# from urlparse import parse_qs
-# from urllib import unquote_plus
-# import resolver
-# sources = resolver.sources
-# from resolver import getVideo
 
 from resources.lib import resolver
 sources = resolver.sources

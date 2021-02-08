@@ -12,7 +12,7 @@
 		<setting label="[B]Film G-L[/B]" type="text"  id="media_gl_m3u" default="https://tivustream.website/php_filter/tsl.php?p=2&t=24" />
 		<setting label="[B]Film M-R[/B]" type="text"  id="media_mr_m3u" default="https://tivustream.website/php_filter/tsl.php?p=2&t=25" />
 		<setting label="[B]Film S-Z[/B]" type="text"  id="media_sz_m3u" default="https://tivustream.website/php_filter/tsl.php?p=2&t=26" />
-		<setting label="[B]Film Internazionali[/B]" type="text"  id="mediaint_m3u" default="https://tivustream.website/php_filter/tsl.php?p=2&t=26" />
+		<setting label="[B]Film Internazionali[/B]" type="text"  id="mediaint_m3u" default="https://tivustream.website/php_filter/tsl.php?p=2&t=27" />
 		<setting label="[B]Serie tv 0-9[/B]" type="text"  id="series_09_m3u" default="https://tivustream.website/php_filter/tsl.php?p=2&t=11" />
 		<setting label="[B]Serie tv A-E[/B]" type="text"  id="series_ae_m3u" default="https://tivustream.website/php_filter/tsl.php?p=2&t=12" />
 		<setting label="[B]Serie tv F-K[/B]" type="text"  id="series_fk_m3u" default="https://tivustream.website/php_filter/tsl.php?p=2&t=13" />
@@ -22,7 +22,7 @@
 		<setting label="[B]Canali Musica ( Radio Tv )[/B]" type="text"  id="music_m3u" default="https://tivustream.website/php_filter/tsl.php?t=5" />
 		<setting label="[B]Canali News[/B]" type="text"  id="news_m3u" default="https://tivustream.website/php_filter/tsl.php?t=6" />
 		<setting label="[B]Canali Internazionali[/B]" type="text"  id="int_m3u" default="https://tivustream.website/php_filter/tsl.php?t=7" />
-		<setting label="[B]Canali Internazionali II[/B]" type="text"  id="int2_m3u" default="https://tivustream.website/php_filter/fh.php" />
+		<setting label="[B]Canali Internazionali II[/B]" type="text"  id="int2_m3u" default="http://patbuweb.com/php_filter/fh.php" />
 		<setting label="[B]Radio Italiane[/B]" type="text"  id="radio_m3u" default="https://tivustream.website/php_filter/tsl.php?p=3&t=1" />
 		<setting label="[B]Radio Internazionali[/B]" type="text"  id="radioint_m3u" default="https://tivustream.website/php_filter/tsl.php?p=3&t=2" />
 		<setting label="[B]Dash Radio[/B]" type="text"  id="radiodash_m3u" default="https://tivustream.website/php_filter/tsl.php?p=3&t=3" />
