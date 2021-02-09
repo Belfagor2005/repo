@@ -7,7 +7,7 @@
 		<dir>
 			<info compressed="false">https://raw.githubusercontent.com/Belfagor2005/repo/main/addons/addons.xml</info>
 			<checksum>https://raw.githubusercontent.com/Belfagor2005/repo/main/addons/addons.xml.md5</checksum>
-			<datadir zip="true">https://github.com/Belfagor2005/repo/tree/main/addons/</datadir>
+			<datadir zip="true">https://raw.githubusercontent.com/Belfagor2005/repo/main/addons/</datadir>
 		</dir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
