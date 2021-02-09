@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon	id="repository.gilulla"
+		name="Gilulla Repository"
+		version="1.0.0"
+		provider-name="@pcd-@lululla">
+	<extension point="xbmc.addon.repository" name="TiVuStream Repository">
+		<dir>
+			<info compressed="false">https://raw.githubusercontent.com/Belfagor2005/repo/main/addons/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/Belfagor2005/repo/main/addons/addons.xml.md5</checksum>
+			<datadir zip="true">https://github.com/Belfagor2005/repo/tree/main/addons/</datadir>
+		</dir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary>All Free</summary>
+		<description>All addon for all web list</description>
+		<disclaimer> lang="it">Il nostro addon non trasmette, ritrasmette qualsiasi canale esposto, né ottiene alcun reddito dall'opera elaborata</disclaimer>
+	</extension>
+</addon>
+

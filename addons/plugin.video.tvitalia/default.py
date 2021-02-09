@@ -495,7 +495,7 @@ def showContent321(name, url):
 def showContent45(name, url):
         content = getUrl(url)
         print("showContent2 content =", content)
-        if "fiction" in url:
+        if "fiction" in name.lower():
             regexcat = 'a href="/fiction/(.*?)".*?class="_2_UgV">(.*?)</p'
             match = re.compile(regexcat, re.DOTALL).findall(content)
             print ("_gotPageLoad match =", match)
@@ -510,7 +510,7 @@ def showContent45(name, url):
                 addDirectoryItem(name, {"name":name, "url":url, "mode":46}, pic)
             # xbmcplugin.endOfDirectory(thisPlugin)
 
-        if "family" in url:
+        elif "family" in url:
             regexcat = 'class="_3G-Rv undefined "><a href="(.*?)".*?class="_1ovAG">(.*?)<'
             match = re.compile(regexcat, re.DOTALL).findall(content)
             print ("_gotPageLoad match =", match)
@@ -524,7 +524,7 @@ def showContent45(name, url):
                 addDirectoryItem(name, {"name":name, "url":url, "mode":46}, pic)
             # xbmcplugin.endOfDirectory(thisPlugin)
                 
-        if "film" in url:
+        elif "film" in url:
             regexcat = 'a href="/movie/(.*?)".*?class="_2_UgV">(.*?)</p'
             match = re.compile(regexcat, re.DOTALL).findall(content)
             print ("_gotPageLoad match =", match)
@@ -537,42 +537,47 @@ def showContent45(name, url):
                 pic = " "
                 addDirectoryItem(name, {"name":name, "url":url, "mode":46}, pic)
                 
-        if "programmi" in url:
+        elif "programmi" in url:
             regexcat = 'a href="/programmi-tv/(.*?)".*?class="_2_UgV">(.*?)</p'
             match = re.compile(regexcat, re.DOTALL).findall(content)
             print ("_gotPageLoad match =", match)
             for url , name in match:
-                pic = " "
                 name = name.replace("&#x27;","'").replace("&amp;","&")# url
                 url = "https://www.mediasetplay.mediaset.it/programmi-tv/" + url
                 print('name : ', name)
                 print('url:  ', url)
                 pic = " "
                 addDirectoryItem(name, {"name":name, "url":url, "mode":46}, pic)
-        if "kids" in url:
+        elif "kids" in url:
             regexcat = 'a href="/video/(.*?)".*?class="_2_UgV">(.*?)</p'
             match = re.compile(regexcat, re.DOTALL).findall(content)
             print ("kids _gotPageLoad match =", match)
             for url, name in match:
-                pic = " "
                 name = name.replace("&#x27;","'").replace("&amp;","&") # url
                 url = "https://www.mediasetplay.mediaset.it/video/" + url
                 print('name : ', name)
                 print('url:  ', url)            
                 pic = " "
                 addDirectoryItem(name, {"name":name, "url":url, "mode":46}, pic)
-        if "documentari" in url:
-            regexcat = 'a href="/playlist/(.*?)".*?class="_2_UgV">(.*?)</p'
-            match = re.compile(regexcat, re.DOTALL).findall(content)
-            print ("_gotPageLoad match =", match)
-            for url, name in match:
-                pic = " "
-                name = name.replace("&#x27;","'").replace("&amp;","&") #url
-                url = "https://www.mediasetplay.mediaset.it/playlist/" + url
-                print('name : ', name)
-                print('url:  ', url)
-                pic = " "
-                addDirectoryItem(name, {"name":name, "url":url, "mode":46}, pic)
+        else: 
+        
+            if "documentari" in name.lower():
+            
+                # n1 = content.find('id="root">', 0)
+                # n2 = content.find("</body>", n1)
+                # content = content[n1:n2]
+                regexcat = 'a href="/playlist/(.*?)".*?class="_2_UgV">(.*?)</p'        
+                # regexcat = 'a href="/playlist/(.*?)".*?class="_3Qrkm"><span>(.*?)</'
+                
+                match = re.compile(regexcat, re.DOTALL).findall(content)
+                print ("_gotPageLoad match =", match)
+                for url, name in match:
+                    name = name.replace("&#x27;","'").replace("&amp;","&") #url
+                    url = "https://www.mediasetplay.mediaset.it/playlist/" + url
+                    print('name : ', name)
+                    print('url:  ', url)
+                    pic = " "
+                    addDirectoryItem(name, {"name":name, "url":url, "mode":46}, pic)
         xbmcplugin.endOfDirectory(thisPlugin)  
             
         # else:
