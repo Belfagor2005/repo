@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.parsatv"
+	   name="ParsaTv"
+	   version="1.0.0"
+	   provider-name="linuxsat-support">
+  <extension point="xbmc.python.pluginsource"
+			 library="default.py">
+    	<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Sport links</summary>
+    <description>Sport links</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+
+
+
+
+

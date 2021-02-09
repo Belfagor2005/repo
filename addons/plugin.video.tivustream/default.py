@@ -447,7 +447,7 @@ def open_list(cheLista):
         content = make_request(news_m3u)
     #INTERNATIONAL II
     elif cheLista == 35:
-        # content = make_request(m3uest)   
+        # content = make_request(int2_m3u)   
         m3u_online3()
     elif cheLista == 31:
         # content = make_request(int_m3u)
@@ -536,7 +536,7 @@ def m3u_online():
     xbmcplugin.endOfDirectory(plugin_handle)
         
 def m3u_online3():
-    content = make_request(m3uest)
+    content = make_request(int2_m3u)
     match = re.compile(m3u_regex2).findall(content)
     for name, url in match:
                 url = url

@@ -53,7 +53,8 @@ if not path.exists(dataPath):
        system(cmd)
 
 
-vid = xbmc.translatePath(os.path.join(home, 'vid.txt'))
+vidpc = xbmc.translatePath(os.path.join(home, 'vid.txt'))
+vide2 = "/tmp/vid.txt"         
 
 # thisPlugin = int(sys.argv[1])
 # addonId = "plugin.video.tvitalia"
@@ -444,13 +445,14 @@ def showContent33(name, url):
         xbmcplugin.endOfDirectory(thisPlugin)
 
 def playVideo34(name, url):
-           print("In playVideo2 url =", url)
-           cmd = "python '/usr/lib/enigma2/python/Plugins/Extensions/KodiLite/__main__.py' --no-check-certificate --skip-download -f best --get-url '" + url + "' > " + vid # /tmp/vid.txt"
-           print("In playVideo2 cmd =", cmd)
-           if os.path.exists(vid):
-               os.remove(vid)
-           os.system(cmd)
-           vidurl = vid
+        print("In playVideo2 url =", url)
+        vidurl  = vidpc 
+        if os.path.exists('/usr/lib/enigma2/python/Plugins/Extensions/KodiLite'):
+            vidurl = vide2
+        cmd = "python '/usr/lib/enigma2/python/Plugins/Extensions/KodiLite/__main__.py' --no-check-certificate --skip-download -f best --get-url '" + url + "' > " + vidurl # /tmp/vid.txt"
+        print("In playVideo2 cmd =", cmd)            
+        if os.path.exists(vidurl):
+            os.remove(vidurl)
            # if os.path.exists("/tmp/vid.txt"):
                # os.remove("/tmp/vid.txt")
            # os.system(cmd)
