@@ -709,7 +709,7 @@ def add_dir(name, url, mode, iconimage, fanart):
 
 def addDirectoryItem(name, parameters={},pic=""):
     li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
-    url = sys.argv[0] + '?' + urllib.urlencode(parameters)
+    url = sys.argv[0] + '?' + urlencode(parameters)
     return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
 
 
@@ -728,11 +728,11 @@ mode = None
 iconimage = None
 
 try:
-	url = urllib.unquote_plus(params["url"])
+	url = unquote_plus(params["url"])
 except:
 	pass
 try:
-	name = urllib.unquote_plus(params["name"])
+	name = unquote_plus(params["name"])
 except:
 	pass
 try:
@@ -740,7 +740,7 @@ try:
 except:
 	pass
 try:
-	iconimage = urllib.unquote_plus(params["iconimage"])
+	iconimage = unquote_plus(params["iconimage"])
 except:
 	pass
 
