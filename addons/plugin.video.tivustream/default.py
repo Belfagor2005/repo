@@ -44,53 +44,14 @@ Developed by Lululla for TiVuStream.com
 Thank's @MasterG & @pcd for all (Linuxsat support)
 """
 
-# import urllib, urllib2,urlparse,HTMLParser
-
-import unicodedata, json
+import urllib, urllib2, sys, re, os, unicodedata, json
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
-import xbmcvfs,socket,time,threading
+import xbmcvfs,socket,urlparse,time,threading,HTMLParser
 import os
 import re
 import base64
 import logging
-PY3 = sys.version_info.major >= 3
 
-if PY3:
-    from urllib.request import urlopen, Request
-    from urllib.error import URLError
-    from urllib.request import urlretrieve
-    # from urllib.request import build_opener
-    from urllib.parse import urlparse
-    import http.cookiejar   
-    from urllib.parse import unquote_plus   
-    from urllib.parse import quote
-    from urllib.parse import quote_plus    
-    # from urllib.parse import install_opener    
-    # from urllib.request import ProxyHandler
-    # from urllib.request import HTTPCookieProcessor 
-    # from urllib.request import HTTPBasicAuthHandler    
-    # from urllib.request import HTTPHandler 
-    # from urllib.request import HTTPErrorProcessor     
-    from urllib.parse import urlencode
-    from html.parser import HTMLParser
-    
-else:
-    from urllib2 import urlopen, Request, URLError
-    from urllib import urlretrieve
-    from urllib import unquote_plus
-    from urllib import quote
-    from urllib import quote_plus    
-    import cookielib      
-    from urlparse import urlparse
-    # from urllib2 import ProxyHandler
-    # from urllib2 import build_opener
-    # from urllib2 import install_opener
-    # from urllib2 import HTTPCookieProcessor
-    # from urllib2 import HTTPBasicAuthHandler
-    # from urllib2 import HTTPHandler
-    # from urllib2 import HTTPErrorProcessor    
-    from urllib import urlencode
-    import HTMLParser
 
 PLUGIN_NAME = "tivustream"
 plugin_handle = int(sys.argv[1])
@@ -194,14 +155,14 @@ def read_file(file):
 
 def make_request(url):
 	try:
-		req = Request(url)
+		req = urllib2.Request(url)
 		req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:52.0) Gecko/20100101 Firefox/52.0')
-		response = urlopen(req)
+		response = urllib2.urlopen(req)
 		link = response.read()
 		response.close()
 		print("link =", link)
 		return link
-	except URLError as e:
+	except urllib2.URLError as e:
 		print('We failed to open "%s".' % url)
 		if hasattr(e, 'code'):
 			print('We failed with error code - %s.' % e.code)
@@ -278,7 +239,7 @@ def search():
         keyb = xbmc.Keyboard('', 'Search :')
         keyb.doModal()
         if (keyb.isConfirmed()):
-                searchText = quote_plus(keyb.getText()).replace('+', ' ')
+                searchText = urllib.quote_plus(keyb.getText()).replace('+', ' ')
         if len(events_m3u) > 0:
                 content = make_request(events_m3u)
                 match = re.compile(m3u_regex).findall(content)
@@ -486,7 +447,7 @@ def open_list(cheLista):
         content = make_request(news_m3u)
     #INTERNATIONAL II
     elif cheLista == 35:
-        # content = make_request(int2_m3u)   
+        # content = make_request(m3uest)   
         m3u_online3()
     elif cheLista == 31:
         # content = make_request(int_m3u)
@@ -575,7 +536,7 @@ def m3u_online():
     xbmcplugin.endOfDirectory(plugin_handle)
         
 def m3u_online3():
-    content = make_request(int2_m3u)
+    content = make_request(m3uest)
     match = re.compile(m3u_regex2).findall(content)
     for name, url in match:
                 url = url
@@ -695,7 +656,7 @@ def get_params():
 	return param
 
 def add_dir(name, url, mode, iconimage, fanart):
-        u = sys.argv[0] + "?url=" + quote_plus(url) + "&mode=" + str(mode) + "&name=" + quote_plus(name) + "&iconimage=" + quote_plus(iconimage)
+        u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) + "&name=" + urllib.quote_plus(name) + "&iconimage=" + urllib.quote_plus(iconimage)
         ok = True
         liz = xbmcgui.ListItem(name, iconImage = "DefaultFolder.png", thumbnailImage = iconimage)
         liz.setInfo( type = "Video", infoLabels = { "Title": name } )
@@ -709,12 +670,12 @@ def add_dir(name, url, mode, iconimage, fanart):
 
 def addDirectoryItem(name, parameters={},pic=""):
     li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
-    url = sys.argv[0] + '?' + urlencode(parameters)
+    url = sys.argv[0] + '?' + urllib.urlencode(parameters)
     return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
 
 
 def add_link(name, url, mode, iconimage, fanart):
-	u = sys.argv[0] + "?url=" + quote_plus(url) + "&mode=" + str(mode) + "&name=" + quote_plus(name) + "&iconimage=" + quote_plus(iconimage)
+	u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) + "&name=" + urllib.quote_plus(name) + "&iconimage=" + urllib.quote_plus(iconimage)
 	liz = xbmcgui.ListItem(name, iconImage = "DefaultVideo.png", thumbnailImage = iconimage)
 	liz.setInfo( type = "Video", infoLabels = { "Title": name } )
 	liz.setProperty('fanart_image', fanart)
@@ -728,11 +689,11 @@ mode = None
 iconimage = None
 
 try:
-	url = unquote_plus(params["url"])
+	url = urllib.unquote_plus(params["url"])
 except:
 	pass
 try:
-	name = unquote_plus(params["name"])
+	name = urllib.unquote_plus(params["name"])
 except:
 	pass
 try:
@@ -740,7 +701,7 @@ try:
 except:
 	pass
 try:
-	iconimage = unquote_plus(params["iconimage"])
+	iconimage = urllib.unquote_plus(params["iconimage"])
 except:
 	pass
 
