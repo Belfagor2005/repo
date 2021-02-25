@@ -56,7 +56,7 @@ if PY3:
     from urllib.error import URLError, HTTPError
     from urllib.parse import urlparse, unquote
     from urllib.parse import urlencode, quote
-    import urllib.request, urllib.parse, urllib.error, urllib.request, urllib.error, urllib.parse
+    import urllib.request, urllib.parse, urllib.error
     from html.entities import name2codepoint as n2cp
     import http.client
     from urllib.parse import parse_qs
