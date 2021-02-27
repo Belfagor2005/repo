@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
+# -*- coding: latin-1 -*-
 """
 Copyright (C) 2018-2020
 This program is free software: you can redistribute it and/or modify
@@ -72,6 +72,18 @@ else:
     import httplib
     from urlparse import parse_qs
     from urllib import unquote_plus, unquote
+
+##py2
+# import urllib, urllib2
+# from htmlentitydefs import name2codepoint as n2cp
+# import httplib
+# import urlparse
+# from urllib2 import Request, URLError, urlopen
+# from urlparse import parse_qs
+# from urllib import unquote_plus
+# import resolver
+# sources = resolver.sources
+# from resolver import getVideo
 
 from resources.lib import resolver
 sources = resolver.sources
@@ -1297,13 +1309,12 @@ def showContent112(name, url):
                         addDirectoryItem(name, url,200, pic, fanart)
                 # xbmcplugin.endOfDirectory(thisPlugin)
 
-
 def showContenttz():
-        pic = t_xxx
         content = getUrl(HostThumb)
         pass#print "content A =", content
         icount = 0
         start = 0
+        pic = ''
         addDirectoryItem("Search", HostThumb, 94, pic, fanart)
         name = "Hottest"
         url = "https://www.thumbzilla.com/"
@@ -1329,59 +1340,63 @@ def showContenttz():
         name = "Pornstars"
         url = "https://www.thumbzilla.com/pornstars"
         addDirectoryItem(name, url,91, pic, fanart)
-        i1 = 0
+        i1 = 0           
         if i1 == 0:
                 #https://www.thumbzilla.com/categories/british
                 regexcat = 'div class="checkHomepage".*?a href="/categories/(.*?)"'
                 match = re.compile(regexcat,re.DOTALL).findall(content)
                 pass#print "match =", match
                 for name in match:
-                        url = "https://www.thumbzilla.com/categories/" + name
-                        # addDirectoryItem(name, {"name":name, "url":url, "mode":91}, pic)
+                        url1 = "https://www.thumbzilla.com/categories/" + name
+                        pic = " "
+                        ##pass#print "Here in Showcontent url1 =", url1
+                        # addDirectoryItem(name, {"name":name, "url":url1, "mode":91}, pic)
                         addDirectoryItem(name, url,91, pic, fanart)
-        # xbmcplugin.endOfDirectory(thisPlugin)
-
+                # xbmcplugin.endOfDirectory(thisPlugin)
+                
 def getVideos2(name, url):
                 pass#print "In getVideos2 name =", name
                 pass#print "In getVideos2 url =", url
                 f = open("/tmp/xbmc_search.txt", "r")
                 icount = 0
-                for line in f.readlines():
+                for line in f.readlines(): 
                     sline = line
                     icount = icount+1
                     if icount > 0:
                            break
+
                 name = sline.replace(" ", "+")
                 #https://www.thumbzilla.com/video/search?q=mom+anal&page=4
-                url = "https://www.thumbzilla.com/video/search?q=" + name
-                getPage2(name, url)
-
-
+                url1 = "https://www.thumbzilla.com/video/search?q=" + name
+                getPage2(name, url1)
+                
 def getPage2(name, urlmain):
                 pages = [1, 2, 3, 4, 5, 6]
                 for page in pages:
                         url = urlmain + str(page)
                         name = "Page " + str(page)
-                        pic = t_xxx
+                        pic = " "
+                        # addDirectoryItem(name, {"name":name, "url":url, "mode":92}, pic)
                         addDirectoryItem(name, url,92, pic, fanart)
-                # xbmcplugin.endOfDirectory(thisPlugin)
+                xbmcplugin.endOfDirectory(thisPlugin)
+
 
 #https://www.thumbzilla.com/categories/british?page=4
 def getPagetz(name, url):
                 pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
                 for page in pages:
-                        url = url + "?page=" + str(page)
+                        url1 = url + "?page=" + str(page)
                         name = "Page " + str(page)
-                        pic = t_xxx
-                        # addDirectoryItem(name, {"name":name, "url":url, "mode":92}, pic)
-                        addDirectoryItem(name, url, 92, pic, fanart)                        
-                # xbmcplugin.endOfDirectory(thisPlugin)
+                        pic = " "
+                        # addDirectoryItem(name, {"name":name, "url":url1, "mode":92}, pic)
+                        addDirectoryItem(name, url, 92, pic, fanart)  
+                xbmcplugin.endOfDirectory(thisPlugin)
 
 #https://www.thumbzilla.com/video/ph59e667177496c/stella-cox-seduced-by-horny-lesbian-friend
 def getVideostz(name, urlmain):
     content = getUrl(urlmain)
     pass#print "content B =", content
-    regexvideo = '<a class="js-thumb" href="(.*?)".*?src="(.*?)".*?<span class="title">(.*?)<.'
+    regexvideo = 'class="js-thumb.*?href="(.*?)".*?src="(.*?)".*?class="title">(.*?)<'
     match = re.compile(regexvideo,re.DOTALL).findall(content)
     pass#print "getVideostz match =", match
     for url, pic, name in match:
