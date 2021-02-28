@@ -48,12 +48,7 @@ else:
 import datetime
 
 # import StorageServer
-
-
-try:
-  import StorageServer
-except:
-  import storageserverdummy as StorageServer                                      
+from resources.lib.storage_server import StorageServer
 from resources.lib.tgr import TGR
 from resources.lib.search import Search
 from resources.lib.raiplay import RaiPlay
@@ -526,6 +521,13 @@ def show_ondemand_root():
  
             if not (item["name"] in ("Teatro", "Musica")):
                 liStyle = xbmcgui.ListItem(item["name"])
+                
+                # new urls 
+                # i.e. change "/raiplay/programmi/?json" to "/raiplay/tipologia/programmi/index.json"
+                m = re.findall("raiplay/(.*?)/[?]json", item["PathID"])
+                if m:
+                    item["PathID"] = "/raiplay/tipologia/%s/index.json" % m[0]   
+
                 addDirectoryItem({"mode": "ondemand", "path_id": item["PathID"], "sub_type": item["sub-type"]}, liStyle)
     
     # add new item not in old json
@@ -561,7 +563,7 @@ def show_ondemand_list(pathId):
     # indice ottenuto dal json
     raiplay = RaiPlay(Addon)
     xbmc.log("Url: %s" % raiplay.getUrl(pathId) )
-    
+
     index = raiplay.getIndexFromJSON(pathId)
     xbmc.log(str(index))
 
