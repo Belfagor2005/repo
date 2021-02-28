@@ -1,5 +1,5 @@
 #EXTM3U
-#EXTINF:-1,[COLOR yellow]tvStreamXXX Version 1.1.9 (06-11-2020)[/COLOR]
+#EXTINF:-1,[COLOR yellow]tvStreamXXX Version 1.2.0 (27-02-2021)[/COLOR]
 #EXTINF:0,News addon tivustream.com
 http://0.0.0.0
 #EXTINF:0,Support: Web: tivustream.com - Telegram: t.me/tivustream
