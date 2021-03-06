@@ -1,245 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon	id="repository.tivustream"
-		name="TiVuStream Repository"
-		version="1.0.1"
-		provider-name="@pcd-@lululla @ilGattoRosso">
-	<extension point="xbmc.addon.repository" name="TiVuStream Repository">
-		<dir>
-			<info compressed="false">https://tivustream.website/repo/addons/addons.xml</info>
-			<checksum>https://tivustream.website/repo/addons/addons.xml.md5</checksum>
-			<datadir zip="true">https://tivustream.website/repo/addons/</datadir>
-		</dir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<platform>all</platform>
-		<summary>Tivustream Free</summary>
-		<description>Unisciti a noi su Telegram su https://t.me/tivustream aggiungi, modifica, rendi questo elenco anche tuo. Vieni a trovarci su tivustream.com</description>
-		<disclaimer> lang="it">Il nostro addon non trasmette, ritrasmette qualsiasi canale esposto, né ottiene alcun reddito dall'opera elaborata</disclaimer>
-	</extension>
-</addon>
-
-<addon	id="repository.gilulla"
-		name="Gilulla Repository"
-		version="1.0.0"
-		provider-name="@pcd-@lululla">
-	<extension point="xbmc.addon.repository" name="TiVuStream Repository">
-		<dir>
-			<info compressed="false">https://raw.githubusercontent.com/Belfagor2005/repo/main/addons/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/Belfagor2005/repo/main/addons/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/Belfagor2005/repo/main/addons/</datadir>
-		</dir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<platform>all</platform>
-		<summary>All Free</summary>
-		<description>All addon for all web list</description>
-		<disclaimer> lang="it">Il nostro addon non trasmette, ritrasmette qualsiasi canale esposto, né ottiene alcun reddito dall'opera elaborata</disclaimer>
-	</extension>
-</addon>
-
-<addon id="plugin.video.youtube" name="youtube" version="1.0.7" provider-name="linuxsat-team">
-	<requires>
-		<import addon="xbmc.python" version="2.19.0"/>
-	</requires>
-	<extension point="xbmc.python.pluginsource" library="default.py">
-		<provides>video</provides>
-	</extension>
-    <extension point="xbmc.service" library="startup.py" start="startup" />
-	<extension point="xbmc.addon.metadata">
-        <summary lang="en">Videos from youtube</summary>
-        <description lang="en">Videos from youtube</description>
-
-		<language></language>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="plugin.video.freearhey" name="freearhey" version="1.5" provider-name="@pcd @lululla">
-    <requires>
-        <import addon="xbmc.python" version="2.1.0"/>
-        <!--
-		<import addon="script.video.F4mProxy" version="2.7.1"/>
-		-->
-    </requires>
-
-  <extension point="xbmc.python.pluginsource" library="default.py">
-    	<provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary>Plays m3u files online.</summary>
-    <description>Plays m3u files online.</description>
-    <platform>all</platform>
-  </extension>
-</addon>
-
-<addon id="plugin.video.filmon"
-	   name="Filmon"
-	   version="1.0.2"
+<addon id="plugin.video.worldcam"
+	   name="worldcam"
+	   version="1.0.9"
 	   provider-name="linuxsat-support">
-  <extension point="xbmc.python.pluginsource"
-			 library="default.py">
-    	<provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary>Videos from filmon.com</summary>
-    <description>Videos from filmon.com</description>
-    <platform>all</platform>
-  </extension>
-</addon>
-
-<addon id="plugin.video.dailymotion" name="dailymotion" version="1.0.2" provider-name="linuxsat-team">
-  <requires>
-   <import addon="xbmc.python" version="2.14.0"/>
-  </requires>
-
-	<extension point="xbmc.python.pluginsource" library="default.py">
-		<provides>video</provides>
-	</extension>
-    <extension point="xbmc.service" library="startup.py" start="startup" />
-	<extension point="xbmc.addon.metadata">
-        <summary lang="en">Videos from dailymotion</summary>
-        <description lang="en">Videos from dailymotion</description>
-
-		<language></language>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="plugin.video.altadefinizione01"
-	   name="Altadefinizione01"
-	   version="1.0.3"
-	   provider-name="linuxsat-support">
-	<requires>
-		<import addon="xbmc.python" version="2.19.0" />
-		<import addon="script.module.urlresolver" />
-	</requires>
 
   <extension point="xbmc.python.pluginsource"
 			 library="default.py">
     	<provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary>Videos from altadefinizione01.photo</summary>
-    <description>Videos from altadefinizione01.photo</description>
+    <summary>Live cam from around the world</summary>
+    <description>Live cam from around the world</description>
     <platform>all</platform>
   </extension>
-</addon>
-
-<addon id="plugin.video.raitv"
-       name="Rai Play"
-       version="3.5.1"
-       provider-name="Nightflyer, cttynul, maxbambi, fabpolli">
-  <requires>
-        <import addon="xbmc.python" version="2.25.0"/>
-    <import addon="script.common.plugin.cache" version="2.6.0"/>
-    <import addon="script.module.inputstreamhelper"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource"
-            library="default.py">
-        <provides>video audio</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <language>it</language>
-    <platform>all</platform>
-    <summary lang="it_IT">I programmi delle reti Rai e i servizi interattivi</summary>
-    <description lang="it_IT">
-I canali radio e tv in diretta, gli ultimi 7 giorni di programmazione, le puntate integrali, i telegiornali.
-Source: https://github.com/maxbambi/plugin.video.raitv/
-      </description>
-    <summary lang="en_GB">The broadcasts of Rai channels and its interactive services</summary>
-    <description lang="en_GB">
-Live radio and TV channels, latest 7 days of programming, broadcast archive, news.
-Source: https://github.com/maxbambi/plugin.video.raitv/
-      </description>
-    <license>GPL-3.0-or-later</license>
-    <forum>https://forum.kodi.tv/showthread.php?tid=155922</forum>
-    <website>https://github.com/maxbambi/plugin.video.raitv/</website>
-    <email></email>
-    <news>
-[B]3.5.1[/B]
-- Fix new urls for VOD
-[B]3.5.0[/B]
-- Plugin works with Widevine DRM
-[B]3.4.8[/B]
-- Updated User-Agent
-- Plugin can stream mpd
-[B]3.4.7[/B]
-- Translations
-- Added new items for viewing all elements of a category.
-- On air menu shows also current programs.
-- Added new section from home page of Raiplay.
-    </news>
-    <source>https://github.com/maxbambi/plugin.video.raitv/</source>
-    <assets>
-      <icon>resources/icon.png</icon>
-      <fanart>resources/fanart.jpg</fanart>
-    </assets>
-  </extension>
-</addon>
-
-<addon id="plugin.video.tivustream18"
-	name="TiVuStream 18"
-	version="1.2.0"
-	provider-name="@pcd-@lululla @ilGattoRosso">
-  <requires>
-  </requires>
-  <extension point="xbmc.python.pluginsource"
-			library="default.py">
-		<provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-	<platform>all</platform>
-	<summary>Tivustream addon Adult(18+) videos from internet</summary>
-	<description>Unisciti a noi su Telegram su https://t.me/tivustream aggiungi, modifica, rendi questo elenco anche tuo. Vieni a trovarci su tivustream.com</description>
-	<disclaimer lang="it">Il nostro addon non trasmette, ritrasmette qualsiasi canale esposto, né ottiene alcun reddito dall'opera elaborata</disclaimer>
-  </extension>
-</addon>
-
-<addon id="script.module.six"
-       name="six"
-       version="1.13.0"
-       provider-name="gutworth">
-  <requires>
-    <import addon="xbmc.python"
-    		version="2.14.0"/>
-  </requires>
-  <extension point="xbmc.python.module"
-             library="lib" />
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en">Python 2 and 3 compatibility utilities.</summary>
-    <description lang="en">Six is a Python 2 and 3 compatibility library. It provides utility functions for smoothing over the differences between the Python versions with the goal of writing Python code that is compatible on both Python versions. See the documentation for more information on what is provided.</description>
-    <platform>all</platform>
-    <license>MIT</license>
-    <source>https://pypi.org/project/six/</source>
-    <website>https://pypi.org/project/six/</website>
-  </extension>
-</addon>
-
-<addon id="script.module.python.twitch" name="python-twitch for Kodi" version="2.0.16" provider-name="anxdpanic, A Talented Community">
-    <requires>
-        <import addon="xbmc.python" version="2.20.0"/>
-        <import addon="script.module.six" version="1.11.0"/>
-        <import addon="script.module.requests" version="2.12.4"/>
-    </requires>
-    <extension point="xbmc.python.module" library="resources/lib"/>
-    <extension point="xbmc.addon.metadata">
-        <platform>all</platform>
-        <news>
-[fix] playback, change access token to use gql endpoints
-[chg] change followed, following, and unfollowing games to use gql endpoints
-        </news>
-        <assets>
-            <icon>icon.png</icon>
-        </assets>
-        <platform>all</platform>
-        <summary lang="en_GB">Module for interaction with the Twitch.tv API</summary>
-        <description lang="en_GB">python-twitch for Kodi is module for interaction with the Twitch.tv API based on python-twitch by ingwinlu.</description>
-        <license>GPL-3.0-only</license>
-        <source>https://github.com/anxdpanic/script.module.python.twitch</source>
-        <forum>https://twitchaddon.panicked.xyz/forum</forum>
-        <reuselanguageinvoker>true</reuselanguageinvoker>
-    </extension>
 </addon>
 
 <addon id="plugin.video.twitch" version="2.5.4" name="Twitch" provider-name="anxdpanic, A Talented Community">
@@ -286,28 +60,70 @@ Source: https://github.com/maxbambi/plugin.video.raitv/
     </extension>
 </addon>
 
-<addon id="plugin.video.dplay" name="Dplay" version="1.0.8.3" provider-name="NeverWise, cttynul, maxbambi">
-  <requires>
-    <import addon="xbmc.python" version="2.14.0"/>
-    <import addon="script.module.neverwise" version="1.1.2"/>
-  </requires>
+<addon id="plugin.video.tvitalia" name="TvItalia" version="1.0.2" provider-name="Linuxsat-support Team">
   <extension point="xbmc.python.pluginsource" library="default.py">
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
+    <summary>Italian tv</summary>
+    <description>Italian tv</description>
     <platform>all</platform>
-    <summary lang="it_IT">Dplay</summary>
-    <summary lang="en_GB">Dplay</summary>
-    <description lang="it_IT">Dplay è un servizio di streaming video che ti consente di guardare gratis e on demand i tuoi programmi preferiti di Real Time, Dmax, DeejayTV, Focus, Giallo, Frisbee e K2 dove vuoi e quando vuoi.[CR][CR]Con il meglio della programmazione dei canali free di Discovery Italia, Dplay porta la TV oltre i soliti schermi.</description>
-    <description lang="en_GB">Dplay is a video streaming service that lets you watch, for free and on demand, your favorite Real Time, Dmax, DeejayTv, Focus, Yellow, Frisbee and K2 programs where you want and when you want.[CR][CR]Featuring the best programming free channels of Discovery Italy, Dplay brings the TV beyond the usual TV screens.</description>
-    <disclaimer lang="it_IT">Alcune parti di questo addon potrebbero non essere legali nel tuo paese di residenza. Si prega di verificare la legislazione in vigore prima di installare.</disclaimer>
-    <disclaimer lang="en_GB">Some parts of this addon may not be legal in your country of residence. Please check with your local laws before installing.</disclaimer>
-    <language>it</language>
-    <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
-    <forum></forum>
-    <website></website>
-    <email></email>
-    <source>https://github.com/NeverWise/plugin.video.dplay</source>
+  </extension>
+</addon>
+
+<addon id="plugin.video.tivustreampro"
+version="1.0.1"
+name="TiVuStream Pro"
+provider-name="@Tivustream">
+<requires>
+  <import addon="script.module.requests" version="2.22.0"/>
+</requires>
+<extension point="xbmc.python.pluginsource" library="default.py">
+  <provides>video</provides>
+</extension>
+<extension point="xbmc.addon.metadata">
+  <summary lang="en">TiVuStream Pro (Leila-Matrix version)</summary>
+  <description lang="en_GB">Free To Air Channels for Kodi mediacenter.</description>
+  <disclaimer lang="en_GB">
+  All the contents offered by Tivustream are Free of charge and therefore FREE, means that they can be publicly and freely retrieved from the network.
+There is no subscription content such as Pay TV channels - Streaming Platforms or any other content that requires a payment for use.
+TivuStream projects are "containers" that for convenience collect what already exists on the network, adapting its use according to the device used.
+All contents are protected by copyright of their respective owners that, at any time, can request us to remove, or deny us its use, by sending an email to tivustream@gmail.com.
+  </disclaimer>
+  <summary lang="it">TiVuStream Pro (versione Leila-Matrix)</summary>
+  <description lang="it_IT">Canali FTA per Kodi mediacenter.</description>
+  <disclaimer lang="it_IT">
+  Tutti i contenuti proposti da Tivustream sono di carattere Gratuito e FREE si intende pertanto che sono recuperabili pubblicamente e liberamente dalla rete.
+Non ci sono contenuti sottostanti ad abbonamento o sottoscrizione come canali delle Pay Tv - Piattaforme di Streaming o qualunque altro contenuto che preveda un pagamento per la fruizione.
+I progetti TivuStream sono dei "contenitori" che per praticità raccolgono ciò che gia' esiste in rete adattandone l'uso a seconda del dispositivo utilizzato.
+Tutti i contenuti si intendono coperti da copyright dei rispettivi proprietari che, in qualunque momento, possono richiederne la rimozione, o negarcene l'uso, inviando una mail a tivustream@gmail.com.
+  </disclaimer>
+  <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+    <screenshot>resources\screenshot-01.jpg</screenshot>
+    <screenshot>resources\screenshot-02.jpg</screenshot>
+    <screenshot>resources\screenshot-03.jpg</screenshot>
+  </assets>
+  <news>First Relase... Good Luck!</news>
+</extension>
+</addon>
+
+<addon id="plugin.video.tivustream18"
+	name="TiVuStream 18"
+	version="1.2.0"
+	provider-name="@pcd-@lululla @ilGattoRosso">
+  <requires>
+  </requires>
+  <extension point="xbmc.python.pluginsource"
+			library="default.py">
+		<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+	<platform>all</platform>
+	<summary>Tivustream addon Adult(18+) videos from internet</summary>
+	<description>Unisciti a noi su Telegram su https://t.me/tivustream aggiungi, modifica, rendi questo elenco anche tuo. Vieni a trovarci su tivustream.com</description>
+	<disclaimer lang="it">Il nostro addon non trasmette, ritrasmette qualsiasi canale esposto, né ottiene alcun reddito dall'opera elaborata</disclaimer>
   </extension>
 </addon>
 
@@ -320,33 +136,6 @@ Source: https://github.com/maxbambi/plugin.video.raitv/
     <summary>Tivustream addon</summary>
     <description>Unisciti a noi su Telegram su https://t.me/tivustream aggiungi, modifica, rendi questo elenco anche tuo. Vieni a trovarci su tivustream.com</description>
     <disclaimer lang="it">Il nostro addon non trasmette, ritrasmette qualsiasi canale esposto, né ottiene alcun reddito dall&apos;opera elaborata</disclaimer>
-  </extension>
-</addon>
-
-<addon id="plugin.video.worldcam"
-	   name="worldcam"
-	   version="1.0.8"
-	   provider-name="linuxsat-support">
-
-  <extension point="xbmc.python.pluginsource"
-			 library="default.py">
-    	<provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary>Live cam from around the world</summary>
-    <description>Live cam from around the world</description>
-    <platform>all</platform>
-  </extension>
-</addon>
-
-<addon id="plugin.video.tvitalia" name="TvItalia" version="1.0.2" provider-name="Linuxsat-support Team">
-  <extension point="xbmc.python.pluginsource" library="default.py">
-    <provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary>Italian tv</summary>
-    <description>Italian tv</description>
-    <platform>all</platform>
   </extension>
 </addon>
 
@@ -405,6 +194,58 @@ Source: https://github.com/maxbambi/plugin.video.raitv/
       - Added Landpage scraping on all on-demand programs
       - Separated on-demand programs episodes by Home-Settimana-Archivio
     </news>
+  </extension>
+</addon>
+
+<addon id="plugin.video.raitv"
+       name="Rai Play"
+       version="3.5.1"
+       provider-name="Nightflyer, cttynul, maxbambi, fabpolli">
+  <requires>
+        <import addon="xbmc.python" version="2.25.0"/>
+    <import addon="script.common.plugin.cache" version="2.6.0"/>
+    <import addon="script.module.inputstreamhelper"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource"
+            library="default.py">
+        <provides>video audio</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <language>it</language>
+    <platform>all</platform>
+    <summary lang="it_IT">I programmi delle reti Rai e i servizi interattivi</summary>
+    <description lang="it_IT">
+I canali radio e tv in diretta, gli ultimi 7 giorni di programmazione, le puntate integrali, i telegiornali.
+Source: https://github.com/maxbambi/plugin.video.raitv/
+      </description>
+    <summary lang="en_GB">The broadcasts of Rai channels and its interactive services</summary>
+    <description lang="en_GB">
+Live radio and TV channels, latest 7 days of programming, broadcast archive, news.
+Source: https://github.com/maxbambi/plugin.video.raitv/
+      </description>
+    <license>GPL-3.0-or-later</license>
+    <forum>https://forum.kodi.tv/showthread.php?tid=155922</forum>
+    <website>https://github.com/maxbambi/plugin.video.raitv/</website>
+    <email></email>
+    <news>
+[B]3.5.1[/B]
+- Fix new urls for VOD
+[B]3.5.0[/B]
+- Plugin works with Widevine DRM
+[B]3.4.8[/B]
+- Updated User-Agent
+- Plugin can stream mpd
+[B]3.4.7[/B]
+- Translations
+- Added new items for viewing all elements of a category.
+- On air menu shows also current programs.
+- Added new section from home page of Raiplay.
+    </news>
+    <source>https://github.com/maxbambi/plugin.video.raitv/</source>
+    <assets>
+      <icon>resources/icon.png</icon>
+      <fanart>resources/fanart.jpg</fanart>
+    </assets>
   </extension>
 </addon>
 
@@ -557,6 +398,148 @@ Added support for BBC Scotland.
   </extension>
 </addon>
 
+<addon id="plugin.video.freearhey" name="freearhey" version="1.5" provider-name="@pcd @lululla">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+        <!--
+		<import addon="script.video.F4mProxy" version="2.7.1"/>
+		-->
+    </requires>
+
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    	<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Plays m3u files online.</summary>
+    <description>Plays m3u files online.</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.video.filmon"
+	   name="Filmon"
+	   version="1.0.2"
+	   provider-name="linuxsat-support">
+  <extension point="xbmc.python.pluginsource"
+			 library="default.py">
+    	<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Videos from filmon.com</summary>
+    <description>Videos from filmon.com</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.video.dplay" name="Dplay" version="1.0.8.3" provider-name="NeverWise, cttynul, maxbambi">
+  <requires>
+    <import addon="xbmc.python" version="2.14.0"/>
+    <import addon="script.module.neverwise" version="1.1.2"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary lang="it_IT">Dplay</summary>
+    <summary lang="en_GB">Dplay</summary>
+    <description lang="it_IT">Dplay è un servizio di streaming video che ti consente di guardare gratis e on demand i tuoi programmi preferiti di Real Time, Dmax, DeejayTV, Focus, Giallo, Frisbee e K2 dove vuoi e quando vuoi.[CR][CR]Con il meglio della programmazione dei canali free di Discovery Italia, Dplay porta la TV oltre i soliti schermi.</description>
+    <description lang="en_GB">Dplay is a video streaming service that lets you watch, for free and on demand, your favorite Real Time, Dmax, DeejayTv, Focus, Yellow, Frisbee and K2 programs where you want and when you want.[CR][CR]Featuring the best programming free channels of Discovery Italy, Dplay brings the TV beyond the usual TV screens.</description>
+    <disclaimer lang="it_IT">Alcune parti di questo addon potrebbero non essere legali nel tuo paese di residenza. Si prega di verificare la legislazione in vigore prima di installare.</disclaimer>
+    <disclaimer lang="en_GB">Some parts of this addon may not be legal in your country of residence. Please check with your local laws before installing.</disclaimer>
+    <language>it</language>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+    <forum></forum>
+    <website></website>
+    <email></email>
+    <source>https://github.com/NeverWise/plugin.video.dplay</source>
+  </extension>
+</addon>
+
+<addon id="plugin.video.dailymotion" name="dailymotion" version="1.0.2" provider-name="linuxsat-team">
+  <requires>
+   <import addon="xbmc.python" version="2.14.0"/>
+  </requires>
+
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+    <extension point="xbmc.service" library="startup.py" start="startup" />
+	<extension point="xbmc.addon.metadata">
+        <summary lang="en">Videos from dailymotion</summary>
+        <description lang="en">Videos from dailymotion</description>
+
+		<language></language>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="plugin.video.altadefinizione01"
+	   name="Altadefinizione01"
+	   version="1.0.3"
+	   provider-name="linuxsat-support">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0" />
+		<import addon="script.module.urlresolver" />
+	</requires>
+
+  <extension point="xbmc.python.pluginsource"
+			 library="default.py">
+    	<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Videos from altadefinizione01.photo</summary>
+    <description>Videos from altadefinizione01.photo</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="script.module.six"
+       name="six"
+       version="1.13.0"
+       provider-name="gutworth">
+  <requires>
+    <import addon="xbmc.python"
+    		version="2.14.0"/>
+  </requires>
+  <extension point="xbmc.python.module"
+             library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Python 2 and 3 compatibility utilities.</summary>
+    <description lang="en">Six is a Python 2 and 3 compatibility library. It provides utility functions for smoothing over the differences between the Python versions with the goal of writing Python code that is compatible on both Python versions. See the documentation for more information on what is provided.</description>
+    <platform>all</platform>
+    <license>MIT</license>
+    <source>https://pypi.org/project/six/</source>
+    <website>https://pypi.org/project/six/</website>
+  </extension>
+</addon>
+
+<addon id="script.module.python.twitch" name="python-twitch for Kodi" version="2.0.16" provider-name="anxdpanic, A Talented Community">
+    <requires>
+        <import addon="xbmc.python" version="2.20.0"/>
+        <import addon="script.module.six" version="1.11.0"/>
+        <import addon="script.module.requests" version="2.12.4"/>
+    </requires>
+    <extension point="xbmc.python.module" library="resources/lib"/>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <news>
+[fix] playback, change access token to use gql endpoints
+[chg] change followed, following, and unfollowing games to use gql endpoints
+        </news>
+        <assets>
+            <icon>icon.png</icon>
+        </assets>
+        <platform>all</platform>
+        <summary lang="en_GB">Module for interaction with the Twitch.tv API</summary>
+        <description lang="en_GB">python-twitch for Kodi is module for interaction with the Twitch.tv API based on python-twitch by ingwinlu.</description>
+        <license>GPL-3.0-only</license>
+        <source>https://github.com/anxdpanic/script.module.python.twitch</source>
+        <forum>https://twitchaddon.panicked.xyz/forum</forum>
+        <reuselanguageinvoker>true</reuselanguageinvoker>
+    </extension>
+</addon>
+
 <addon id="script.module.neverwise" name="NeverWise Kodi toolkit" version="1.1.2" provider-name="NeverWise, cttynul">
   <requires>
     <import addon="xbmc.python" version="2.14.0"/>
@@ -577,5 +560,60 @@ Added support for BBC Scotland.
     <email></email>
     <source>https://github.com/NeverWise/script.module.neverwise</source>
    </extension>
+</addon>
+
+<addon	id="repository.tivustream"
+		name="TiVuStream Repository"
+		version="1.0.1"
+		provider-name="@pcd-@lululla @ilGattoRosso">
+	<extension point="xbmc.addon.repository" name="TiVuStream Repository">
+		<dir>
+			<info compressed="false">https://tivustream.website/repo/addons/addons.xml</info>
+			<checksum>https://tivustream.website/repo/addons/addons.xml.md5</checksum>
+			<datadir zip="true">https://tivustream.website/repo/addons/</datadir>
+		</dir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary>Tivustream Free</summary>
+		<description>Unisciti a noi su Telegram su https://t.me/tivustream aggiungi, modifica, rendi questo elenco anche tuo. Vieni a trovarci su tivustream.com</description>
+		<disclaimer> lang="it">Il nostro addon non trasmette, ritrasmette qualsiasi canale esposto, né ottiene alcun reddito dall'opera elaborata</disclaimer>
+	</extension>
+</addon>
+
+<addon	id="repository.gilulla"
+		name="Gilulla Repository"
+		version="1.0.0"
+		provider-name="@pcd-@lululla">
+	<extension point="xbmc.addon.repository" name="TiVuStream Repository">
+		<dir>
+			<info compressed="false">https://raw.githubusercontent.com/Belfagor2005/repo/main/addons/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/Belfagor2005/repo/main/addons/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/Belfagor2005/repo/main/addons/</datadir>
+		</dir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary>All Free</summary>
+		<description>All addon for all web list</description>
+		<disclaimer> lang="it">Il nostro addon non trasmette, ritrasmette qualsiasi canale esposto, né ottiene alcun reddito dall'opera elaborata</disclaimer>
+	</extension>
+</addon>
+
+<addon id="plugin.video.youtube" name="youtube" version="1.0.7" provider-name="linuxsat-team">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+    <extension point="xbmc.service" library="startup.py" start="startup" />
+	<extension point="xbmc.addon.metadata">
+        <summary lang="en">Videos from youtube</summary>
+        <description lang="en">Videos from youtube</description>
+
+		<language></language>
+		<platform>all</platform>
+	</extension>
 </addon>
 </addons>
