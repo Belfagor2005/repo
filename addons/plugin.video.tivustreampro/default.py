@@ -129,7 +129,7 @@ def play_video(path):
 def getSource():
     startUrl = selfAddon.getSetting("baseUrl")
     strSource = makeRequest(startUrl)
-    if strSource is None:
+    if strSource is None or strSource == "":
         logging.warning('We failed to get source from '+startUrl)
     else:
         logging.warning('OK SOURCE ')
@@ -200,13 +200,15 @@ def jsonToItems(strJson):
             is_folder = True
             link = item["externallink2"]
 
-        if 'yatse' in item:
-            is_yatse = True
-            link = item["yatse"]
-
         if 'chrome' in item:
             is_chrome = True
+            is_folder = True
             link = item["chrome"]
+
+        if 'yatse' in item:
+            is_yatse = True
+            is_folder = True
+            link = item["yatse"]
 
         list_item = xbmcgui.ListItem(label=titolo)
         list_item.setInfo('video', {'title': titolo,
@@ -220,6 +222,7 @@ def jsonToItems(strJson):
         elif extLink2 == True:
             url = get_url(action='getExtData2', url=link)
         elif is_yatse == True:
+            list_item.setProperty('IsPlayable', 'true')                                                       
             url = get_urlYatse(action='share', type='unresolvedurl', data=link)
         elif is_chrome == True:
             url = get_urlChrome(mode='showSite', stopPlayback='no', kiosk='no', url=link)
@@ -257,10 +260,10 @@ else:
     elif action == 'getExtData2':
         keyboard = xbmc.Keyboard('','Insert string')
         keyboard.doModal()
-        # if not (keyboard.isConfirmed() == False):
-        userInput = keyboard.getText()
-        strUrl = url + userInput
-        getExternalJson(strUrl)
+        if not (keyboard.isConfirmed() == False):
+            userInput = keyboard.getText()
+            strUrl = url + userInput
+            getExternalJson(strUrl)
     elif action == 'youtubedl':
         logging.warning("TRY TO RESOLVE URL: "+url)
         urlSolved = youtubeResolve(url)
