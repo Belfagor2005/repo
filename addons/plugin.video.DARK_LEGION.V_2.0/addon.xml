@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.dark_legion"
+       name="[COLOR cyan]DARK[COLOR lime]**_**[COLOR cyan]LEGION[/COLOR]"
+       version="2.0"
+       provider-name="DARK_LEGION_PRODUCTION">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.beautifulsoup" version="3.2.1"/>
+    <import addon="script.module.simple.downloader" version="0.9.4"/>
+    <import addon="script.module.beautifulsoup4" />
+    <import addon="script.module.requests" />
+    <import addon="script.module.httplib2" />
+    <import addon="script.module.liveresolver" version="0.1.24" optional="true"/>
+    <import addon="script.module.youtube.dl" optional="true"/>
+    <import addon="plugin.video.youtube" optional="true" />
+    <import addon="script.module.urlresolver" optional="true"/>
+    <import addon="script.module.simplejson" />    
+     <import addon="script.module.livestreamer" optional="true"/>
+     <import addon="script.module.pyamf" optional="true"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+
+
+  <extension point="xbmc.addon.metadata">
+    <summary>[COLOR lime]Dark_Legion Add_on[/COLOR]</summary>
+  
+<description>Addon created with passion for entire world.The material is free found on the web!!!
+NOTA BENE: Dark_Legion offre contenuti presi dal web e la visione e la stabilità dello streaming non può essere garantita in alcun modo.</description>
+        <news>
+v_2.0
+-[COLOR blue][B]Seconde Release of Add-on![/B][/COLOR]
+</news>
+    <platform>all</platform>
+	<license>Attribuzione - Non commerciale </license>
+	<website></website>
+	<email></email>
+	<disclaimer>
+This addon contains links to third-party streaming content not affiliated and / or associated in any way with Dark_Legion; 
+</disclaimer>
+	<language>it</language>
+  </extension>
+</addon>
+
+

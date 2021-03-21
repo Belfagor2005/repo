@@ -74,6 +74,120 @@ vidpc = xbmc.translatePath(os.path.join(thisAddonDir, 'vid.txt'))
 vide2 = "/tmp/vid.txt"
 
 
+
+def decodeUrl(text):
+	text = text.replace('%20',' ')
+	text = text.replace('%21','!')
+	text = text.replace('%22','"')
+	text = text.replace('%23','&')
+	text = text.replace('%24','$')
+	text = text.replace('%25','%')
+	text = text.replace('%26','&')
+	text = text.replace('%2B','+')
+	text = text.replace('%2F','/')
+	text = text.replace('%3A',':')
+	text = text.replace('%3B',';')
+	text = text.replace('%3D','=')
+	text = text.replace('&#x3D;','=')
+	text = text.replace('%3F','?')
+	text = text.replace('%40','@')
+	return text
+
+def decodeHtml(text):
+	text = text.replace('&auml;','ä')
+	text = text.replace('\u00e4','ä')
+	text = text.replace('&#228;','ä')
+	text = text.replace('&oacute;','ó')
+	text = text.replace('&eacute;','e')
+	text = text.replace('&aacute;','a')
+	text = text.replace('&ntilde;','n')
+
+	text = text.replace('&Auml;','Ä')
+	text = text.replace('\u00c4','Ä')
+	text = text.replace('&#196;','Ä')
+	
+	text = text.replace('&ouml;','ö')
+	text = text.replace('\u00f6','ö')
+	text = text.replace('&#246;','ö')
+	
+	text = text.replace('&ouml;','Ö')
+	text = text.replace('\u00d6','Ö')
+	text = text.replace('&#214;','Ö')
+	
+	text = text.replace('&uuml;','ü')
+	text = text.replace('\u00fc','ü')
+	text = text.replace('&#252;','ü')
+	
+	text = text.replace('&Uuml;','Ü')
+	text = text.replace('\u00dc','Ü')
+	text = text.replace('&#220;','Ü')
+	
+	text = text.replace('&szlig;','ß')
+	text = text.replace('\u00df','ß')
+	text = text.replace('&#223;','ß')
+	
+	text = text.replace('&amp;','&')
+	text = text.replace('&quot;','\"')
+	text = text.replace('&quot_','\"')
+
+	text = text.replace('&gt;','>')
+	text = text.replace('&apos;',"'")
+	text = text.replace('&acute;','\'')
+	text = text.replace('&ndash;','-')
+	text = text.replace('&bdquo;','"')
+	text = text.replace('&rdquo;','"')
+	text = text.replace('&ldquo;','"')
+	text = text.replace('&lsquo;','\'')
+	text = text.replace('&rsquo;','\'')
+	text = text.replace('&#034;','\'')
+	text = text.replace('&#038;','&')
+	text = text.replace('&#039;','\'')
+	text = text.replace('&#39;','\'')
+	text = text.replace('&#160;',' ')
+	text = text.replace('\u00a0',' ')
+	text = text.replace('&#174;','')
+	text = text.replace('&#225;','a')
+	text = text.replace('&#233;','e')
+	text = text.replace('&#243;','o')
+	text = text.replace('&#8211;',"-")
+	text = text.replace('\u2013',"-")
+	text = text.replace('&#8216;',"'")
+	text = text.replace('&#8217;',"'")
+	text = text.replace('#8217;',"'")
+	text = text.replace('&#8220;',"'")
+	text = text.replace('&#8221;','"')
+	text = text.replace('&#8222;',',')
+	text = text.replace('&#x27;',"'")
+	text = text.replace('&#8230;','...')
+	text = text.replace('\u2026','...')
+	text = text.replace('&#41;',')')
+	text = text.replace('&lowbar;','_')
+	text = text.replace('&rsquo;','\'')
+	text = text.replace('&lpar;','(')
+	text = text.replace('&rpar;',')')
+	text = text.replace('&comma;',',')
+	text = text.replace('&period;','.')
+	text = text.replace('&plus;','+')
+	text = text.replace('&num;','#')
+	text = text.replace('&excl;','!')
+	text = text.replace('&#039','\'')
+	text = text.replace('&semi;','')
+	text = text.replace('&lbrack;','[')
+	text = text.replace('&rsqb;',']')
+	text = text.replace('&nbsp;','')
+	text = text.replace('&#133;','')
+	text = text.replace('&#4','')
+	text = text.replace('&#40;','')
+
+	text = text.replace('&atilde;',"'")
+	text = text.replace('&colon;',':')
+	text = text.replace('&sol;','/')
+	text = text.replace('&percnt;','%')
+	text = text.replace('&commmat;',' ')
+	text = text.replace('&#58;',':')
+
+	return text	
+
 def getUrl(url):
    print(" Here in getUrl url =", url)
    req = Request(url)
@@ -441,8 +555,10 @@ def showContent33(name, url):
             # print ("showContent33 match2 =", match2)
             url2 = match2[0].replace("json", "html")
             url3 = "http://www.raiplay.it/video/" + url2
-            name = name.replace("&#x27;","'").replace("&amp;","&")
-            name = name.replace('&quot;','"').replace('&#39;',"'")
+            # name = name.replace("&#x27;","'").replace("&amp;","&")
+            # name = name.replace('&quot;','"').replace('&#39;',"'")
+            name = decodeHtml(name)
+            name = decodeUrl(name)
             addDirectoryItem(name, {"name":name, "url":url3, "mode":34}, pic)
     xbmcplugin.endOfDirectory(thisPlugin)
 
@@ -599,7 +715,9 @@ def showContent45(name, url):
         print ("_gotPageLoad match =", match)
         for url , name in match:
             pic = " "
-            name = name.replace("&#x27;","'").replace("&amp;","&").replace('&quot;','"').replace('&#39;',"'").replace('%20'," ").replace('%3a',":").replace('%27',"'") #url
+            name = decodeHtml(name)
+            name = decodeUrl(name)
+            #name.replace("&#x27;","'").replace("&amp;","&").replace('&quot;','"').replace('&#39;',"'").replace('%20'," ").replace('%3a',":").replace('%27',"'") #url
             url = "https://www.mediasetplay.mediaset.it/fiction/" + url
             print('name : ', name)
             print('url:  ', url)
@@ -611,7 +729,9 @@ def showContent45(name, url):
         print ("_gotPageLoad match =", match)
         for url, name in match:
             pic = " "
-            name = name.replace("&#x27;","'").replace("&amp;","&").replace('&quot;','"').replace('&#39;',"'").replace('%20'," ").replace('%3a',":").replace('%27',"'")# url
+            name = decodeHtml(name)
+            name = decodeUrl(name)
+#            name = name.replace("&#x27;","'").replace("&amp;","&").replace('&quot;','"').replace('&#39;',"'").replace('%20'," ").replace('%3a',":").replace('%27',"'")# url
             url = "http://www.mediasetplay.mediaset.it/movie/" + url
             print('name : ', name)
             print('url:  ', url)
@@ -623,7 +743,9 @@ def showContent45(name, url):
         print ("_gotPageLoad match =", match)
         for url, name in match:
             pic = " "
-            name = name.replace("&#x27;","'").replace("&amp;","&").replace('&quot;','"').replace('&#39;',"'").replace('%20'," ").replace('%3a',":").replace('%27',"'")# url
+            name = decodeHtml(name)
+            name = decodeUrl(name)
+#            name = name.replace("&#x27;","'").replace("&amp;","&").replace('&quot;','"').replace('&#39;',"'").replace('%20'," ").replace('%3a',":").replace('%27',"'")# url
             url = "https://www.mediasetplay.mediaset.it/movie/" + url
             print('name : ', name)
             print('url:  ', url)
@@ -634,7 +756,9 @@ def showContent45(name, url):
         match = re.compile(regexcat, re.DOTALL).findall(content)
         print ("_gotPageLoad match =", match)
         for url , name in match:
-            name = name.replace("&#x27;","'").replace("&amp;","&").replace('&quot;','"').replace('&#39;',"'").replace('%20'," ").replace('%3a',":").replace('%27',"'")# url
+            name = decodeHtml(name)
+            name = decodeUrl(name)
+#            name = name.replace("&#x27;","'").replace("&amp;","&").replace('&quot;','"').replace('&#39;',"'").replace('%20'," ").replace('%3a',":").replace('%27',"'")# url
             url = "https://www.mediasetplay.mediaset.it/programmi-tv/" + url
             print('name : ', name)
             print('url:  ', url)
@@ -647,7 +771,9 @@ def showContent45(name, url):
         match = re.compile(regexcat, re.DOTALL).findall(content)
         print ("kids _gotPageLoad match =", match)
         for url, name in match:
-            name = name.replace("&#x27;","'").replace("&amp;","&").replace('&quot;','"').replace('&#39;',"'").replace('%20'," ").replace('%3a',":").replace('%27',"'")# url
+            name = decodeHtml(name)
+            name = decodeUrl(name)
+#            name = name.replace("&#x27;","'").replace("&amp;","&").replace('&quot;','"').replace('&#39;',"'").replace('%20'," ").replace('%3a',":").replace('%27',"'")# url
             url = "https://www.mediasetplay.mediaset.it/video/" + url
             print('name : ', name)
             print('url:  ', url)
@@ -659,7 +785,9 @@ def showContent45(name, url):
             match = re.compile(regexcat, re.DOTALL).findall(content)
             print ("_gotPageLoad match =", match)
             for url, name in match:
-                name = name.replace("&#x27;","'").replace("&amp;","&").replace('&quot;','"').replace('&#39;',"'").replace('%20'," ").replace('%3a',":").replace('%27',"'")# url
+                name = decodeHtml(name)
+                name = decodeUrl(name)
+                # name = name.replace("&#x27;","'").replace("&amp;","&").replace('&quot;','"').replace('&#39;',"'").replace('%20'," ").replace('%3a',":").replace('%27',"'")# url
                 url = "https://www.mediasetplay.mediaset.it/playlist/" + url
                 print('name : ', name)
                 print('url:  ', url)
@@ -685,7 +813,9 @@ def showContent46(name, url):
             print ("mediaset result =", result)
             url = result["url"]
             print ("mediaset final url =", url)
-            name = name.replace("&#x27;","'").replace("&amp;","&").replace('&quot;','"').replace('&#39;',"'").replace('%20'," ").replace('%3a',":").replace('%27',"'")# url
+            name = decodeHtml(name)
+            name = decodeUrl(name)
+#            name = name.replace("&#x27;","'").replace("&amp;","&").replace('&quot;','"').replace('&#39;',"'").replace('%20'," ").replace('%3a',":").replace('%27',"'")# url
             url1 = url
             addDirectoryItem(name, {"name":name, "url":url1, "mode":34}, pic)
     else:
@@ -693,7 +823,9 @@ def showContent46(name, url):
         match = re.compile(regexcat, re.DOTALL).findall(content)
         print ("_gotPageLoad match =", match)
         for url, name  in match:
-            name = name.replace("&#x27;","'").replace("&amp;","&").replace('&quot;','"').replace('&#39;',"'").replace('%20'," ").replace('%3a',":").replace('%27',"'")# url
+            name = decodeHtml(name)
+            name = decodeUrl(name)
+#            name = name.replace("&#x27;","'").replace("&amp;","&").replace('&quot;','"').replace('&#39;',"'").replace('%20'," ").replace('%3a',":").replace('%27',"'")# url
             url1 = "https://www.mediasetplay.mediaset.it/video/" + url
             print('name : ', name)
             print('url1:  ', url1)
@@ -824,6 +956,4 @@ else:
             ok = showContent61(name, url)
     elif mode == str(62):
             ok = showContent62(name, url)
-
-
 

