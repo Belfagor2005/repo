@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.worldcam"
 	   name="worldcam"
-	   version="1.0.9"
+	   version="1.0.11"
 	   provider-name="linuxsat-support">
-
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.ytdl" version="1.0.0"/>
+  </requires>
   <extension point="xbmc.python.pluginsource"
 			 library="default.py">
     	<provides>video</provides>
@@ -14,6 +17,8 @@
     <platform>all</platform>
   </extension>
 </addon>
+
+
 
 
 

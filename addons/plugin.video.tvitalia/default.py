@@ -188,24 +188,75 @@ def decodeHtml(text):
 
 	return text	
 
+# def getUrl(url):
+   # print(" Here in getUrl url =", url)
+   # req = Request(url)
+   # req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+   # response = urlopen(req)
+   # link=response.read()
+   # response.close()
+   # return link             
+# def getUrl2(url, referer):
+   # print(" Here in getUrl2 url =", url)
+   # req = Request(url)
+   # req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+   # req.add_header('Referer', referer)
+   # response = urlopen(req)
+   # link=response.read()
+   # response.close()
+   # return link
+   
 def getUrl(url):
-   print(" Here in getUrl url =", url)
-   req = Request(url)
-   req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-   response = urlopen(req)
-   link=response.read()
-   response.close()
-   return link
+        print( "Here in getUrl url =", url)
+        try:
+            req = Request(url)
+        except:
+            req = Request(url)       
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        try:
+            try:
+                response = urlopen(req)
+            except:       
+                response = urlopen(req)
+            link=response.read()
+            response.close()
+            return link
+        except:
+            import ssl
+            gcontext = ssl._create_unverified_context()
+            try:
+                response = urlopen(req)
+            except:       
+                response = urlopen(req)
+            link=response.read()
+            response.close()
+            return link
 
 def getUrl2(url, referer):
-   print(" Here in getUrl2 url =", url)
-   req = Request(url)
-   req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-   req.add_header('Referer', referer)
-   response = urlopen(req)
-   link=response.read()
-   response.close()
-   return link
+        try:
+            req = urllib.request.Request(url)
+        except:
+            req = urllib2.Request(url)       
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        req.add_header('Referer', referer)
+        try:
+            try:
+                response = urllib.request.urlopen(req)
+            except:       
+                response = urllib2.urlopen(req)
+            link=response.read()
+            response.close()
+            return link
+        except:
+            import ssl
+            gcontext = ssl._create_unverified_context()
+            try:
+                response = urllib.request.urlopen(req)
+            except:       
+                response = urllib2.urlopen(req)
+            link=response.read()
+            response.close()
+            return link
 
 def showContent():
     names = []
@@ -251,7 +302,6 @@ def showContent10(name, urlmain):
         addDirectoryItem(name, {"name":name, "url":url, "mode":11}, pic)
     xbmcplugin.endOfDirectory(thisPlugin)
 
-
 def showContent11(name, urlmain):
     content = getUrl(urlmain)
     # print "showContent11 =", content  #paesi
@@ -283,7 +333,7 @@ def showContent13(name1, urlmain):
     content = getUrl(urlmain)
     print(" content B =", content)
     pic = " "
-    regexvideo = '<div class="item-head.*?href="(.*?)".*?bookmark">(.*?)<'
+    regexvideo = '<div class="item__.*?href="(.*?)".*?alt="(.*?)"'
     match = re.compile(regexvideo,re.DOTALL).findall(content)
     print(" match =", match)
     for url, name in match:
@@ -325,7 +375,7 @@ def showContent22(name, url):
     content = getUrl(url)
     print("showContent2 content =", content)
     pic = " "
-    regexcat = '<div class="item-head.*?a href="(.*?)".*?bookmark">(.*?)<'
+    regexcat = '<div class="item__.*?href="(.*?)".*?alt="(.*?)"'
     match = re.compile(regexcat,re.DOTALL).findall(content)
     print("showContent2 match =", match)
     for url, name in match:

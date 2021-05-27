@@ -25,20 +25,31 @@ if os.path.exists("/usr/lib/enigma2/python/Plugins/Extensions/KodiLite"): # enig
     print("Here in default-py sys.argv B=", sys.argv)
 
 
-import xbmc, xbmcaddon, xbmcplugin
+import xbmc,xbmcplugin,xbmcaddon
 import xbmcgui
 import sys
-import urllib, urllib2
+import urllib
 import time
 import re
-from htmlentitydefs import name2codepoint as n2cp
-import httplib
-import urlparse
+##from htmlentitydefs import name2codepoint as n2cp
+##import httplib
+####import http.client
+try:
+       import urlparse
+except:       
+       from urllib.parse import urlparse
 from os import path, system
 import socket
-from urllib2 import Request, URLError, urlopen
-from urlparse import parse_qs
-from urllib import unquote_plus
+try:
+       import urllib2
+       from urllib2 import Request, URLError, urlopen
+except:
+       import urllib.request
+try:       
+       from urlparse import parse_qs
+except:
+       from urllib.parse import parse_qs
+##from urllib import unquote_plus
 
 
 thisPlugin = int(sys.argv[1])
@@ -51,7 +62,8 @@ if not path.exists(dataPath):
 Addon = xbmcaddon.Addon(addonId)
 __settings__ = xbmcaddon.Addon(addonId)
 home = __settings__.getAddonInfo('path')
-addonDir = Addon.getAddonInfo('path').decode("utf-8")
+#addonDir = Addon.getAddonInfo('path').decode("utf-8")
+addonDir = Addon.getAddonInfo('path')
 print("Here in playlistloader addonDir =", addonDir)
 playlistDir = path.join(addonDir, 'Playlists')
 fanart = xbmc.translatePath(os.path.join(addonDir, 'fanart.jpg'))
@@ -59,15 +71,75 @@ fanart = xbmc.translatePath(os.path.join(addonDir, 'fanart.jpg'))
 pixx = xbmc.translatePath(os.path.join(home, 'pic.png'))
 icon = xbmc.translatePath(os.path.join(home, 'icon.png'))
 
-
 def getUrl(url):
-   print("Here in getUrl url =", url)
-   req = urllib2.Request(url)
-   req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-   response = urllib2.urlopen(req)
-   link=response.read()
-   response.close()
-   return link
+        print( "Here in getUrl url =", url)
+        try:
+               req = urllib.request.Request(url)
+        except:
+               req = urllib2.Request(url)       
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        try:
+               try:
+                      response = urllib.request.urlopen(req)
+               except:       
+                      response = urllib2.urlopen(req)
+               link=response.read()
+               response.close()
+               return link
+        except:
+               import ssl
+               gcontext = ssl._create_unverified_context()
+               try:
+                      response = urllib.request.urlopen(req)
+               except:       
+                      response = urllib2.urlopen(req)
+               link=response.read()
+               response.close()
+               return link
+                
+    
+def getUrl2(url, referer):
+#        pass#pass#print "Here in  getUrl2 url =", url
+#        pass#pass#print "Here in  getUrl2 referer =", referer
+        try:
+               req = urllib.request.Request(url)
+        except:
+               req = urllib2.Request(url)       
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        req.add_header('Referer', referer)
+        try:
+               try:
+                      response = urllib.request.urlopen(req)
+               except:       
+                      response = urllib2.urlopen(req)
+               link=response.read()
+               response.close()
+               return link
+        except:
+               import ssl
+               gcontext = ssl._create_unverified_context()
+               try:
+                      response = urllib.request.urlopen(req)
+               except:       
+                      response = urllib2.urlopen(req)
+               link=response.read()
+               response.close()
+               return link
+
+
+def getUrl3(url):
+#        pass#print"Here in getUrl url =", url
+        try:
+               req = urllib.request.Request(url)
+        except:
+               req = urllib2.Request(url)       
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        response = urllib2.urlopen(req)
+        link=response.geturl()
+        response.close()
+        return link
+
+
 
 def showContent():
         names = []
@@ -79,6 +151,14 @@ def showContent():
         names.append('User Lists')
         urls.append('http://worldcam.eu/')
         modes.append('5')
+        """
+        names.append('earthcam.com')
+        urls.append('https://www.earthcam.com')
+        modes.append('8')
+        names.append('livecameras.gr')
+        urls.append('http://www.livecameras.gr/')
+        modes.append('10')
+        """
         i = 0
         pic = pixx
         for name in names:
@@ -93,7 +173,7 @@ def getVideos(name1, urlmain):
 #        content = getUrl('https://www.skylinewebcams.com/en.html')
         content = getUrl(urlmain)
         pass#print 'getVideos content =', content
-        regexvideo = 'class="ln_css ln-(.*?)" alt="(.*?)"'
+        regexvideo = b'class="ln_css ln-(.*?)" alt="(.*?)"'
         match = re.compile(regexvideo, re.DOTALL).findall(content)
         pass#print 'getVideos match =', match
         pic = pixx
@@ -101,9 +181,9 @@ def getVideos(name1, urlmain):
         items = []           
         
         for url, name in match:
-            url1 = 'https://www.skylinewebcams.com/' + url + '.html'
-
-            item = name + "###" + url1
+            url1 = b'https://www.skylinewebcams.com/' + url + b'.html'
+            url1 = url1.decode()
+            item = name.decode() + "###" + url1
             items.append(item)
         items.sort()
         for item in items:
@@ -117,15 +197,15 @@ def getVideos2(name1, urlmain):
 #        content = getUrl('https://www.skylinewebcams.com/en.html')
         content = getUrl(urlmain)
         start = 0
-        n1 = content.find('div class="dropdown-menu mega-dropdown-menu', start)
-        n2 = content.find('div class="collapse navbar-collapse', n1)
+        n1 = content.find(b'div class="dropdown-menu mega-dropdown-menu', start)
+        n2 = content.find(b'div class="collapse navbar-collapse', n1)
         content2 = content[n1:n2]
         pass#print 'content2 =', content2
         ctry = urlmain.replace ("https://www.skylinewebcams.com/", "")
         ctry = ctry.replace (".html", "")
         #https://www.skylinewebcams.com/it/webcam/anguilla.html
 #ok        regexvideo = '<a href="/en/webcam(.*?)">(.*?)</a>'
-        regexvideo = '<a href="/' + ctry + '/webcam(.*?)">(.*?)</a>'
+        regexvideo = b'<a href="/' + ctry.encode("UTF-8") + b'/webcam(.*?)">(.*?)</a>'
         match = re.compile(regexvideo, re.DOTALL).findall(content2)
         pass#print 'getVideos3 match =', match
         pic = pixx
@@ -133,10 +213,10 @@ def getVideos2(name1, urlmain):
         items = []        
         
         for url, name in match:
-            url1 = 'https://www.skylinewebcams.com/' + ctry + '/webcam' + url
+            url1 = 'https://www.skylinewebcams.com/' + ctry + '/webcam' + url.decode()
             
             
-            item = name + "###" + url1
+            item = name.decode() + "###" + url1
             items.append(item)
         items.sort()
         for item in items:
@@ -160,7 +240,7 @@ def getVideos3(name1, urlmain):
 #        regexvideo = "'" + stext + "(.*?)\".*?alt=\"(.*?)\"'"
         pass#print 'getVideos2 stext =', stext
 #ok        regexvideo = stext + '(.*?)".*?alt="(.*?)"'
-        regexvideo = '><a href="' + stext + '(.*?)".*?alt="(.*?)"'
+        regexvideo = b'><a href="' + stext.encode("UTF-8") + b'(.*?)".*?alt="(.*?)"'
         pass#print 'getVideos3 regexvideo =', regexvideo
         match = re.compile(regexvideo, re.DOTALL).findall(content)
         pass#print 'getVideos3 match =', match
@@ -170,11 +250,11 @@ def getVideos3(name1, urlmain):
         pic = pixx
         items = []
         for url, name in match:
-            url1 = 'https://www.skylinewebcams.com/' + stext + url
+            url1 = 'https://www.skylinewebcams.com/' + stext + url.decode()
             pass#print "getVideos4 name =", name
             pass#print "getVideos4 url1 =", url1
             
-            item = name + "###" + url1
+            item = name.decode() + "###" + url1
             items.append(item)
         items.sort()
         for item in items:
@@ -183,8 +263,24 @@ def getVideos3(name1, urlmain):
             
             addDirectoryItem(name, {"name":name, "url":url1, "mode":"4"}, pic)
 
-
 def getVideos4(name, url):
+        pass#print "Here in getVideos4 url =", url
+        content = getUrl(url)
+        pass#print 'getVideos4 content =', content
+        regexvideo = b'source\:\'(.*?)\''
+        pass#print 'getVideos3 regexvideo =', regexvideo
+        match = re.compile(regexvideo, re.DOTALL).findall(content)
+        pass#print 'getVideos3 match =', match
+        url = "https://hd-auth.skylinewebcams.com/" + match[0].decode()
+        pass#print "Here in Test url =", url
+        li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage="DefaultFolder.png")
+        player = xbmc.Player()
+        player.play(url, li)
+
+
+
+
+def getVideos4X(name, url):
         import youtube_dl
         pass#print "Here in getVideos4 url 1=", url
         from youtube_dl import YoutubeDL
@@ -232,12 +328,61 @@ def getVideos6(name, url):
         xbmcplugin.endOfDirectory(thisPlugin)
         
 def playVideo(name, url):
+#           url = "https://videos3.earthcam.com/fecnetwork/AbbeyRoadHD1.flv/chunklist_w1096421812.m3u8"
+#           url = "https://videos-3.earthcam.com/fecnetwork/16823.flv/playlist.m3u8"
            pass#print "Here in playVideo name =", name
            pass#print "Here in playVideo url =", url
            pic = "DefaultFolder.png"
+           url = url
            li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
            player = xbmc.Player()
            player.play(url, li)
+
+def getVideos8(name1, urlmain):
+        content = getUrl(urlmain)
+        pass#print "content B =", content
+        regexvideo = b'<a class="noDec" href="(.*?)".*?alt="(.*?)"'
+        match = re.compile(regexvideo, re.DOTALL).findall(content)
+        pass#print 'match =', match
+        pic = " "       
+        for url, name in match:
+            if not b"https://www.earthcam.com" in url:
+                   continue
+            url1 = url.decode()
+            name1 = name.decode() 
+            addDirectoryItem(name1, {"name":name1, "url":url1, "mode":"9"}, pic)
+        xbmcplugin.endOfDirectory(thisPlugin)
+        
+def getVideos9(name, urlmain):
+        content = getUrl(urlmain)
+        print( "getVideos9 content C =", content)
+#        regexvideo = '"livestreamingpath"\:"(.*?)m3u8'
+        regexvideo = b'html5_streamingdomain"\:"(.*?)".*?html5_streampath"\:"(.*?)"'
+        match = re.compile(regexvideo, re.DOTALL).findall(content)
+        print( 'getVideos9  match =', match)
+
+        url = match[0][0] + match[0][1]
+        url = url.replace(b"\\", b"")
+        url = url.replace(b"%2F", b"/")
+        url = url.replace(b"%2B", b"+")
+        print( "In Webcam7 url =", url)
+        playVideo(name, url)
+        
+def getVideos10(name, urlmain):
+        content = getUrl('http://www.livecameras.gr/')
+        pass#print 'getVideos10 content A =', content#pass#
+        
+        # regexvideo = 'item1".*?href="(.*?)".*?data-title="(.*?)".*?<img src=""(.*?)"/>'        
+        
+        regexvideo = 'a class="item1" href="(.*?)".*?data-title="(.*?)"'
+        match = re.compile(regexvideo,re.DOTALL).findall(content)
+        pic = " "
+        pass#print 'getVideos10 match =', match#pass#
+        for url, name in match:
+            url1 = 'https:' + url
+            addDirectoryItem(name, {"name":name, "url":url1, "mode":"7"}, pic)
+        xbmcplugin.endOfDirectory(thisPlugin)
+
         
 std_headers = {
 	'User-Agent': 'Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.2.6) Gecko/20100627 Firefox/3.6.6',
@@ -245,7 +390,17 @@ std_headers = {
 	'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
 	'Accept-Language': 'en-us,en;q=0.5',
 }
-def addDirectoryItem(name, url, mode, iconimage, fanart):
+
+def addDirectoryItem(name, parameters={},pic=""):
+    li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
+    try:
+           url = sys.argv[0] + '?' + urllib.parse.urlencode(parameters)
+    except:
+           url = sys.argv[0] + '?' + urllib.urlencode(parameters)
+    return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
+    
+
+def addDirectoryItemXX(name, url, mode, iconimage, fanart):
 
         u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) + "&name=" + urllib.quote_plus(name) + "&iconimage=" + urllib.quote_plus(iconimage)
         ok = True
@@ -258,12 +413,6 @@ def addDirectoryItem(name, url, mode, iconimage, fanart):
                 return ok
         ok = xbmcplugin.addDirectoryItem(handle = int(sys.argv[1]), url = u, listitem = liz, isFolder = True)
         return ok
-        
-def addDirectoryItem(name, parameters={},pic=""):
-    li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
-    url = sys.argv[0] + '?' + urllib.urlencode(parameters)
-    return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
-
 
 def parameters_string_to_dict(parameters):
     ''' Convert parameters encoded in a URL to a dict. '''
@@ -279,7 +428,10 @@ def parameters_string_to_dict(parameters):
 params = parameters_string_to_dict(sys.argv[2])
 name =  str(params.get("name", ""))
 url =  str(params.get("url", ""))
-url = urllib.unquote(url)
+try:
+        url = urllib.parse.unquote(url)
+except:
+        url = urllib.unquote(url)  
 mode =  str(params.get("mode", ""))
 iconimage = None
 # def get_params():
@@ -321,8 +473,15 @@ else:
       ok = getVideos6(name, url)
    elif mode == str(7):
       ok = playVideo(name, url)
+   elif mode == str(8):
+      ok = getVideos8(name, url)
+   elif mode == str(9):
+      ok = getVideos9(name, url)
+   elif mode == str(10):
+      ok = getVideos10(name, url)
       
       
       
 xbmcplugin.endOfDirectory(thisPlugin)
+
 
