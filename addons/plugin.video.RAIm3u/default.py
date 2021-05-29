@@ -27,21 +27,41 @@ if os.path.exists("/usr/lib/enigma2/python/Plugins/Extensions/KodiLite"): # enig
 import xbmc,xbmcplugin
 import xbmcgui
 import sys
-import urllib, urllib2
+# import urllib, urllib2
 import time
 import re
-from htmlentitydefs import name2codepoint as n2cp
-import httplib
-import urlparse
+# from htmlentitydefs import name2codepoint as n2cp
+# import httplib
+# import urlparse
 from os import path, system
 import socket
-from urllib2 import Request, URLError, urlopen
-from urlparse import parse_qs
-from urllib import unquote_plus
+# from urllib2 import Request, URLError, urlopen
+# from urlparse import parse_qs
+# from urllib import unquote_plus
 import string
 import os
 import xbmcaddon
+import six
+from sys import version_info
+PY3 = version_info[0] == 3
+if PY3:
+    from urllib.request import urlopen, Request
+    from urllib.error import URLError, HTTPError
+    from urllib.parse import quote, unquote_plus, unquote, urlencode
+    from urllib.request import urlretrieve
+    from urllib.parse import urlparse
+    from html.entities import name2codepoint as n2cp
+    import http.client
+else:
+    from urllib2 import urlopen, Request
+    from urllib2 import URLError, HTTPError
+    from urllib import quote, unquote_plus, unquote, urlencode
+    from urllib import urlretrieve
+    from urlparse import urlparse
+    from htmlentitydefs import name2codepoint as n2cp
+    import httplib
 
+   
 thisPlugin = int(sys.argv[1])
 addonId = "plugin.video.RAIm3u"
 dataPath = xbmc.translatePath('special://profile/addon_data/%s' % (addonId))
@@ -63,19 +83,19 @@ this = ADDON_PATH + '/rai-play-'
 
 def getUrl(url):
     print("Here in getUrl url =", url)
-    req = urllib2.Request(url)
+    req = Request(url)
     req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-    response = urllib2.urlopen(req)
+    response = urlopen(req)
     link=response.read()
     response.close()
     return link
 
 def getUrl2(url, referer):
     print("Here in getUrl2 url =", url)
-    req = urllib2.Request(url)
+    req = Request(url)
     req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
     req.add_header('Referer', referer)
-    response = urllib2.urlopen(req)
+    response = urlopen(req)
     link=response.read()
     response.close()
     return link 
@@ -167,6 +187,7 @@ def showContent():
 
 def getVideos1(name, urlmain):
         content = getUrl(urlmain)
+        content = six.ensure_str(content)
         regexvideo = 'data-video-json="(.*?)".*?"name" content="(.*?)".*?" src="(.*?)"'
         match = re.compile(regexvideo,re.DOTALL).findall(content)
         filex = this + name + '.m3u'
@@ -184,11 +205,13 @@ def getVideos1(name, urlmain):
         
 def getVideos(name, urlmain):
     content = getUrl(urlmain)
+    content = six.ensure_str(content)
     regexvideo = '"first_item_path".*?"(.*?)"'
     match = re.compile(regexvideo,re.DOTALL).findall(content)
     print("getVideos match =", match)
     url = "https://www.raiplay.it" + match[0]
     content2 = getUrl(url)
+    content2 = six.ensure_str(content2)
     print("getVideos content2 =", content2)
     regexvideo = 'content_url".*?"(.*?)"'
     match2 = re.compile(regexvideo,re.DOTALL).findall(content2)
@@ -213,7 +236,7 @@ std_headers = {
 
 def addDirectoryItem(name, parameters={},pic=""):
     li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
-    url = sys.argv[0] + '?' + urllib.urlencode(parameters)
+    url = sys.argv[0] + '?' + urlencode(parameters)
     return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
 
 
@@ -231,7 +254,7 @@ def parameters_string_to_dict(parameters):
 params = parameters_string_to_dict(sys.argv[2])
 name =  str(params.get("name", ""))
 url =  str(params.get("url", ""))
-url = urllib.unquote(url)
+url = unquote(url)
 mode =  str(params.get("mode", ""))
 
 if not sys.argv[2]:

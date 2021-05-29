@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="plugin.video.tivustreampro"
+version="1.0.2"
+name="TiVuStream Pro"
+provider-name="@Tivustream">
+<requires>
+  <import addon="script.module.requests" version="2.22.0"/>
+</requires>
+<extension point="xbmc.python.pluginsource" library="default.py">
+  <provides>video</provides>
+</extension>
+<extension point="xbmc.addon.metadata">
+  <summary lang="en">TiVuStream Pro (Leila-Matrix version)</summary>
+  <description lang="en_GB">Free To Air Channels for Kodi mediacenter.</description>
+  <disclaimer lang="en_GB">
+  All the contents offered by Tivustream are Free of charge and therefore FREE, means that they can be publicly and freely retrieved from the network.
+There is no subscription content such as Pay TV channels - Streaming Platforms or any other content that requires a payment for use.
+TivuStream projects are "containers" that for convenience collect what already exists on the network, adapting its use according to the device used.
+All contents are protected by copyright of their respective owners that, at any time, can request us to remove, or deny us its use, by sending an email to tivustream@gmail.com.
+  </disclaimer>
+  <summary lang="it">TiVuStream Pro (versione Leila-Matrix)</summary>
+  <description lang="it_IT">Canali FTA per Kodi mediacenter.</description>
+  <disclaimer lang="it_IT">
+  Tutti i contenuti proposti da Tivustream sono di carattere Gratuito e FREE si intende pertanto che sono recuperabili pubblicamente e liberamente dalla rete.
+Non ci sono contenuti sottostanti ad abbonamento o sottoscrizione come canali delle Pay Tv - Piattaforme di Streaming o qualunque altro contenuto che preveda un pagamento per la fruizione. 
+I progetti TivuStream sono dei "contenitori" che per praticità raccolgono ciò che gia' esiste in rete adattandone l'uso a seconda del dispositivo utilizzato. 
+Tutti i contenuti si intendono coperti da copyright dei rispettivi proprietari che, in qualunque momento, possono richiederne la rimozione, o negarcene l'uso, inviando una mail a tivustream@gmail.com.
+  </disclaimer>
+  <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+    <screenshot>resources\screenshot-01.jpg</screenshot>
+    <screenshot>resources\screenshot-02.jpg</screenshot>
+    <screenshot>resources\screenshot-03.jpg</screenshot>    
+  </assets>
+  <news>First Relase... Good Luck!</news>
+</extension>
+</addon>

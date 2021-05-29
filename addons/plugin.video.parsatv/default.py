@@ -27,24 +27,43 @@ if os.path.exists("/usr/lib/enigma2/python/Plugins/Extensions/KodiLite"): # enig
 import xbmc,xbmcplugin, xbmcaddon
 import xbmcgui
 import sys
-import urllib, urllib2
+# import urllib, urllib2
 import time
 import re
-from htmlentitydefs import name2codepoint as n2cp
-import httplib
-import urlparse
+# from htmlentitydefs import name2codepoint as n2cp
+# import httplib
+# import urlparse
 from os import path, system
 import socket
-from urllib2 import Request, URLError, urlopen
-from urlparse import parse_qs
-from urllib import unquote_plus
+# from urllib2 import Request, URLError, urlopen
+# from urlparse import parse_qs
+# from urllib import unquote_plus
 import string
 import os
-
+import six
+from sys import version_info
+PY3 = version_info[0] == 3
+if PY3:
+    from urllib.request import urlopen, Request
+    from urllib.error import URLError, HTTPError
+    from urllib.parse import quote, unquote_plus, unquote, urlencode
+    from urllib.request import urlretrieve
+    from urllib.parse import urlparse
+    from html.entities import name2codepoint as n2cp
+    import http.client
+else:
+    from urllib2 import urlopen, Request
+    from urllib2 import URLError, HTTPError
+    from urllib import quote, unquote_plus, unquote, urlencode
+    from urllib import urlretrieve
+    from urlparse import urlparse
+    from htmlentitydefs import name2codepoint as n2cp
+    import httplib
+    
 thisPlugin = int(sys.argv[1])
 addonId = "plugin.video.parsatv"
 __settings__ = xbmcaddon.Addon(addonId)
-thisAddonDir = xbmc.translatePath(__settings__.getAddonInfo('path')).decode('utf-8')
+thisAddonDir = xbmc.translatePath(__settings__.getAddonInfo('path'))#.decode('utf-8')
 sys.path.append(os.path.join(thisAddonDir, 'resources', 'lib'))
 home = __settings__.getAddonInfo('path')
 dataPath = xbmc.translatePath('special://profile/addon_data/%s' % (addonId))
@@ -55,19 +74,19 @@ fanart = xbmc.translatePath(os.path.join(home, 'fanart.png'))
 
 def getUrl(url):
     print("Here in getUrl url =", url)
-    req = urllib2.Request(url)
+    req = Request(url)
     req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-    response = urllib2.urlopen(req)
+    response = urlopen(req)
     link=response.read()
     response.close()
     return link
 
 def getUrl2(url, referer):
     print("Here in getUrl2 url =", url)
-    req = urllib2.Request(url)
+    req = Request(url)
     req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
     req.add_header('Referer', referer)
-    response = urllib2.urlopen(req)
+    response = urlopen(req)
     link=response.read()
     response.close()
     return link 
@@ -96,19 +115,21 @@ def showContent():
 	
 def showContent1(name, url):
         content = getUrl('http://www.parsatv.com/streams/fetch/varzeshtv.php?link=7')
+        content = six.ensure_str(content)        
         n1 = content.find('name="link"', 0)
         n2 = content.find("</select>", n1)
         content2 = content[n1:n2]
-        print "match content2=", content2
+
+        print("match content2=", content2)
         regexvideo = 'value=".*?link=(.*?)".*?>(.*?)</option>'
         match = re.compile(regexvideo,re.DOTALL).findall(content2)
-        print "match =", match
+        print("match =", match)
         for url, name in match:
             url = "http://www.parsatv.com/streams/fetch/varzeshtv.php?link=" + url
             name = 'Sport ' + name
             pic = " "                 
-            print "getVideos5 name =", name
-            print "getVideos5 url =", url
+            print("getVideos5 name =", name)
+            print("getVideos5 url =", url)
             addDirectoryItem(name, {"name":name, "url":url, "mode":33}, pic)
             # add_link(name, url1, 33, pic, fanart)
         xbmcplugin.endOfDirectory(thisPlugin)        
@@ -116,7 +137,8 @@ def showContent1(name, url):
         
 def getVideos33(name, urlmain):
     content = getUrl(urlmain)
-    print "content B =", content
+    content = six.ensure_str(content)
+    print("content B =", content)
     n1 = content.find('<body>', 0)
     n2 = content.find("</body>", n1)
     content = content[n1:n2]
@@ -128,8 +150,8 @@ def getVideos33(name, urlmain):
         url = url
         name = name.replace('%20', ' ')
         pic = ''                 
-        print "getVideos15 name =", name
-        print "getVideos15 url =", url
+        print("getVideos15 name =", name)
+        print("getVideos15 url =", url)
         addDirectoryItem(name, {"name":name, "url":url, "mode":50}, pic)
         # add_link(name, url, 50, pic, fanart)
     xbmcplugin.endOfDirectory(thisPlugin) 
@@ -138,23 +160,25 @@ def getVideos33(name, urlmain):
 	
 def showContent2(name, url):
         content = getUrl('https://www.parsatv.com/m/')
-        print "match content2=", content
+        content = six.ensure_str(content)
+        print("match content2=", content)
         regexvideo = 'li><a href="(.*?)">.*?myButton">(.*?)</'
         match = re.compile(regexvideo,re.DOTALL).findall(content)
-        print "match =", match
+        print("match =", match)
         for url, name in match:
             url = url
             name = name
             pic = " "                 
-            print "getVideos5 name =", name
-            print "getVideos5 url =", url
+            print("getVideos5 name =", name)
+            print("getVideos5 url =", url)
             addDirectoryItem(name, {"name":name, "url":url, "mode":34}, pic)
             # add_link(name, url1, 33, pic, fanart)
         xbmcplugin.endOfDirectory(thisPlugin)      
 
 def getVideos34(name, urlmain):
     content = getUrl(urlmain)
-    print "content B =", content
+    content = six.ensure_str(content)
+    print("content B =", content)
     n1 = content.find('class="myButton" id=', 0)
     n2 = content.find("</button></a>", n1)
     content = content[n1:n2]
@@ -165,8 +189,8 @@ def getVideos34(name, urlmain):
         url = url
         name = name
         pic = ''                 
-        print "getVideos15 name =", name
-        print "getVideos15 url =", url
+        print("getVideos15 name =", name)
+        print("getVideos15 url =", url)
         addDirectoryItem(name, {"name":name, "url":url, "mode":50}, pic)
         # add_link(name, url, 50, pic, fanart)
     xbmcplugin.endOfDirectory(thisPlugin) 
@@ -191,7 +215,7 @@ std_headers = {
 
             
 def add_link(name, url, mode, iconimage, fanart):
-	u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) + "&name=" + urllib.quote_plus(name) + "&iconimage=" + urllib.quote_plus(iconimage)
+	u = sys.argv[0] + "?url=" + quote_plus(url) + "&mode=" + str(mode) + "&name=" + quote_plus(name) + "&iconimage=" + quote_plus(iconimage)
 	ok = True
 	liz = xbmcgui.ListItem(name, iconImage = "DefaultVideo.png", thumbnailImage = iconimage)
 	liz.setProperty('fanart_image', fanart)
@@ -206,7 +230,7 @@ def add_link(name, url, mode, iconimage, fanart):
 
 def addDirectoryItem(name, parameters={},pic=""):
     li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
-    url = sys.argv[0] + '?' + urllib.urlencode(parameters)
+    url = sys.argv[0] + '?' + urlencode(parameters)
     return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
 
 
@@ -224,7 +248,7 @@ def parameters_string_to_dict(parameters):
 params = parameters_string_to_dict(sys.argv[2])
 name =  str(params.get("name", ""))
 url =  str(params.get("url", ""))
-url = urllib.unquote(url)
+url = unquote(url)
 mode =  str(params.get("mode", ""))
 
 if not sys.argv[2]:

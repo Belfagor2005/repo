@@ -33,34 +33,34 @@ import xbmcgui
 import time
 import re
 import socket
-
+import six
 PY3 = sys.version_info[0] == 3
 
 if PY3:
-    import urllib.request, urllib.parse, urllib.error, urllib.request, urllib.error, urllib.parse
+    from urllib.request import urlopen, Request
+    from urllib.error import URLError, HTTPError
+    from urllib.parse import quote, unquote_plus, unquote, urlencode
+    from urllib.request import urlretrieve
+    from urllib.parse import urlparse
     from html.entities import name2codepoint as n2cp
     import http.client
-    import urllib.parse
-    from urllib.request import Request, urlopen
-    from urllib.error import URLError
     from urllib.parse import parse_qs
-    from urllib.parse import unquote_plus
 else:
-    #py2
-    import urllib, urllib2
+    from urlparse import parse_qs
+    from urllib2 import urlopen, Request
+    from urllib2 import URLError, HTTPError
+    from urllib import quote, unquote_plus, unquote, urlencode
+    from urllib import urlretrieve
+    from urlparse import urlparse
     from htmlentitydefs import name2codepoint as n2cp
     import httplib
-    import urlparse
-    from urllib2 import Request, URLError, urlopen
-    from urlparse import parse_qs
-    from urllib import unquote_plus
 
 
 
 thisPlugin = int(sys.argv[1])
 addonId = "plugin.video.tvitalia"
 __settings__ = xbmcaddon.Addon(addonId)
-thisAddonDir = xbmc.translatePath(__settings__.getAddonInfo('path')).decode('utf-8')
+thisAddonDir = xbmc.translatePath(__settings__.getAddonInfo('path'))#.decode('utf-8')
 icon = xbmc.translatePath(os.path.join(thisAddonDir, 'icon.png'))
 fanart = xbmc.translatePath(os.path.join(thisAddonDir, 'fanart.jpg'))
 main = xbmc.translatePath(os.path.join(thisAddonDir, '__main__.py')) 
@@ -233,27 +233,19 @@ def getUrl(url):
             return link
 
 def getUrl2(url, referer):
-        try:
-            req = urllib.request.Request(url)
-        except:
-            req = urllib2.Request(url)       
+        req = Request(url)
+     
         req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
         req.add_header('Referer', referer)
         try:
-            try:
-                response = urllib.request.urlopen(req)
-            except:       
-                response = urllib2.urlopen(req)
+            response = urlopen(req)
             link=response.read()
             response.close()
             return link
         except:
             import ssl
             gcontext = ssl._create_unverified_context()
-            try:
-                response = urllib.request.urlopen(req)
-            except:       
-                response = urllib2.urlopen(req)
+            response = urlopen(req)
             link=response.read()
             response.close()
             return link
@@ -373,6 +365,8 @@ def showContent21(name, url):
 
 def showContent22(name, url):
     content = getUrl(url)
+    if PY3:        
+            content = six.ensure_str(content)    
     print("showContent2 content =", content)
     pic = " "
     regexcat = '<div class="item__.*?href="(.*?)".*?alt="(.*?)"'
@@ -388,6 +382,8 @@ def showContent22(name, url):
 
 def showContent23(name, urlmain):
     content = getUrl(urlmain)
+    if PY3:        
+            content = six.ensure_str(content)    
     print("getVideos content =", content)
     pic = " "
     regexcat = '"player".*?href="(.*?)"'
@@ -395,6 +391,8 @@ def showContent23(name, urlmain):
     print("getVideos match =", match)
     url2 = match[0]
     content2 = getUrl(url2)
+    if PY3:        
+            content2 = six.ensure_str(content2)    
     print("getVideos content2 =", content2)
     regexcat2 = 'liveVideo":{"mediaUrl":"(.*?)"'
     match2 = re.compile(regexcat2,re.DOTALL).findall(content2)
@@ -404,6 +402,8 @@ def showContent23(name, urlmain):
 
 def showContent24(name, urlmain):
     content = getUrl(urlmain)
+    if PY3:        
+            content = six.ensure_str(content)    
     print("getVideos2 content =", content)
     regexcat = '"player".*?href="(.*?)"'
     match = re.compile(regexcat,re.DOTALL).findall(content)
@@ -590,6 +590,8 @@ def showContent33(name, url):
     print("showContent3 name =", name)
     print("showContent3 url =", url)
     content = getUrl(url)
+    if PY3:        
+            content = six.ensure_str(content)    
     print("showContent3 content =", content)
     name = name.replace("+", " ")
     regexcat = 'data-video-json="(.*?)".*?<img alt="(.*?)"'
@@ -656,6 +658,8 @@ def showContent61(name, url):
     print("showContent3 name =", name)
     print("showContent3 url =", url)
     content = getUrl(url)
+    if PY3:        
+            content = six.ensure_str(content)    
     content = content.replace("\r", "").replace("\t", "").replace("\n", "")
     print("showContent3 content =", content)
     regexcat = 'data-video-json="(.*?)".*?<img alt="(.*?)"'
@@ -696,6 +700,8 @@ def showContent62(name, url):
         play(name, url)         
     else:
         content = getUrl(url)
+        if PY3:        
+            content = six.ensure_str(content)        
         print("showContent62 content =", content)        
         try:
             if 'type="video">' in content:
@@ -758,6 +764,8 @@ def showContent35(name, url):
 
 def showContent45(name, url):
     content = getUrl(url)
+    if PY3:        
+            content = six.ensure_str(content)    
     print("showContent2 content =", content)
     if "fiction" in name.lower():
         regexcat = 'a href="/fiction/(.*?)".*?class="_2_UgV">(.*?)</p'
@@ -847,6 +855,8 @@ def showContent45(name, url):
 
 def showContent46(name, url):
     content = getUrl(url)
+    if PY3:        
+            content = six.ensure_str(content)    
     print("showContent2 content =", content)
     pic = " "    
     if ("movie" in url) or ("video" in url):
@@ -937,7 +947,7 @@ std_headers = {
 
 def addDirectoryItem(name, parameters={},pic=""):
     li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
-    url = sys.argv[0] + '?' + urllib.urlencode(parameters)
+    url = sys.argv[0] + '?' + urlencode(parameters)
     return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
 
 
@@ -955,7 +965,7 @@ def parameters_string_to_dict(parameters):
 params = parameters_string_to_dict(sys.argv[2])
 name =  str(params.get("name", ""))
 url =  str(params.get("url", ""))
-url = urllib.unquote(url)
+url = unquote(url)
 mode =  str(params.get("mode", ""))
 
 if not sys.argv[2]:

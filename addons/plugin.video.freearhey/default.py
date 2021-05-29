@@ -1,12 +1,11 @@
 #!/usr/bin/python
 import sys, xpath, xbmc
 import os
-
 if os.path.exists("/usr/lib/enigma2/python/Plugins/Extensions/KodiLite"): # enigma2 KodiLite
     libs = sys.argv[0].replace("default.py", "resources/lib")
     if os.path.exists(libs):
        sys.path.append(libs)
-    print "Here in default-py sys.argv =", sys.argv
+    print("Here in default-py sys.argv =", sys.argv)
     if ("?plugin%3A%2F%2F" in sys.argv[2]) or ("?plugin://" in sys.argv[2]):
         argtwo = sys.argv[2]
         n2 = argtwo.find("?", 0)
@@ -22,24 +21,36 @@ if os.path.exists("/usr/lib/enigma2/python/Plugins/Extensions/KodiLite"): # enig
     else:
         sys.argv[0] = sys.argv[0].replace('/usr/lib/enigma2/python/Plugins/Extensions/KodiLite/plugins/', 'plugin://')
         sys.argv[0] = sys.argv[0].replace('default.py', '')
-    print "Here in default-py sys.argv B=", sys.argv
+    print("Here in default-py sys.argv B=", sys.argv)
 
 import xbmc,xbmcaddon, xbmcplugin
 import xbmcgui
 import sys
-import urllib, urllib2
 import time
 import re
-from htmlentitydefs import name2codepoint as n2cp
-import httplib
-import urlparse
 from os import path, system, walk
 import socket
-from urllib2 import Request, URLError, urlopen
-from urlparse import parse_qs
-from urllib import unquote_plus
 import base64
+import six
+from sys import version_info
 
+PY3 = version_info[0] == 3
+if PY3:
+    from urllib.request import urlopen, Request
+    from urllib.error import URLError, HTTPError
+    from urllib.parse import quote, unquote_plus, unquote, urlencode
+    from urllib.request import urlretrieve
+    from urllib.parse import urlparse
+    from html.entities import name2codepoint as n2cp
+    import http.client
+else:
+    from urllib2 import urlopen, Request
+    from urllib2 import URLError, HTTPError
+    from urllib import quote, unquote_plus, unquote, urlencode
+    from urllib import urlretrieve
+    from urlparse import urlparse
+    from htmlentitydefs import name2codepoint as n2cp
+    import httplib
 thisPlugin = int(sys.argv[1])
 addonId = "plugin.video.freearhey"
 Addon = xbmcaddon.Addon(addonId)
@@ -55,8 +66,8 @@ home = mysettings.getAddonInfo('path')
 AddonName = Addon.getAddonInfo("name")
 fanart = xbmc.translatePath(os.path.join(home, 'fanart.jpg'))
 icon = xbmc.translatePath(os.path.join(home, 'icon.png'))
-addonDir = Addon.getAddonInfo('path').decode("utf-8")
-print "Here in playlistloader addonDir =", addonDir
+addonDir = Addon.getAddonInfo('path')#.decode("utf-8")
+print("Here in playlistloader addonDir =", addonDir)
 # m3u = 'aHR0cDovL2x1bHVsbGEuYWx0ZXJ2aXN0YS5vcmcvaXB0di1tYXN0ZXIv'
 
 m3u = 'aHR0cHM6Ly9naXRodWIuY29tL2lwdHYtb3JnL2lwdHYv'
@@ -68,23 +79,58 @@ m31 = 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2ZyZWVhcmhleS9pcHR2L21hc3Rlc
 host1= base64.b64decode(m31)
 m3 = 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2ZyZWVhcmhleS9pcHR2L21hc3Rlci8='
 host= base64.b64decode(m3)
-
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' }
+def checkStr(txt):
+    if PY3:
+        if isinstance(txt, type(bytes())):
+            txt = txt.decode('utf-8')
+    else:
+        if isinstance(txt, type(six.text_type())):
+            txt = txt.encode('utf-8')
+    return txt
+    
+# def getUrl(url):
+	# try:
+		# req = Request(url)
+		# req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:19.0) Gecko/20100101 Firefox/19.0')
+		# response = urlopen(req)
+		# link = response.read()
+		# response.close()
+		# return link
+	# except URLError as e:
+		# print('We failed to open "%s".' % url)
+		# if hasattr(e, 'code'):
+			# print('We failed with error code - %s.' % e.code)
+		# if hasattr(e, 'reason'):
+			# print('We failed to reach a server.')
+			# print('Reason: ', e.reason)
 def getUrl(url):
-	try:
-		req = urllib2.Request(url)
-		req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:19.0) Gecko/20100101 Firefox/19.0')
-		response = urllib2.urlopen(req)
-		link = response.read()
-		response.close()
-		return link
-	except urllib2.URLError, e:
-		print 'We failed to open "%s".' % url
-		if hasattr(e, 'code'):
-			print 'We failed with error code - %s.' % e.code
-		if hasattr(e, 'reason'):
-			print 'We failed to reach a server.'
-			print 'Reason: ', e.reason
-
+        print( "Here in getUrl url =", url)
+        try:
+               req = request.Request(url)
+        except:
+               req = Request(url)       
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        try:
+            try:
+                response = request.urlopen(req)
+            except:       
+                response = urlopen(req)
+            link=response.read()
+            response.close()
+            return link
+        except:
+            import ssl
+            gcontext = ssl._create_unverified_context()
+            try:
+                response = request.urlopen(req)
+            except:       
+                response = urlopen(req)
+            link=response.read()
+            response.close()
+            return link
+            
 def showContent():
         names = []
         urls = []
@@ -102,9 +148,10 @@ def showContent():
 
 def showContent2(name, url):
 
-                print 'url---:', url
+                print('url---:', url)
                 content = getUrl(url)
-                print "content 2 =", content
+                content = six.ensure_str(content)
+                print("content 2 =", content)
                 pass#print "content 2 =", content
                 # fpage = content.read()
                 regexcat = 'EXTINF.*?,(.*?)\\n(.*?)\\n'
@@ -120,16 +167,23 @@ def showContent2(name, url):
 
 def showContent3(name, url):
 
-                url=url
-                print 'url--semifininal-:', url
+                url = str(url)
+                # url = six.ensure_str(url)
+                print('url--semifininal-:', url)
                 if 'fh.php' in url:
                     url = url
                 else:
-                    url = host + url
+                    url = six.ensure_str(host) + url
                     # url = 'http://bit.ly/2RpPCCg' + url                    
                     # url = server + 'blob/master/' + url                    
                 content = getUrl(url)
-                print "content 3 =", content
+                
+                req = Request(url, None, headers=headers)
+                content = urlopen(req, timeout=30).read()
+                content = six.ensure_str(content)
+                # content = checkStr(content)
+                # content = six.ensure_str(content)
+                print("content 3 =", content)
                 pass
                 regexcat = 'EXTINF.*?,(.*?)\\n(.*?)\\n'
                 match = re.compile(regexcat,re.DOTALL).findall(content)
@@ -140,7 +194,7 @@ def showContent3(name, url):
                         url = url.replace('https','http')
                         name = name.replace('\r','')
                         pic = " "
-                        print 'url final:', url
+                        print('url final:', url)
                         addDirectoryItem(name, {"name":name, "url":url, "mode":3}, pic)
                 xbmcplugin.endOfDirectory(thisPlugin)
 
@@ -148,7 +202,7 @@ def showContent3(name, url):
 def playVideo(name, url):
            pass
            pic = "DefaultFolder.png"
-           print "Here in playVideo url B=", url
+           print("Here in playVideo url B=", url)
            li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
            player = xbmc.Player()
            player.play(url, li)
@@ -162,7 +216,7 @@ std_headers = {
 
 def addDirectoryItem(name, parameters={},pic=""):
     li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
-    url = sys.argv[0] + '?' + urllib.urlencode(parameters)
+    url = sys.argv[0] + '?' + urlencode(parameters)
     return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
 
 def parameters_string_to_dict(parameters):
@@ -179,7 +233,7 @@ def parameters_string_to_dict(parameters):
 params = parameters_string_to_dict(sys.argv[2])
 name =  str(params.get("name", ""))
 url =  str(params.get("url", ""))
-url = urllib.unquote(url)
+url = unquote(url)
 mode =  str(params.get("mode", ""))
 
 if not sys.argv[2]:

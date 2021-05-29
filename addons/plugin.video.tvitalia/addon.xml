@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.tvitalia" name="TvItalia" version="1.0.4" provider-name="@Lululla - Linuxsat-support Team">
+<addon id="plugin.video.tvitalia" name="TvItalia" version="1.0.5" provider-name="@Lululla - Linuxsat-support Team">
   <extension point="xbmc.python.pluginsource" library="default.py">
     <provides>video</provides>
   </extension>

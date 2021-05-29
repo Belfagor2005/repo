@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 import sys, xpath, xbmc, os
-
 if os.path.exists("/usr/lib/enigma2/python/Plugins/Extensions/KodiLite"): # enigma2 KodiLite
     libs = sys.argv[0].replace("default.py", "resources/lib")
     if os.path.exists(libs):
@@ -24,16 +23,30 @@ if os.path.exists("/usr/lib/enigma2/python/Plugins/Extensions/KodiLite"): # enig
         sys.argv[0] = sys.argv[0].replace('default.py', '')
     print("Here in default-py sys.argv B=", sys.argv)
 
-
-import xbmc,xbmcplugin,xbmcaddon
+import xbmcplugin, xbmcaddon
 import xbmcgui
-import sys
-import urllib
 import time
 import re
-##from htmlentitydefs import name2codepoint as n2cp
-##import httplib
-####import http.client
+import six
+from sys import version_info
+
+PY3 = version_info[0] == 3
+if PY3:
+    from urllib.request import urlopen, Request
+    from urllib.error import URLError, HTTPError
+    from urllib.parse import quote, unquote_plus, unquote, urlencode
+    from urllib.request import urlretrieve
+    from urllib.parse import urlparse
+    from html.entities import name2codepoint as n2cp
+    import http.client
+else:
+    from urllib2 import urlopen, Request
+    from urllib2 import URLError, HTTPError
+    from urllib import quote, unquote_plus, unquote, urlencode
+    from urllib import urlretrieve
+    from urlparse import urlparse
+    from htmlentitydefs import name2codepoint as n2cp
+    import httplib
 try:
        import urlparse
 except:       
@@ -49,8 +62,6 @@ try:
        from urlparse import parse_qs
 except:
        from urllib.parse import parse_qs
-##from urllib import unquote_plus
-
 
 thisPlugin = int(sys.argv[1])
 addonId = "plugin.video.worldcam"
@@ -73,16 +84,18 @@ icon = xbmc.translatePath(os.path.join(home, 'icon.png'))
 
 def getUrl(url):
         print( "Here in getUrl url =", url)
-        try:
-               req = urllib.request.Request(url)
-        except:
-               req = urllib2.Request(url)       
+        req = Request(url)    
+        # try:
+               # req = urllib.request.Request(url)
+        # except:
+               # req = urllib2.Request(url)                  
         req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
         try:
-               try:
-                      response = urllib.request.urlopen(req)
-               except:       
-                      response = urllib2.urlopen(req)
+               # try:
+                      # response = urllib.request.urlopen(req)
+               # except:       
+                      # response = urllib2.urlopen(req)
+               urlopen(req)       
                link=response.read()
                response.close()
                return link
@@ -97,7 +110,6 @@ def getUrl(url):
                response.close()
                return link
                 
-    
 def getUrl2(url, referer):
 #        pass#pass#print "Here in  getUrl2 url =", url
 #        pass#pass#print "Here in  getUrl2 referer =", referer
@@ -108,38 +120,39 @@ def getUrl2(url, referer):
         req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
         req.add_header('Referer', referer)
         try:
-               try:
-                      response = urllib.request.urlopen(req)
-               except:       
-                      response = urllib2.urlopen(req)
+               # try:
+                      # response = urllib.request.urlopen(req)
+               # except:       
+                      # response = urllib2.urlopen(req)
+               urlopen(req)        
                link=response.read()
                response.close()
                return link
         except:
                import ssl
                gcontext = ssl._create_unverified_context()
-               try:
-                      response = urllib.request.urlopen(req)
-               except:       
-                      response = urllib2.urlopen(req)
+               # try:
+                      # response = urllib.request.urlopen(req)
+               # except:       
+                      # response = urllib2.urlopen(req)
+                      
+               urlopen(req)       
                link=response.read()
                response.close()
                return link
 
-
 def getUrl3(url):
 #        pass#print"Here in getUrl url =", url
-        try:
-               req = urllib.request.Request(url)
-        except:
-               req = urllib2.Request(url)       
+        # try:
+               # req = urllib.request.Request(url)
+        # except:
+               # req = urllib2.Request(url)   
+        req = Request(url)        
         req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
         response = urllib2.urlopen(req)
         link=response.geturl()
         response.close()
         return link
-
-
 
 def showContent():
         names = []
@@ -222,8 +235,6 @@ def getVideos2(name1, urlmain):
         for item in items:
             name = item.split("###")[0]
             url1 = item.split("###")[1]
-            
-            
             addDirectoryItem(name, {"name":name, "url":url1, "mode":"3"}, pic)
 
         xbmcplugin.endOfDirectory(thisPlugin)
@@ -394,15 +405,15 @@ std_headers = {
 def addDirectoryItem(name, parameters={},pic=""):
     li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
     try:
-           url = sys.argv[0] + '?' + urllib.parse.urlencode(parameters)
+           url = sys.argv[0] + '?' + urlencode(parameters)
     except:
-           url = sys.argv[0] + '?' + urllib.urlencode(parameters)
+           url = sys.argv[0] + '?' + urlencode(parameters)
     return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
     
 
 def addDirectoryItemXX(name, url, mode, iconimage, fanart):
 
-        u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) + "&name=" + urllib.quote_plus(name) + "&iconimage=" + urllib.quote_plus(iconimage)
+        u = sys.argv[0] + "?url=" + quote_plus(url) + "&mode=" + str(mode) + "&name=" + quote_plus(name) + "&iconimage=" + quote_plus(iconimage)
         ok = True
         liz = xbmcgui.ListItem(name, iconImage = "DefaultFolder.png", thumbnailImage = iconimage)
         liz.setInfo( type = "Video", infoLabels = { "Title": name } )
@@ -429,9 +440,9 @@ params = parameters_string_to_dict(sys.argv[2])
 name =  str(params.get("name", ""))
 url =  str(params.get("url", ""))
 try:
-        url = urllib.parse.unquote(url)
+        url = unquote(url)
 except:
-        url = urllib.unquote(url)  
+        url = unquote(url)  
 mode =  str(params.get("mode", ""))
 iconimage = None
 # def get_params():
@@ -479,9 +490,5 @@ else:
       ok = getVideos9(name, url)
    elif mode == str(10):
       ok = getVideos10(name, url)
-      
-      
-      
+     
 xbmcplugin.endOfDirectory(thisPlugin)
-
-
