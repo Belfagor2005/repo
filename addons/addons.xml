@@ -254,7 +254,7 @@ Tutti i contenuti si intendono coperti da copyright dei rispettivi proprietari c
 
 <addon id="plugin.video.filmon"
 	   name="Filmon"
-	   version="1.0.2"
+	   version="1.0.4"
 	   provider-name="linuxsat-support">
   <extension point="xbmc.python.pluginsource"
 			 library="default.py">
