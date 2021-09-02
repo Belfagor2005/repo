@@ -17,4 +17,3 @@ if os.path.exists(scripts):
                  
 #                  traceback.print_exc(file=open(XBMCAddons_error_file,"w"))
 
-
