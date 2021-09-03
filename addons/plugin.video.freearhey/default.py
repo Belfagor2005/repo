@@ -1,9 +1,8 @@
 #!/usr/bin/python
-# -*- coding: latin-1 -*-
-import sys, xpath, xbmc, os
+import sys, xpath, xbmc
+import os
 if os.path.exists("/usr/lib/enigma2/python/Plugins/Extensions/KodiLite"): # enigma2 KodiLite
     libs = sys.argv[0].replace("default.py", "resources/lib")
-    import six
     if os.path.exists(libs):
        sys.path.append(libs)
     print("Here in default-py sys.argv =", sys.argv)
@@ -18,23 +17,25 @@ if os.path.exists("/usr/lib/enigma2/python/Plugins/Extensions/KodiLite"): # enig
             sys.argv[0] = argtwo[:n3]
             sys.argv[2] = argtwo[n3:]
         sys.argv[0] = sys.argv[0].replace("?", "")
+
     else:
         sys.argv[0] = sys.argv[0].replace('/usr/lib/enigma2/python/Plugins/Extensions/KodiLite/plugins/', 'plugin://')
         sys.argv[0] = sys.argv[0].replace('default.py', '')
     print("Here in default-py sys.argv B=", sys.argv)
 
-import xbmcplugin
+import xbmc,xbmcaddon, xbmcplugin
 import xbmcgui
+import sys
 import time
-import xbmc
-import xbmcaddon
 import re
 from os import path, system, walk
 import socket
 import base64
+import six
+from sys import version_info
 
-PY3 = False
-try:
+PY3 = version_info[0] == 3
+if PY3:
     from urllib.request import urlopen, Request
     from urllib.error import URLError, HTTPError
     from urllib.parse import quote, unquote_plus, unquote, urlencode
@@ -42,7 +43,7 @@ try:
     from urllib.parse import urlparse
     from html.entities import name2codepoint as n2cp
     import http.client
-except:
+else:
     from urllib2 import urlopen, Request
     from urllib2 import URLError, HTTPError
     from urllib import quote, unquote_plus, unquote, urlencode
@@ -50,19 +51,24 @@ except:
     from urlparse import urlparse
     from htmlentitydefs import name2codepoint as n2cp
     import httplib
-
-
 thisPlugin = int(sys.argv[1])
 addonId = "plugin.video.freearhey"
-__settings__ = xbmcaddon.Addon(addonId)
-thisAddonDir = xbmc.translatePath(__settings__.getAddonInfo('path'))#.decode('utf-8')
-sys.path.append(os.path.join(thisAddonDir, 'resources', 'lib'))
-home = __settings__.getAddonInfo('path')
+Addon = xbmcaddon.Addon(addonId)
+mysettings = xbmcaddon.Addon(id = addonId)
+# __language__ = mysettings.get_string
 dataPath = xbmc.translatePath('special://profile/addon_data/%s' % (addonId))
 if not path.exists(dataPath):
        cmd = "mkdir -p " + dataPath
        system(cmd)
-fanart = xbmc.translatePath(os.path.join(home, 'fanart.png'))
+profile = mysettings.getAddonInfo('profile')
+home = mysettings.getAddonInfo('path')
+# artfolder = (home + '/resources/img/')
+AddonName = Addon.getAddonInfo("name")
+fanart = xbmc.translatePath(os.path.join(home, 'fanart.jpg'))
+icon = xbmc.translatePath(os.path.join(home, 'icon.png'))
+addonDir = Addon.getAddonInfo('path')#.decode("utf-8")
+print("Here in playlistloader addonDir =", addonDir)
+# m3u = 'aHR0cDovL2x1bHVsbGEuYWx0ZXJ2aXN0YS5vcmcvaXB0di1tYXN0ZXIv'
 
 m3u = 'aHR0cHM6Ly9naXRodWIuY29tL2lwdHYtb3JnL2lwdHYv'
 server = base64.b64decode(m3u)
@@ -83,61 +89,48 @@ def checkStr(txt):
         if isinstance(txt, type(six.text_type())):
             txt = txt.encode('utf-8')
     return txt
-
-def checkStr(txt):
-    if PY3:
-        if isinstance(txt, type(bytes())):
-            txt = txt.decode('utf-8')
-    else:
-        if isinstance(txt, type(six.text_type())):
-            txt = txt.encode('utf-8')
-    return txt
-
-def getUrl2(url, referer):
-    try:
-        req =Request(url)
-    except:
-        req = Request(url)
-    req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-    req.add_header('Referer', referer)
-    try:
-        try:
-            response = urlopen(req)
-        except:
-            response = urlopen(req)
-        link=response.read().decode('utf-8')
-        response.close()
-        return link
-    except:
-        import ssl
-        gcontext = ssl._create_unverified_context()
-        try:
-            response = urlopen(req)
-        except:
-            response = urlopen(req)
-        link=response.read().decode('utf-8')
-        response.close()
-        return link
-
+    
+# def getUrl(url):
+	# try:
+		# req = Request(url)
+		# req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:19.0) Gecko/20100101 Firefox/19.0')
+		# response = urlopen(req)
+		# link = response.read()
+		# response.close()
+		# return link
+	# except URLError as e:
+		# print('We failed to open "%s".' % url)
+		# if hasattr(e, 'code'):
+			# print('We failed with error code - %s.' % e.code)
+		# if hasattr(e, 'reason'):
+			# print('We failed to reach a server.')
+			# print('Reason: ', e.reason)
 def getUrl(url):
-    link = []
-    try:
-        import requests
-        link = requests.get(url, headers = {'User-Agent': 'Mozilla/5.0'}).text
-        return link
-    except ImportError:
-        print("Here in client2 getUrl url =", url)
-        req = Request(url)
+        print( "Here in getUrl url =", url)
+        try:
+               req = request.Request(url)
+        except:
+               req = Request(url)       
         req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-        response = urlopen(req, None, 30)
-        link=response.read().decode('utf-8')
-        response.close()
-        print("Here in client2 link =", link)
-        return link
-    except:
-        return
-    return
-
+        try:
+            try:
+                response = request.urlopen(req)
+            except:       
+                response = urlopen(req)
+            link=response.read()
+            response.close()
+            return link
+        except:
+            import ssl
+            gcontext = ssl._create_unverified_context()
+            try:
+                response = request.urlopen(req)
+            except:       
+                response = urlopen(req)
+            link=response.read()
+            response.close()
+            return link
+            
 def showContent():
         names = []
         urls = []
@@ -154,61 +147,65 @@ def showContent():
         xbmcplugin.endOfDirectory(thisPlugin)
 
 def showContent2(name, url):
-    print('url---:', url)
-    content = getUrl(url)
-    # content = six.ensure_str(content)
-    print("content 2 =", content)
-    pass#print "content 2 =", content
-    # fpage = content.read()
-    regexcat = 'EXTINF.*?,(.*?)\\n(.*?)\\n'
-    match = re.compile(regexcat,re.DOTALL).findall(content)
-    for name, url in match:
-            url = url.replace(" ", "%20")
-            url = url.replace("\\n", "")
-            url = url.replace('\r','')
-            name = name.replace('\r','')
-            pic = " "
-            addDirectoryItem(name, {"name":name, "url":url, "mode":2}, pic)
-    xbmcplugin.endOfDirectory(thisPlugin)
+
+                print('url---:', url)
+                content = getUrl(url)
+                content = six.ensure_str(content)
+                print("content 2 =", content)
+                pass#print "content 2 =", content
+                # fpage = content.read()
+                regexcat = 'EXTINF.*?,(.*?)\\n(.*?)\\n'
+                match = re.compile(regexcat,re.DOTALL).findall(content)
+                for name, url in match:
+                        url = url.replace(" ", "%20")
+                        url = url.replace("\\n", "")
+                        url = url.replace('\r','')
+                        name = name.replace('\r','')
+                        pic = " "
+                        addDirectoryItem(name, {"name":name, "url":url, "mode":2}, pic)
+                xbmcplugin.endOfDirectory(thisPlugin)
 
 def showContent3(name, url):
-    url = str(url)
-    # url = six.ensure_str(url)
-    print('url--semifininal-:', url)
-    if 'fh.php' in url:
-        url = url
-    else:
-        # url = six.ensure_str(host) + url
-        url = checkStr(host) + url
 
-    content = getUrl(url)
-    req = Request(url, None, headers=headers)
-    content = urlopen(req, timeout=30).read()
-    # content = six.ensure_str(content)
-    print("content 3 =", content)
-    pass
-    regexcat = 'EXTINF.*?,(.*?)\\n(.*?)\\n'
-    match = re.compile(regexcat,re.DOTALL).findall(content)
-    for name, url in match:
-            url = url.replace(" ", "%20")
-            url = url.replace("\\n", "")
-            url = url.replace('\r','')
-            url = url.replace('https','http')
-            name = name.replace('\r','')
-            pic = " "
-            print('url final:', url)
-            addDirectoryItem(name, {"name":name, "url":url, "mode":3}, pic)
-    xbmcplugin.endOfDirectory(thisPlugin)
+                url = str(url)
+                # url = six.ensure_str(url)
+                print('url--semifininal-:', url)
+                if 'fh.php' in url:
+                    url = url
+                else:
+                    url = six.ensure_str(host) + url
+                    # url = 'http://bit.ly/2RpPCCg' + url                    
+                    # url = server + 'blob/master/' + url                    
+                content = getUrl(url)
+                
+                req = Request(url, None, headers=headers)
+                content = urlopen(req, timeout=30).read()
+                content = six.ensure_str(content)
+                # content = checkStr(content)
+                # content = six.ensure_str(content)
+                print("content 3 =", content)
+                pass
+                regexcat = 'EXTINF.*?,(.*?)\\n(.*?)\\n'
+                match = re.compile(regexcat,re.DOTALL).findall(content)
+                for name, url in match:
+                        url = url.replace(" ", "%20")
+                        url = url.replace("\\n", "")
+                        url = url.replace('\r','')
+                        url = url.replace('https','http')
+                        name = name.replace('\r','')
+                        pic = " "
+                        print('url final:', url)
+                        addDirectoryItem(name, {"name":name, "url":url, "mode":3}, pic)
+                xbmcplugin.endOfDirectory(thisPlugin)
 
 
 def playVideo(name, url):
-    print("Here in playVideo url =", url)
-    pic = "DefaultFolder.png"
-    print("Here in playVideo url B=", url)
-    li = xbmcgui.ListItem(label=name)
-    li.setArt({'thumb': "DefaultFolder.png", 'icon': pic})
-    player = xbmc.Player()
-    player.play(url, li)
+           pass
+           pic = "DefaultFolder.png"
+           print("Here in playVideo url B=", url)
+           li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
+           player = xbmc.Player()
+           player.play(url, li)
 
 std_headers = {
 	'User-Agent': 'Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.2.6) Gecko/20100627 Firefox/3.6.6',
@@ -218,8 +215,7 @@ std_headers = {
 }
 
 def addDirectoryItem(name, parameters={},pic=""):
-    li = xbmcgui.ListItem(label=name)
-    li.setArt({'thumb': "DefaultFolder.png", 'icon': pic})
+    li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
     url = sys.argv[0] + '?' + urlencode(parameters)
     return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
 
@@ -245,7 +241,9 @@ if not sys.argv[2]:
 else:
     if mode == str(1):
         ok = showContent2(name, url)
+
     elif mode == str(2):
         ok = showContent3(name, url)
+
     elif mode == str(3):
         ok = playVideo(name, url)
