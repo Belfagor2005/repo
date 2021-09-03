@@ -1,0 +1,12 @@
+{
+   "SetViewMode":"500",
+   "items":[
+      {
+         "title":"[COLOR red]ADDON UNDER MAINTENANCE[/COLOR]",
+         "link":"ignore",
+         "thumbnail":"https://images-na.ssl-images-amazon.com/images/I/41sxqlFU88L.jpg",
+         "fanart":"https:\/\/interrogati.it\/wp-content\/uploads\/2019\/10\/xxx.png",
+         "info":"UNDER MAINTENANCE"
+      }
+   ]
+}

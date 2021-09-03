@@ -1,0 +1,7 @@
+﻿<settings>
+	<category label="Settings">
+		<setting id="baseUrl" label="Start Json Url" type="text" default="https://tivustream.website/urls/xxxspy" visible="false" />
+		<setting id="password" label="Access Password" type="text" option="hidden" default="tvsxxx" visible="true" />
+		<setting id="debug" type="text" label="Enable Add-on Debugging" default="spento" visible="false" />
+	</category>
+</settings>

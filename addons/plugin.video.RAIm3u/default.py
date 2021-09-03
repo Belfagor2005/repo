@@ -1,9 +1,9 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 import sys, xpath, xbmc, os
-
 if os.path.exists("/usr/lib/enigma2/python/Plugins/Extensions/KodiLite"): # enigma2 KodiLite
     libs = sys.argv[0].replace("default.py", "resources/lib")
+    import six
     if os.path.exists(libs):
        sys.path.append(libs)
     print("Here in default-py sys.argv =", sys.argv)
@@ -41,10 +41,10 @@ import socket
 import string
 import os
 import xbmcaddon
-import six
+# import six
 from sys import version_info
-PY3 = version_info[0] == 3
-if PY3:
+PY3 = False
+try:
     from urllib.request import urlopen, Request
     from urllib.error import URLError, HTTPError
     from urllib.parse import quote, unquote_plus, unquote, urlencode
@@ -52,7 +52,9 @@ if PY3:
     from urllib.parse import urlparse
     from html.entities import name2codepoint as n2cp
     import http.client
-else:
+    PY3 = True; unicode = str; unichr = chr; long = int
+    
+except:
     from urllib2 import urlopen, Request
     from urllib2 import URLError, HTTPError
     from urllib import quote, unquote_plus, unquote, urlencode
@@ -73,32 +75,136 @@ ADDON = xbmcaddon.Addon()
 ADDON_DATA = ADDON.getAddonInfo('profile')
 ADDON_PATH = ADDON.getAddonInfo('path')
 DESCRIPTION = ADDON.getAddonInfo('description')
-FANART = ADDON.getAddonInfo('fanart')
-ICON = ADDON.getAddonInfo('icon')
+fanart = ADDON.getAddonInfo('fanart')
+icon = ADDON.getAddonInfo('icon')
 ID = ADDON.getAddonInfo('id')
 NAME = ADDON.getAddonInfo('name')
 VERSION = ADDON.getAddonInfo('version')
        
 this = ADDON_PATH + '/rai-play-'       
 
-def getUrl(url):
-    print("Here in getUrl url =", url)
-    req = Request(url)
-    req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-    response = urlopen(req)
-    link=response.read()
-    response.close()
-    return link
+# def getUrl(url):
+    # print("Here in getUrl url =", url)
+    # req = Request(url)
+    # req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+    # response = urlopen(req)
+    # link=response.read()
+    # response.close()
+    # return link
 
-def getUrl2(url, referer):
-    print("Here in getUrl2 url =", url)
-    req = Request(url)
-    req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-    req.add_header('Referer', referer)
-    response = urlopen(req)
-    link=response.read()
-    response.close()
-    return link 
+# def getUrl2(url, referer):
+    # print("Here in getUrl2 url =", url)
+    # req = Request(url)
+    # req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+    # req.add_header('Referer', referer)
+    # response = urlopen(req)
+    # link=response.read()
+    # response.close()
+    # return link 
+if PY3:
+    def getUrl(url):
+#        print(  "Here in getUrl url =", url)
+        req = Request(url)
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        try:
+               response = urlopen(req)
+               link=response.read().decode('utf-8')
+               response.close()
+               return link
+        except:
+               import ssl
+               gcontext = ssl._create_unverified_context()
+               response = urlopen(req, context=gcontext)
+               link=response.read().decode('utf-8')
+               response.close()
+               return link
+
+    def getUrl2(url, referer):
+        req = urllib.request.Request(url)
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        req.add_header('Referer', referer)
+        try:
+               response = urlopen(req)
+               link=response.read().decode('utf-8')
+               response.close()
+               return link
+        except:
+               import ssl
+               gcontext = ssl._create_unverified_context()
+               response = urlopen(req, context=gcontext)
+               link=response.read().decode('utf-8')
+               response.close()
+               return link
+
+
+    def getUrl3(url):
+        req = urllib.request.Request(url)
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        try:
+               response = urlopen(req)
+               link=response.geturl().decode('utf-8')
+               response.close()
+               return link
+        except:
+               import ssl
+               gcontext = ssl._create_unverified_context()
+               response = urlopen(req, context=gcontext)
+               link=response.geturl().decode('utf-8')
+               response.close()
+               return link
+
+else:
+    def getUrl(url):
+        pass#print "Here in getUrl url =", url
+        req = urllib2.Request(url)
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        try:
+               response = urlopen(req)
+               pass#print "Here in getUrl response =", response
+               link=response.read().decode('utf-8')
+               response.close()
+               return link
+        except:
+               import ssl
+               gcontext = ssl._create_unverified_context()
+               response = urlopen(req, context=gcontext)
+               pass#print "Here in getUrl response 2=", response
+               link=response.read().decode('utf-8')
+               response.close()
+               return link
+
+    def getUrl2(url, referer):
+        req = urllib2.Request(url)
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        req.add_header('Referer', referer)
+        try:
+               response = urlopen(req)
+               link=response.read().decode('utf-8')
+               response.close()
+               return link
+        except:
+               import ssl
+               gcontext = ssl._create_unverified_context()
+               response = urlopen(req, context=gcontext)
+               link=response.read().decode('utf-8')
+               response.close()
+               return link
+
+    def getUrl3(url):
+        req = urllib2.Request(url)
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        try:
+               response = urlopen(req)
+               link=response.geturl().decode('utf-8')
+               response.close()
+               return link
+        except:
+               import ssl
+               gcontext = ssl._create_unverified_context()
+               response = urlopen(req, context=gcontext)
+               link=response.geturl().decode('utf-8')
+               response.close()
+               return link
 
 def showContent():
                 names = []
@@ -114,13 +220,13 @@ def showContent():
                 urls.append('https://www.raiplay.it/genere/Drammatico-9307f261-b0eb-4bf4-b07a-a63acddc24e9.html')
                 modes.append("10")        
                 names.append("triller")
-                urls.append('https://www.raiplay.it/genere/Film---Thriller-bb5c23c2-302a-4119-8d23-4c8c5ddd5a8f.html')        
+                urls.append('https://www.raiplay.it/genere/Film---Horror-aae8c0b1-5f05-44ff-b54e-af5ae13f4f0f.html')        
                 modes.append("10") 
                 names.append("sentimentale")
                 urls.append('https://www.raiplay.it/genere/Film---Sentimentale-8e12ada5-c2fc-4bfb-b3de-d671c099cbe5.html')        
                 modes.append("10") 
                 names.append("action")
-                urls.append('https://www.raiplay.it/genere/Film---Azione-d81d3adf-f07e-4238-9342-319990ec7801.html')        
+                urls.append('https://www.raiplay.it/genere/Film---Azione-e-avventura-0c950063-7964-4fb1-8976-d19cb083b367.html')        
                 modes.append("10") 
                 names.append("western")
                 urls.append('https://www.raiplay.it/genere/Avventura-cfe3ba02-d3bb-449e-a31f-abc95ddc6f6a.html')        
@@ -128,9 +234,12 @@ def showContent():
                 names.append("corti")
                 urls.append('https://www.raiplay.it/genere/Film-Azione-3b9b3b6a-1b30-41d9-b820-da801a2872f2.html')        
                 modes.append("10") 
-                names.append("animazione")
-                urls.append('https://www.raiplay.it/genere/Teen---Animazione-717f1618-4b0a-4e2c-b312-e9525934c651.html')        
-                modes.append("10") 
+                names.append("crimes")
+                urls.append('https://www.raiplay.it/genere/Film---Giallo-e-crime-2b51a431-ae3d-47b7-b54a-d7e0595128b0.html')        
+                modes.append("10")                 
+                names.append("musicale")
+                urls.append('https://www.raiplay.it/genere/Film---Musicale-950a295e-1d68-4263-bf52-6fc006dc940e.html')        
+                modes.append("10")                 
                 names.append("ragazzi")
                 urls.append('https://www.raiplay.it/genere/Film-per-ragazzi-6e567ae1-4d10-4894-8002-00f79fea4b21.html')        
                 modes.append("10") 
@@ -187,7 +296,7 @@ def showContent():
 
 def getVideos1(name, urlmain):
         content = getUrl(urlmain)
-        content = six.ensure_str(content)
+        # content = six.ensure_str(content)
         regexvideo = 'data-video-json="(.*?)".*?"name" content="(.*?)".*?" src="(.*?)"'
         match = re.compile(regexvideo,re.DOTALL).findall(content)
         filex = this + name + '.m3u'
@@ -205,13 +314,13 @@ def getVideos1(name, urlmain):
         
 def getVideos(name, urlmain):
     content = getUrl(urlmain)
-    content = six.ensure_str(content)
+    # content = six.ensure_str(content)
     regexvideo = '"first_item_path".*?"(.*?)"'
     match = re.compile(regexvideo,re.DOTALL).findall(content)
     print("getVideos match =", match)
     url = "https://www.raiplay.it" + match[0]
     content2 = getUrl(url)
-    content2 = six.ensure_str(content2)
+    # content2 = six.ensure_str(content2)
     print("getVideos content2 =", content2)
     regexvideo = 'content_url".*?"(.*?)"'
     match2 = re.compile(regexvideo,re.DOTALL).findall(content2)
@@ -234,12 +343,22 @@ std_headers = {
 	'Accept-Language': 'en-us,en;q=0.5',
 }  
 
+# def addDirectoryItem(name, parameters={},pic=""):
+    # li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
+    # url = sys.argv[0] + '?' + urlencode(parameters)
+    # return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
+
+# def addDirectoryItem(name, url, mode, iconimage, fanart):
 def addDirectoryItem(name, parameters={},pic=""):
-    li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
+    # url = sys.argv[0] + "?url=" + quote_plus(url) + "&mode=" + str(mode) + "&name=" + quote_plus(name) + "&iconimage=" + quote_plus(iconimage)    
     url = sys.argv[0] + '?' + urlencode(parameters)
+    ok = True
+    li = xbmcgui.ListItem(label=name)   
+    li.setArt({'thumb': fanart, 'icon': icon})    
+    li.setInfo( type="Video", infoLabels={ "Title": name, "overlay":"12"})
+    li.setProperty('fanart_image', fanart)
     return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
-
-
+    
 def parameters_string_to_dict(parameters):
     ''' Convert parameters encoded in a URL to a dict. '''
     paramDict = {}

@@ -1,11 +1,44 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.tvitalia" name="TvItalia" version="1.0.5" provider-name="@Lululla - Linuxsat-support Team">
-  <extension point="xbmc.python.pluginsource" library="default.py">
-    <provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary>Italian tv</summary>
-    <description>Italian tv</description>
-    <platform>all</platform>
-  </extension>
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="plugin.video.tvitalia" name="TvItalia" version="1.0.6" provider-name="@Lululla - Linuxsat-support Team">
+	<requires>
+  <import addon="script.module.requests" version="2.22.0"/>
+  <import addon="script.module.resolveurl" optional="true"/>
+	<import addon="script.module.urlresolver" optional="true"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>tvitalia</summary>
+		<description>tvitalia export Rai stream to m3u files</description>
+		<platform>all</platform>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+	  <platform>all</platform>
+	  <summary lang="en">TvItalia(Leila-Matrix version)</summary>
+	  <description lang="en_GB">Free To TvItalia Channels for Kodi mediacenter.</description>
+	  <disclaimer lang="en_GB">
+	  All the contents offered are Free of charge and therefore FREE, means that they can be publicly and freely retrieved from the network.
+	There is no subscription content such as Pay TV channels - Streaming Platforms or any other content that requires a payment for use.
+	The projects are "containers" that for convenience collect what already exists on the network, adapting its use according to the device used.
+	All contents are protected by copyright of their respective owners that, at any time, can request us to remove
+	  </disclaimer>
+	  <summary lang="it">TvItalia(versione Leila-Matrix)</summary>
+	  <description lang="it_IT">Canali FTA per Kodi mediacenter.</description>
+	  <disclaimer lang="it_IT">
+	  Tutti i contenuti proposti sono di carattere Gratuito e FREE si intende pertanto che sono recuperabili pubblicamente e liberamente dalla rete.
+	Non ci sono contenuti sottostanti ad abbonamento o sottoscrizione come canali delle Pay Tv - Piattaforme di Streaming o qualunque altro contenuto che preveda un pagamento per la fruizione. 
+	I progetti sono dei "contenitori" che per praticità raccolgono ciò che gia' esiste in rete adattandone l'uso a seconda del dispositivo utilizzato. 
+	Tutti i contenuti si intendono coperti da copyright dei rispettivi proprietari che, in qualunque momento, possono richiederne la rimozione
+	  </disclaimer>
+	  <assets>
+		<icon>icon.png</icon>
+		<fanart>fanart.jpg</fanart>
+		<screenshot>resources\screenshot-01.jpg</screenshot>
+		<screenshot>resources\screenshot-02.jpg</screenshot>
+		<screenshot>resources\screenshot-03.jpg</screenshot>    
+	  </assets>
+	  <news>#Vers. 1.0.6... Good Luck!</news>
+	</extension>
 </addon>
+

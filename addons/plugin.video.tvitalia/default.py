@@ -1,15 +1,30 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
-import sys
-import xpath
-import xbmc
-import os
+# -*- coding: latin-1 -*-
+"""
+Copyright (C) 2018-2020
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-if os.path.exists('/usr/lib/enigma2/python/Plugins/Extensions/KodiLite'):
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>
+############################################################
+Developed by Lululla & Pcd for TiVuStream.com and linuxsat-support
+Thanks all developer includes in this addon..
+"""
+import sys, xpath, xbmc, os
+if os.path.exists("/usr/lib/enigma2/python/Plugins/Extensions/KodiLite"): # enigma2 KodiLite
     libs = sys.argv[0].replace("default.py", "resources/lib")
+    import six
     if os.path.exists(libs):
        sys.path.append(libs)
-    print("dclip Here in default-py sys.argv =", sys.argv)
+    print("Here in default-py sys.argv =", sys.argv)
     if ("?plugin%3A%2F%2F" in sys.argv[2]) or ("?plugin://" in sys.argv[2]):
         argtwo = sys.argv[2]
         n2 = argtwo.find("?", 0)
@@ -24,8 +39,7 @@ if os.path.exists('/usr/lib/enigma2/python/Plugins/Extensions/KodiLite'):
     else:
         sys.argv[0] = sys.argv[0].replace('/usr/lib/enigma2/python/Plugins/Extensions/KodiLite/plugins/', 'plugin://')
         sys.argv[0] = sys.argv[0].replace('default.py', '')
-    print("dclip Here in default-py sys.argv B=", sys.argv)
-
+    print("Here in default-py sys.argv B=", sys.argv)
 
 from os import path, system
 import xbmcplugin, xbmcaddon
@@ -33,10 +47,10 @@ import xbmcgui
 import time
 import re
 import socket
-import six
-PY3 = sys.version_info[0] == 3
+# import six
 
-if PY3:
+PY3 = False
+try:
     from urllib.request import urlopen, Request
     from urllib.error import URLError, HTTPError
     from urllib.parse import quote, unquote_plus, unquote, urlencode
@@ -45,7 +59,9 @@ if PY3:
     from html.entities import name2codepoint as n2cp
     import http.client
     from urllib.parse import parse_qs
-else:
+    PY3 = True; unicode = str; unichr = chr; long = int
+
+except:
     from urlparse import parse_qs
     from urllib2 import urlopen, Request
     from urllib2 import URLError, HTTPError
@@ -54,7 +70,6 @@ else:
     from urlparse import urlparse
     from htmlentitydefs import name2codepoint as n2cp
     import httplib
-
 
 
 thisPlugin = int(sys.argv[1])
@@ -72,7 +87,6 @@ if not path.exists(dataPath):
 
 vidpc = xbmc.translatePath(os.path.join(thisAddonDir, 'vid.txt'))
 vide2 = "/tmp/vid.txt"
-
 
 
 def decodeUrl(text):
@@ -206,49 +220,110 @@ def decodeHtml(text):
    # response.close()
    # return link
    
-def getUrl(url):
-        print( "Here in getUrl url =", url)
-        try:
-            req = Request(url)
-        except:
-            req = Request(url)       
+if PY3:
+    def getUrl(url):
+#        print(  "Here in getUrl url =", url)
+        req = Request(url)
         req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
         try:
-            try:
-                response = urlopen(req)
-            except:       
-                response = urlopen(req)
-            link=response.read()
-            response.close()
-            return link
+               response = urlopen(req)
+               link=response.read().decode('utf-8')
+               response.close()
+               return link
         except:
-            import ssl
-            gcontext = ssl._create_unverified_context()
-            try:
-                response = urlopen(req)
-            except:       
-                response = urlopen(req)
-            link=response.read()
-            response.close()
-            return link
+               import ssl
+               gcontext = ssl._create_unverified_context()
+               response = urlopen(req, context=gcontext)
+               link=response.read().decode('utf-8')
+               response.close()
+               return link
 
-def getUrl2(url, referer):
+    def getUrl2(url, referer):
         req = Request(url)
-     
         req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
         req.add_header('Referer', referer)
         try:
-            response = urlopen(req)
-            link=response.read()
-            response.close()
-            return link
+               response = urlopen(req)
+               link=response.read().decode('utf-8')
+               response.close()
+               return link
         except:
-            import ssl
-            gcontext = ssl._create_unverified_context()
-            response = urlopen(req)
-            link=response.read()
-            response.close()
-            return link
+               import ssl
+               gcontext = ssl._create_unverified_context()
+               response = urlopen(req, context=gcontext)
+               link=response.read().decode('utf-8')
+               response.close()
+               return link
+
+
+    def getUrl3(url):
+        req = Request(url)
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        try:
+               response = urlopen(req)
+               link=response.geturl().decode('utf-8')
+               response.close()
+               return link
+        except:
+               import ssl
+               gcontext = ssl._create_unverified_context()
+               response = urlopen(req, context=gcontext)
+               link=response.geturl().decode('utf-8')
+               response.close()
+               return link
+
+else:
+    def getUrl(url):
+        pass#print "Here in getUrl url =", url
+        req = Request(url)
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        try:
+               response = urlopen(req)
+               pass#print "Here in getUrl response =", response
+               link=response.read().decode('utf-8')
+               response.close()
+               return link
+        except:
+               import ssl
+               gcontext = ssl._create_unverified_context()
+               response = urlopen(req, context=gcontext)
+               pass#print "Here in getUrl response 2=", response
+               link=response.read().decode('utf-8')
+               response.close()
+               return link
+
+    def getUrl2(url, referer):
+        req = Request(url)
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        req.add_header('Referer', referer)
+        try:
+               response = urlopen(req)
+               link=response.read().decode('utf-8')
+               response.close()
+               return link
+        except:
+               import ssl
+               gcontext = ssl._create_unverified_context()
+               response = urlopen(req, context=gcontext)
+               link=response.read().decode('utf-8')
+               response.close()
+               return link
+
+    def getUrl3(url):
+        req = Request(url)
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        try:
+               response = urlopen(req)
+               link=response.geturl().decode('utf-8')
+               response.close()
+               return link
+        except:
+               import ssl
+               gcontext = ssl._create_unverified_context()
+               response = urlopen(req, context=gcontext)
+               link=response.geturl().decode('utf-8')
+               response.close()
+               return link
 
 def showContent():
     names = []
@@ -350,6 +425,33 @@ def playVideo14(name, urlmain):
     li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
     player = xbmc.Player()
     player.play(url2, li)
+    
+    
+def playVideo14(name, urlmain):
+    content = getUrl(urlmain)
+    print(" content B =", content)
+    regexvideo = '<iframe src="(.*?)"'
+    match = re.compile(regexvideo,re.DOTALL).findall(content)
+    print(" match =", match)
+    url = match[0]
+    content2 = getUrl(url)
+    print(" content2b =", content2)
+    regexvideo2 = 'sources:.*?src.*?"(.*?)"'
+    match2 = re.compile(regexvideo2,re.DOTALL).findall(content2)
+    print(" match2 =", match2)
+    url2 = match2[0]
+    pic = "DefaultFolder.png"
+    print(" Here in playVideob url2 =", url2)
+    
+    
+    li = xbmcgui.ListItem(label=name)   
+    li.setArt({'thumb': icon, 'icon': icon})    
+    li.setInfo( type="Video", infoLabels={ "Title": name, "overlay":"12"})
+    li.setProperty('IsPlayable', 'true')  
+
+    player = xbmc.Player()
+    player.play(url2, li)    
+    
 ##########################################################
 
 def showContent21(name, url):
@@ -365,8 +467,8 @@ def showContent21(name, url):
 
 def showContent22(name, url):
     content = getUrl(url)
-    if PY3:        
-            content = six.ensure_str(content)    
+    # if PY3:        
+            # content = six.ensure_str(content)    
     print("showContent2 content =", content)
     pic = " "
     regexcat = '<div class="item__.*?href="(.*?)".*?alt="(.*?)"'
@@ -382,8 +484,8 @@ def showContent22(name, url):
 
 def showContent23(name, urlmain):
     content = getUrl(urlmain)
-    if PY3:        
-            content = six.ensure_str(content)    
+    # if PY3:        
+            # content = six.ensure_str(content)    
     print("getVideos content =", content)
     pic = " "
     regexcat = '"player".*?href="(.*?)"'
@@ -391,8 +493,8 @@ def showContent23(name, urlmain):
     print("getVideos match =", match)
     url2 = match[0]
     content2 = getUrl(url2)
-    if PY3:        
-            content2 = six.ensure_str(content2)    
+    # if PY3:        
+            # content2 = six.ensure_str(content2)    
     print("getVideos content2 =", content2)
     regexcat2 = 'liveVideo":{"mediaUrl":"(.*?)"'
     match2 = re.compile(regexcat2,re.DOTALL).findall(content2)
@@ -402,8 +504,8 @@ def showContent23(name, urlmain):
 
 def showContent24(name, urlmain):
     content = getUrl(urlmain)
-    if PY3:        
-            content = six.ensure_str(content)    
+    # if PY3:        
+            # content = six.ensure_str(content)    
     print("getVideos2 content =", content)
     regexcat = '"player".*?href="(.*?)"'
     match = re.compile(regexcat,re.DOTALL).findall(content)
@@ -420,10 +522,32 @@ def showContent24(name, urlmain):
 def play(name, urlmain):
     pic = "DefaultFolder.png"
     print(" Here in playVideo urlmain =", urlmain)
-    li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
+    # li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
+
+    
+    li = xbmcgui.ListItem(label=name)   
+    li.setArt({'thumb': icon, 'icon': icon})    
+    li.setInfo( type="Video", infoLabels={ "Title": name, "overlay":"12"})
+    li.setProperty('IsPlayable', 'true')  
+
     player = xbmc.Player()
     player.play(urlmain, li)
 
+    
+# def play(name, url):
+           # pass#print "Here in playVideotz url =", url
+           # fpage = getUrl(url)
+           # pass#print "fpage C =", fpage
+           # regexvideo = 'a class="qualityButton active" data-quality="(.*?)"'
+           # match = re.compile(regexvideo,re.DOTALL).findall(fpage)
+           # pass#print "playVideotz match =", match
+           # url = match[0]
+           # pic = "DefaultFolder.png"
+           # li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
+           # player = xbmc.Player()
+           # player.play(url, li)
+           # # xbmcplugin.endOfDirectory(thisPlugin)
+           
 def showContent41(name, url):
     names = []
     urls = []
@@ -590,8 +714,8 @@ def showContent33(name, url):
     print("showContent3 name =", name)
     print("showContent3 url =", url)
     content = getUrl(url)
-    if PY3:        
-            content = six.ensure_str(content)    
+    # if PY3:        
+            # content = six.ensure_str(content)    
     print("showContent3 content =", content)
     name = name.replace("+", " ")
     regexcat = 'data-video-json="(.*?)".*?<img alt="(.*?)"'
@@ -658,8 +782,8 @@ def showContent61(name, url):
     print("showContent3 name =", name)
     print("showContent3 url =", url)
     content = getUrl(url)
-    if PY3:        
-            content = six.ensure_str(content)    
+    # if PY3:        
+            # content = six.ensure_str(content)    
     content = content.replace("\r", "").replace("\t", "").replace("\n", "")
     print("showContent3 content =", content)
     regexcat = 'data-video-json="(.*?)".*?<img alt="(.*?)"'
@@ -700,8 +824,8 @@ def showContent62(name, url):
         play(name, url)         
     else:
         content = getUrl(url)
-        if PY3:        
-            content = six.ensure_str(content)        
+        # if PY3:        
+            # content = six.ensure_str(content)        
         print("showContent62 content =", content)        
         try:
             if 'type="video">' in content:
@@ -764,8 +888,8 @@ def showContent35(name, url):
 
 def showContent45(name, url):
     content = getUrl(url)
-    if PY3:        
-            content = six.ensure_str(content)    
+    # if PY3:        
+            # content = six.ensure_str(content)    
     print("showContent2 content =", content)
     if "fiction" in name.lower():
         regexcat = 'a href="/fiction/(.*?)".*?class="_2_UgV">(.*?)</p'
@@ -855,8 +979,8 @@ def showContent45(name, url):
 
 def showContent46(name, url):
     content = getUrl(url)
-    if PY3:        
-            content = six.ensure_str(content)    
+    # if PY3:        
+            # content = six.ensure_str(content)    
     print("showContent2 content =", content)
     pic = " "    
     if ("movie" in url) or ("video" in url):
@@ -914,6 +1038,8 @@ def showContent47(name, url):
 
 
 #edit by LULULLA for kodi pc and kodilite
+
+          
 def playVideo34(name, url):
     print("In playVideo2 url =", url)
     vidurl  = vidpc
@@ -945,12 +1071,24 @@ std_headers = {
 	'Accept-Language': 'en-us,en;q=0.5',
 }
 
+# def addDirectoryItem(name, parameters={},pic=""):
+    # li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
+    # url = sys.argv[0] + '?' + urlencode(parameters)
+    # return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
+
+
 def addDirectoryItem(name, parameters={},pic=""):
-    li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
+    # li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
     url = sys.argv[0] + '?' + urlencode(parameters)
+    # url = sys.argv[0] + "?url=" + quote_plus(url) + "&mode=" + str(mode) + "&name=" + quote_plus(name) + "&iconimage=" + quote_plus(iconimage)
+    ok = True
+    li = xbmcgui.ListItem(label=name)   
+    li.setArt({'thumb': icon, 'icon': icon})    
+    li.setInfo( type="Video", infoLabels={ "Title": name, "overlay":"12"})
+    li.setProperty('fanart_image', fanart)    
+    # url = sys.argv[0] + '?' + urlencode(parameters)
     return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
-
-
+    
 def parameters_string_to_dict(parameters):
     ''' Convert parameters encoded in a URL to a dict. '''
     paramDict = {}
@@ -967,6 +1105,7 @@ name =  str(params.get("name", ""))
 url =  str(params.get("url", ""))
 url = unquote(url)
 mode =  str(params.get("mode", ""))
+
 
 if not sys.argv[2]:
    ok = showContent()
